@@ -346,11 +346,42 @@ ul.tight li { margin:4px 0; }
   height: 16px;
   fill: currentColor;
 }
+/* === Mobile hamburger / off-canvas nav === */
+.menu-toggle{
+  border:1px solid #22365b; background:#0e1b32; color:#cfe3ff;
+  border-radius:10px; padding:10px; display:none; align-items:center; justify-content:center;
+  gap:4px; cursor:pointer; box-shadow: var(--shadow);
+}
+.menu-toggle .bar{ display:block; width:22px; height:2px; background:#cfe3ff; margin:3px 0; }
+.menu-toggle:focus{ outline:2px solid var(--accent); outline-offset:2px; }
+
+@media (min-width:1101px){
+  .menu-toggle{ display:none; }
+}
+@media (max-width:1100px){
+  .menu-toggle{ display:inline-flex; }
+  /* Off-canvas sidebar */
+  aside#sidebar{
+    position: fixed; top:0; left:0; bottom:0; width:280px; z-index:200;
+    transform: translateX(-100%); transition: transform .25s ease-in-out;
+    background: var(--panel);
+  }
+  body.nav-open aside#sidebar{ transform: translateX(0); }
+  /* Backdrop */
+  .nav-backdrop{
+    position: fixed; inset:0; background: rgba(0,0,0,.55); backdrop-filter: blur(2px);
+    z-index:150; display:none;
+  }
+  body.nav-open .nav-backdrop{ display:block; }
+  body.no-scroll{ overflow:hidden; }
+  /* Ensure single column layout on mobile */
+  .app{ grid-template-columns: 1fr !important; }
+}
 </style>
 </head>
 <body>
 <div class="app">
-<aside>
+<aside id="sidebar">
 <div class="brand">
 <div aria-hidden="true" class="logo"></div>
 <div>
@@ -377,9 +408,15 @@ ul.tight li { margin:4px 0; }
 </aside>
 <main>
 <header class="header">
+<button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+  <span class="bar"></span>
+  <span class="bar"></span>
+  <span class="bar"></span>
+</button>
 <h2 id="header-title">Osprey Company Profile</h2>
 <span class="pill">Self-Referential Demo</span>
 </header>
+<div class="nav-backdrop" id="nav-backdrop" hidden></div>
 <!-- === NEW HERO IMAGE ADDED HERE === -->
 <div class="hero">
 <img alt="Osprey Intel hero image showing abstract data landscape" src="brand/profile-landscape.png"/>
@@ -1172,6 +1209,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initial paint
   document.addEventListener('DOMContentLoaded', updateExecutive);
+})();
+</script>
+<script>
+(function(){
+  const toggle = document.getElementById('menu-toggle');
+  const backdrop = document.getElementById('nav-backdrop');
+  const navLinks = document.querySelectorAll('#main-nav a');
+
+  function openNav(){
+    document.body.classList.add('nav-open','no-scroll');
+    if (toggle) toggle.setAttribute('aria-expanded','true');
+    if (backdrop) backdrop.removeAttribute('hidden');
+  }
+  function closeNav(){
+    document.body.classList.remove('nav-open','no-scroll');
+    if (toggle) toggle.setAttribute('aria-expanded','false');
+    if (backdrop) backdrop.setAttribute('hidden','');
+  }
+  function toggleNav(){
+    if (document.body.classList.contains('nav-open')) closeNav(); else openNav();
+  }
+
+  if (toggle){
+    toggle.addEventListener('click', toggleNav);
+  }
+  if (backdrop){
+    backdrop.addEventListener('click', closeNav);
+  }
+  // Close when pressing Escape
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+  // Close after clicking a nav link (only on small screens)
+  navLinks.forEach(a => a.addEventListener('click', () => {
+    if (window.matchMedia('(max-width: 1100px)').matches) closeNav();
+  }));
 })();
 </script>
 </body>
