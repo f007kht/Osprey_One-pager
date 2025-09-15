@@ -1,0 +1,838 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autus Valve Technologies | VC Analysis Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #383733;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        .competitive-chart-container {
+             position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container, .competitive-chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .nav-link.active {
+            color: #8c7a6b;
+            border-bottom-color: #8c7a6b;
+        }
+        .kpi-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e2dc;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .team-card-face {
+            background-color: #ffffff;
+            border: 1px solid #e5e2dc;
+        }
+        .accordion-icon {
+            width: 12px;
+            height: 12px;
+            border-style: solid;
+            border-color: #383733;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease-in-out;
+        }
+        .accordion-header[aria-expanded="true"] .accordion-icon {
+            transform: rotate(-135deg);
+        }
+        .source-link {
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .source-link:hover {
+            color: #8c7a6b;
+        }
+        .summary-card ul, #device-hero-container ul {
+            list-style-position: inside;
+        }
+        .summary-card li, #device-hero-container li {
+            padding-left: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .summary-card li::marker, #device-hero-container li::marker {
+            color: #8c7a6b;
+        }
+        .tab-btn.active {
+            border-color: #8c7a6b;
+            color: #8c7a6b;
+            font-weight: 600;
+        }
+        .feature-btn.active {
+            background-color: #8c7a6b;
+            color: white;
+        }
+        .highlight-feature {
+            background-color: #f5f1ed;
+            border: 2px solid #8c7a6b;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1.02);
+        }
+        .text-highlight {
+            background-color: #f5f1ed;
+            color: #8c7a6b;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .team-card {
+            background-color: transparent;
+            perspective: 1500px;
+            min-height: 753px;
+            transition: min-height 0.8s ease-in-out;
+        }
+        #edelman-card.is-flipped {
+            min-height: 1001px;
+        }
+        .team-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .team-card.is-flipped .team-card-inner {
+            transform: rotateY(180deg);
+        }
+        .team-card-front, .team-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; 
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .team-card-back {
+            transform: rotateY(180deg);
+        }
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            align-items: center;
+            justify-items: center;
+        }
+        .logo-grid img {
+            max-height: 50px;
+            max-width: 100%;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+        .work-history-item {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .work-history-item img {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+            object-fit: contain;
+        }
+        .work-history-item .logo-placeholder {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="./index.html" class="text-sm text-gray-500 hover:text-[#8c7a6b] transition-colors">&larr; Return to Index</a>
+                    <h1 class="text-xl font-bold text-[#383733]">Autus Valve Technologies</h1>
+                </div>
+                <div class="hidden md:flex items-center">
+                    <div class="flex items-baseline space-x-4">
+                        <a href="#profile" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 hover:text-[#8c7a6b] border-b-2 border-transparent">Profile</a>
+                        <a href="#team" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 hover:text-[#8c7a6b] border-b-2 border-transparent">Team</a>
+                        <a href="#device" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 hover:text-[#8c7a6b] border-b-2 border-transparent">Device</a>
+                        <a href="#funding" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 hover:text-[#8c7a6b] border-b-2 border-transparent">Funding</a>
+                        <a href="#competitors" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 hover:text-[#8c7a6b] border-b-2 border-transparent">Competitors</a>
+                        <a href="#insights" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 hover:text-[#8c7a6b] border-b-2 border-transparent">Insights</a>
+                    </div>
+                    <a href="./vc-toolkit.html" class="ml-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[#8c7a6b] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8c7a6b]">
+                        VC Toolkit
+                    </a>
+                </div>
+                 <div class="md:hidden">
+                    <select id="mobile-nav" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#8c7a6b] focus:border-[#8c7a6b] block w-full p-2.5">
+                        <option value="index.html">Return to Index</option>
+                        <option value="#profile">Profile</option>
+                        <option value="#team">Team</option>
+                        <option value="#device">Device</option>
+                        <option value="#funding">Funding</option>
+                        <option value="#competitors">Competitors</option>
+                        <option value="#insights">Insights</option>
+                        <option value="vc-toolkit.html">VC Toolkit</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="profile" class="mb-12 md:mb-16">
+            <h2 class="text-3xl font-bold text-[#383733] mb-2">Company Profile</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-3xl">An overview of Autus Valve Technologies, a medical device company developing innovative solutions for pediatric congenital heart disease.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="kpi-card p-6 rounded-lg flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-sm font-medium text-gray-500">Description</h3>
+                        <p id="profile-description" class="mt-1 text-base text-gray-800"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        <p id="profile-description-source" class="text-xs text-gray-400"></p>
+                    </div>
+                </div>
+                <div class="kpi-card p-6 rounded-lg flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-sm font-medium text-gray-500">Founded</h3>
+                        <p id="profile-founded-year" class="mt-1 text-3xl font-semibold text-[#8c7a6b]"></p>
+                        <p id="profile-founded-location" class="text-xs text-gray-500"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        <p id="profile-founded-source" class="text-xs text-gray-400"></p>
+                    </div>
+                </div>
+                <div class="kpi-card p-6 rounded-lg flex flex-col">
+                     <div class="flex-grow">
+                        <h3 class="text-sm font-medium text-gray-500">Leadership</h3>
+                        <p id="profile-leadership-name" class="mt-1 text-xl font-semibold text-gray-900"></p>
+                        <p id="profile-leadership-title" class="text-sm text-gray-500"></p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        <p id="profile-leadership-source" class="text-xs text-gray-400"></p>
+                    </div>
+                </div>
+                <div class="kpi-card p-6 rounded-lg flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-sm font-medium text-gray-500">Location</h3>
+                        <p id="profile-location-city" class="mt-1 text-xl font-semibold text-gray-900"></p>
+                        <p id="profile-location-detail" class="text-sm text-gray-500"></p>
+                    </div>
+                     <div class="mt-4 pt-3 border-t border-gray-100">
+                        <p id="profile-location-source" class="text-xs text-gray-400"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="mb-12 md:mb-16">
+            <h2 class="text-3xl font-bold text-[#383733] mb-2">Founders & Team</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-3xl">The experienced leadership team driving the development of the Autus Valve. Click on a card to see experience.</p>
+            <div id="team-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                </div>
+        </section>
+
+        <section id="device" class="mb-12 md:mb-16">
+            <h2 class="text-3xl font-bold text-[#383733] mb-2">Device Technology</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-3xl">A visual and technical overview of the Autus Valve, its core features, and supporting intellectual property.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div class="space-y-8">
+                    <div id="device-hero-container">
+                        </div>
+                    <div id="device-video-container" class="rounded-lg overflow-hidden shadow-lg">
+                        </div>
+                </div>
+                <div id="device-exhibits-container" class="space-y-8">
+                    </div>
+            </div>
+        </section>
+
+        <section id="funding" class="mb-12 md:mb-16">
+            <h2 class="text-3xl font-bold text-[#383733] mb-2">Funding Analysis</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-3xl">Capitalization history detailing grant awards and equity financing from public sources.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 flex flex-col items-center justify-center bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-center mb-4">Funding by Type</h3>
+                    <div class="chart-container">
+                        <canvas id="fundingTypeChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div id="funding-total-container" class="bg-white p-6 rounded-lg border border-gray-200 mb-8">
+                        </div>
+                    <div id="timeline-container" class="space-y-6">
+                        </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="competitors" class="mb-12 md:mb-16">
+            <h2 class="text-3xl font-bold text-[#383733] mb-2">Competitive Landscape</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-3xl">How the Autus Valve's "grow-with-the-child" technology compares against market-leading, fixed-size transcatheter pulmonary valves (TPVs).</p>
+            
+            <div id="snapshot" class="mb-12 md:mb-16">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800">Interactive Device Snapshot</h3>
+                    <p class="max-w-2xl mx-auto mt-2 text-gray-600">Select a feature to compare all devices at a glance.</p>
+                </div>
+                <div id="feature-buttons" class="flex flex-wrap justify-center gap-2 md:gap-3 mb-8">
+                    <button data-feature="design" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition">Design & Material</button>
+                    <button data-feature="indications" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition">Indications</button>
+                    <button data-feature="access" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition">Access Profile</button>
+                    <button data-feature="growth" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition">Growth Accommodation</button>
+                    <button data-feature="evidence" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition">Evidence Base</button>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="device-card bg-white rounded-lg shadow-sm p-6 border-t-4 border-teal-500">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Autus Valve</h3>
+                        <div data-feature-content="design" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Design & Material</h4><p class="text-sm">Surgically implanted, fully synthetic bileaflet valve inspired by venous-valve geometry.</p></div>
+                        <div data-feature-content="indications" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Indications / Anatomy</h4><p class="text-sm">Pediatric pulmonary valve replacement. Currently in an FDA-approved pivotal study.</p></div>
+                        <div data-feature-content="access" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Access Profile</h4><p class="text-sm">Initial surgical implant. Later expansions are catheter-based, avoiding large venous access.</p></div>
+                        <div data-feature-content="growth" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Growth Accommodation</h4><p class="text-sm font-bold text-teal-600">Yes. Core design principle. Can be expanded post-implant to match somatic growth.</p></div>
+                        <div data-feature-content="evidence" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Evidence Base / Stage</h4><p class="text-sm">Early clinical stage. Successful 11-subject Early Feasibility Study. Now in pivotal study.</p></div>
+                    </div>
+                    <div class="device-card bg-white rounded-lg shadow-sm p-6 border-t-4 border-blue-500">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Medtronic Melody™ TPV</h3>
+                        <div data-feature-content="design" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Design & Material</h4><p class="text-sm">Balloon-expandable TPV from a bovine jugular vein valve sewn into a platinum-iridium stent.</p></div>
+                        <div data-feature-content="indications" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Indications / Anatomy</h4><p class="text-sm">Dysfunctional RVOT conduits or existing bioprosthetic valves (≥16 mm). Not for native RVOT.</p></div>
+                        <div data-feature-content="access" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Access Profile</h4><p class="text-sm">Requires 22 Fr venous access for its delivery system.</p></div>
+                        <div data-feature-content="growth" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Growth Accommodation</h4><p class="text-sm font-bold text-red-600">No. The device has a fixed frame size.</p></div>
+                        <div data-feature-content="evidence" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Evidence Base / Stage</h4><p class="text-sm">Extensive post-market data from over 18,000 patients globally. Known risks: stent fracture, endocarditis.</p></div>
+                    </div>
+                    <div class="device-card bg-white rounded-lg shadow-sm p-6 border-t-4 border-indigo-500">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Medtronic Harmony™ TPV</h3>
+                        <div data-feature-content="design" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Design & Material</h4><p class="text-sm">Self-expanding TPV from porcine pericardial leaflets in a nitinol frame with anti-mineralization treatment.</p></div>
+                        <div data-feature-content="indications" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Indications / Anatomy</h4><p class="text-sm">Severe pulmonary regurgitation in a native or surgically-repaired RVOT.</p></div>
+                        <div data-feature-content="access" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Access Profile</h4><p class="text-sm">Requires ~25 Fr venous access for its delivery catheter.</p></div>
+                        <div data-feature-content="growth" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Growth Accommodation</h4><p class="text-sm font-bold text-red-600">No. The device has a fixed frame size.</p></div>
+                        <div data-feature-content="evidence" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Evidence Base / Stage</h4><p class="text-sm">FDA approved in 2021. Growing data shows favorable performance, no endocarditis in one-year trial cohorts.</p></div>
+                    </div>
+                    <div class="device-card bg-white rounded-lg shadow-sm p-6 border-t-4 border-purple-500">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Edwards SAPIEN 3 w/ Alterra</h3>
+                        <div data-feature-content="design" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Design & Material</h4><p class="text-sm">Two-part system: A self-expanding nitinol 'Alterra' prestent creates a landing zone for the SAPIEN 3 valve.</p></div>
+                        <div data-feature-content="indications" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Indications / Anatomy</h4><p class="text-sm">Severe pulmonary regurgitation in patients with a wide range of RVOT morphologies.</p></div>
+                        <div data-feature-content="access" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Access Profile</h4><p class="text-sm">Requires 16 Fr eSheath, the smallest access profile of the current TPVs.</p></div>
+                        <div data-feature-content="growth" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Growth Accommodation</h4><p class="text-sm font-bold text-red-600">No. The device has a fixed frame size.</p></div>
+                        <div data-feature-content="evidence" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300"><h4 class="font-semibold text-sm text-gray-600 mb-1">Evidence Base / Stage</h4><p class="text-sm">FDA approved in 2021 for severe PR. Clinical data is growing from pivotal trials and early commercial use.</p></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="analysis" class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="border-b border-gray-200">
+                    <div id="tabs" class="flex flex-wrap -mb-px px-4">
+                        <button class="tab-btn active text-sm font-medium p-4 border-b-2 border-transparent" data-tab="patient">Patient Segment & Access</button>
+                        <button class="tab-btn text-sm font-medium p-4 border-b-2 border-transparent" data-tab="anatomy">Anatomical Fit</button>
+                        <button class="tab-btn text-sm font-medium p-4 border-b-2 border-transparent" data-tab="materials">Materials & Durability</button>
+                        <button class="tab-btn text-sm font-medium p-4 border-b-2 border-transparent" data-tab="safety">Safety Profile & Evidence</button>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8">
+                    <div id="patient" class="tab-content space-y-4 text-gray-600"><p>The primary distinction is the target population. Autus Valve is aimed at younger, smaller children needing surgical replacement who are poor candidates for the large delivery systems of most TPVs.</p><p>The TPVs compete for larger children, adolescents, and adults. Here, access profile is a key differentiator. The Edwards SAPIEN 3 with Alterra has the smallest profile at 16 Fr, potentially expanding access to smaller patients compared to Melody™ (22 Fr) and Harmony™ (~25 Fr). Autus's paradigm—one surgery followed by catheter-based expansions—aims to avoid this TPV sizing issue altogether in early childhood.</p></div>
+                    <div id="anatomy" class="tab-content hidden space-y-4 text-gray-600"><p>Melody™ is for patients with existing RVOT conduits or bioprosthetic valves. Harmony™ was the first TPV for a native or surgically-repaired RVOT.</p><p>The SAPIEN 3 with Alterra system expands the addressable anatomy by using a prestent to create a predictable landing zone in a wide variety of native RVOTs, directly competing with Harmony™. The Autus Valve, as a surgical implant, is versatile for the pulmonary position, but its key innovation is spanning multiple pediatric sizes over time, a feature no TPV offers.</p></div>
+                    <div id="materials" class="tab-content hidden space-y-4 text-gray-600"><p>Autus utilizes a fully synthetic leaflet platform, avoiding potential calcification associated with bioprosthetic (animal tissue) valves. Long-term durability after expansion is the key variable.</p><p>The commercial TPVs all use bioprosthetic tissue: Melody™ (bovine), Harmony™ (porcine), and SAPIEN 3 (bovine pericardium). The Alterra prestent is a nitinol frame with a PET covering. These tissue valves are known to degenerate over time and cannot grow with the patient.</p></div>
+                    <div id="safety" class="tab-content hidden">
+                        <div class="competitive-chart-container"><canvas id="evidenceChart"></canvas></div>
+                        <div class="mt-4 text-xs text-center text-gray-500">*Number of patients reflects data from pivotal trials or cited global post-market data. This chart illustrates the vast difference in clinical data maturity. The value for SAPIEN 3 w/ Alterra is an estimate based on initial clinical trial sizes.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="insights" class="mb-12 md:mb-16">
+            <h2 class="text-3xl font-bold text-[#383733] mb-2">VC Investment Insights</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-3xl">Qualitative due diligence summary assessing the management team, market opportunity, and technology.</p>
+            <div id="accordion-container" class="space-y-4">
+                 </div>
+        </section>
+    </main>
+    
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs text-gray-500">
+            <p>&copy; 2025 Osprey Intel LLC. For informational purposes only.</p>
+            <p>Data synthesized from the company website, public SEC filings, PitchBook, LinkedIn profiles, and publicly available CVs.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+        const dashboardData = {
+            companyProfile: {
+                description: { value: "Developer of a pulmonary heart valve designed to treat pediatric patients, reducing the need for repeated surgeries as the child grows.", source: "Company Website" },
+                founded: { year: "2019", location: "Delaware, USA", source: "Company Website" },
+                leadership: { name: "Sophie-Charlotte Hofferberth", title: "Chief Executive Officer", source: "PitchBook" },
+                location: { city: "Boston, MA", detail: "Principal Place of Business", source: "PitchBook" }
+            },
+            team: {
+                members: [
+                    { 
+                        name: "Dr. Hofferberth", 
+                        title: "Co-Founder & CEO", 
+                        image: "images/hofferberth.jpg", 
+                        bio: "Dr. Hofferberth co-founded Autus Valve after conceiving and designing the company's novel technology as a post-doctoral fellow at Boston Children's Hospital. As CMO, she led all pre-clinical studies, secured FDA approval for the first-in-human implant, and achieved both Breakthrough Device Designation and unconditional FDA approval for the U.S. Pivotal Study. She has taken a leave from her cardiothoracic surgery residency at Harvard Medical School to lead the company.",
+                        workExperienceSummary: "Conceived, designed, and developed the Autus Size-Adjustable Valve at Boston Children’s Hospital. Led pre-clinical studies enabling FDA approval for Early Feasibility Study and first-in-human implant. Secured FDA Breakthrough Device Designation and unconditional approval to launch the U.S. Pivotal Study.",
+                        workExperience: [
+                            { name: 'Autus Valve Technologies, Inc', logoUrl: 'images/autus-logo.png', title: 'Co-Founder, President & CMO', dates: 'Feb 2022 - Present' },
+                            { name: 'Boston Children\'s Hospital', logoUrl: 'images/boston_childrens.png', title: 'Postdoctoral Research Fellow', dates: 'Jul 2016 - Jan 2022' },
+                            { name: 'Brigham and Women\'s Hospital', logoUrl: 'images/Brigham and Women\'s Hospital.png', title: 'Surgery Resident', dates: 'Jun 2014 - Jun 2016' }
+                        ],
+                        education: [
+                            { name: 'University of Melbourne', logoUrl: 'images/Logo_of_the_University_of_Melbourne.svg.png', degree: 'Bachelor of Medicine, Bachelor of Surgery - MBBS, Medicine', dates: '2006 - 2012' }
+                        ]
+                    },
+                    { 
+                        name: "Dr. Del Nido", 
+                        title: "Co-Founder", 
+                        image: "images/del_nido.jpg", 
+                        bio: "Dr. Del Nido is a world-renowned cardiac surgeon, serving as Chief of Cardiac Surgery at Boston Children's Hospital and the William E. Ladd Professor of Child Surgery at Harvard Medical School. He is also a medical device entrepreneur, having co-founded Nido Surgical to create innovative solutions for beating heart surgery.",
+                        workExperienceSummary: "A pioneering cardiac surgeon with over 30 years of leadership at Boston Children's Hospital and Harvard Medical School. He is a serial entrepreneur in the medical device space, founding Nido Surgical to innovate in beating heart surgery.",
+                        workExperience: [
+                            { name: 'Harvard Medical School', logoUrl: 'images/Harvard Medical School.png', title: 'William E. Ladd Professor of Child Surgery', dates: 'June 2004 - Present' },
+                            { name: 'Boston Children\'s Hospital', logoUrl: 'images/boston_childrens.png', title: 'Chief, Cardiac Surgery', dates: 'May 1994 - Present' },
+                            { name: 'Nido Surgical', logoUrl: 'images/NIDO.png', title: 'Founder', dates: '2015 - 2017 (2 years)' }
+                        ],
+                        education: [
+                            { name: 'University of Wisconsin-Madison', logoUrl: 'images/University of Wisconsin-Madison.png', degree: 'Doctor of Medicine (M.D.), Medicine', dates: '1973 - 1977' },
+                            { name: 'University of Wisconsin-Madison', logoUrl: 'images/University of Wisconsin-Madison.png', degree: 'Bachelor\'s degree, Biochemistry', dates: '1970 - 1973' }
+                        ]
+                    },
+                    { 
+                        name: "Dr. Edelman", 
+                        title: "Co-Founder", 
+                        image: "images/edelman.jpg", 
+                        bio: "Dr. Edelman is the Edward J. Poitras Professor at MIT, Professor of Medicine at Harvard Medical School, and a senior physician at Brigham and Women’s Hospital. A key pioneer of the drug-eluting stent, his work integrates engineering, biology, and clinical practice to create transformative cardiovascular therapies. He directs the Harvard-MIT Biomedical Engineering Center and has mentored over 370 students and fellows.",
+                        workExperienceSummary: "A senior physician at Brigham and Women's Hospital and professor at both MIT and Harvard since the early 1990s. His multidisciplinary research, which combines polymer drug delivery, vascular biology, and tissue engineering, was foundational to the development and optimization of clinically approved drug-eluting stents. He serves as Chief Scientific Advisor for Science Translational Medicine.",
+                         workExperience: [
+                            { name: 'MIT', logoUrl: 'images/MIT.png', title: 'Edward J. Poitras Professor in Medical Engineering & Science', dates: '2018 - Present' },
+                            { name: 'Harvard Medical School', logoUrl: 'images/Harvard Medical School.png', title: 'Professor of Medicine', dates: '2005 - Present' },
+                            { name: 'Brigham and Women\'s Hospital', logoUrl: 'images/Brigham and Women\'s Hospital.png', title: 'Senior Physician', dates: '2006 - Present' },
+                            { name: 'Brigham and Women\'s Hospital', logoUrl: 'images/Brigham and Women\'s Hospital.png', title: 'Cardiology Fellowship', dates: '1987 - 1989' },
+                            { name: 'Brigham and Women\'s Hospital', logoUrl: 'images/Brigham and Women\'s Hospital.png', title: 'Internal Medicine Residency', dates: '1984 - 1987' }
+                        ],
+                        education: [
+                            { name: 'MIT (Harvard-MIT HST)', logoUrl: 'images/MIT.png', degree: 'Ph.D., Medical Engineering & Medical Physics', dates: '1984' },
+                            { name: 'Harvard Medical School', logoUrl: 'images/Harvard Medical School.png', degree: 'M.D.', dates: '1983' },
+                            { name: 'MIT', logoUrl: 'images/MIT.png', degree: 'S.M., Bioelectrical Engineering', dates: '1979' },
+                            { name: 'MIT', logoUrl: 'images/MIT.png', degree: 'S.B., EECS & Applied Biology', dates: '1978' }
+                        ]
+                    },
+                    { 
+                        name: "Christine Heyninck-Jantz", 
+                        title: "Sr. VP, Product Development", 
+                        image: "images/heyninck-jantz.jpg", 
+                        bio: "Christine is a veteran in transcatheter heart valve development with over 20 years of experience at Edwards and Medtronic. <span class='text-highlight'>As VP of R&D at Edwards, she pioneered the development and commercialization of the world's first transcatheter valve and successfully launched the Alterra Adaptive Prestent and Sapien 3 Pulmonic Delivery System.</span> She now leads product development and manufacturing at Autus.",
+                        workExperienceSummary: "20+ years advancing transcatheter & surgical heart valves at Edwards & Medtronic, including the world’s first transcatheter valve. Spearheaded launches of the Alterra Adaptive Prestent & Sapien 3 Pulmonic Delivery System for congenital heart disease.",
+                        workExperience: [
+                            { name: 'Autus Valve Technologies, Inc', logoUrl: 'images/autus-logo.png', title: 'Sr. Vice President Product Development', dates: 'Jan 2025 - Present' },
+                            { name: 'Edwards Lifesciences', logoUrl: 'images/Edwards logo.png', title: 'Vice President Research And Development', dates: 'Dec 2018 - Nov 2024' },
+                            { name: 'Medtronic', logoUrl: 'images/medtronic-2048.png', title: 'Program Director', dates: 'May 2003 - Nov 2018' }
+                        ],
+                        education: [
+                            { name: 'Pepperdine Graziadio Business School', logoUrl: 'images/graziadio_logo_2024_linear_color_Logo.png', degree: 'Master of Business Administration - MBA', dates: '1988 - 1990' },
+                            { name: 'University of Southern California', logoUrl: 'images/university-of-southern-california-usc-logo.png', degree: 'Bachelor of Science (B.S.), Biomedical Engineering', dates: '1981 - 1985' }
+                        ]
+                    }
+                ],
+            },
+            deviceDetails: {
+                heroImage: "images/autus_valve_render.png",
+                summaryTitle: "THE AUTUS VALVE",
+                features: ["Surgically implanted pulmonary valve replacement","Novel biomimetic bileaflet design","Inspired by the geometry of the human venous valve","Fully synthetic","Functions across a wide range of diameters","Customizable implant diameter","Designed to be balloon expanded via minimally invasive transcatheter approach as the patient grows"],
+                youtubeId: "Ywksgqo3zNM",
+                patentExhibits: [
+                    { title: "Core Mechanism: In-Situ Expansion", caption: "Patent diagrams showing the valve pre-expansion (left) and post-expansion (right), illustrating the frame's ability to enlarge within the vessel.", imageSrc: "images/patent_expansion.png", source: "US Patent 10,966,826 B2"},
+                    { title: "In-Vivo Proof of Concept", caption: "Demonstration of the valve accommodating growth from a 20kg lamb to a 60kg sheep.", imageSrc: "images/patent_invivo.png", source: "US Patent 10,966,826 B2"}
+                ]
+            },
+            funding: {
+                total: 374994,
+                chartData: { labels: ['Grant Funding', 'Angel/Equity'], amounts: [349994, 25000] },
+                timeline: [
+                    { date: 'March 26, 2021', title: 'Grant Funding: $50,000', description: 'From UCSF-Stanford Pediatric Device Consortium.', sourceUrl: 'https://pediatricdeviceconsortium.org/new-page-2' },
+                    { date: 'February 26, 2021', title: 'Angel Round: $25,000', description: 'Equity investment from undisclosed investors. Confirmed via SEC Form D filing.', sourceUrl: 'https://www.sec.gov/Archives/edgar/data/1849012/000184901221000001/xslFormDX01/primary_doc.xml' },
+                    { date: 'January 2021', title: 'Grant Funding: $299,994', description: 'From U.S. Department of Health and Human Services (STTR Phase I program).', sourceUrl: 'https://legacy.www.sbir.gov/sbirsearch/detail/2185683' },
+                    { date: '2019', title: 'Company Founded', description: 'Incorporated in Delaware.', sourceUrl: null }
+                ]
+            },
+            insights: {
+                items: [
+                    { title: "Management Team (Grade: A)", content: "The founding team is a powerhouse of clinical, engineering, and entrepreneurial expertise from the absolute top-tier of medical innovation (Harvard, MIT, Boston Children's). The addition of Christine Heyninck-Jantz from Edwards/Medtronic is a major coup, bringing invaluable product development and commercialization experience specifically from the transcatheter valve space. This team composition significantly de-risks execution." },
+                    { title: "Market Opportunity (Grade: B+)", content: "The pediatric pulmonary valve market is a niche but high-need segment. While the total addressable market (TAM) is smaller than adult indications, a the value proposition of avoiding repeat open-heart surgeries is immense. This creates a strong case for premium pricing and rapid adoption in pediatric centers. The primary risk is the size of the niche, but the potential for lifelong patient value is high." },
+                    { title: "Technology & IP (Grade: A-)", content: "The 'grow-with-the-child' concept is a true paradigm shift and a powerful differentiator. The synthetic material avoids the calcification issues of bioprosthetic valves. The IP appears solid, covering the core expansion mechanism. The key technical risk is long-term durability of the leaflets after multiple expansions, which the pivotal trial aims to address. Early feasibility data is very promising." },
+                    { title: "Investment Thesis Summary", content: "Autus Valve represents a compelling venture-stage investment. It combines a world-class team with a disruptive, category-defining technology in a high-need market. The primary risks are clinical (long-term durability) and market size limitations. However, the potential to become the standard of care for pediatric pulmonary valve replacement, coupled with a strong case for premium pricing and a clear path to acquisition by a major player (like Medtronic or Edwards), makes this a highly attractive opportunity." }
+                ]
+            }
+        };
+        
+        // --- MAIN INITIALIZATION WRAPPER ---
+        try {
+            console.log("--- Dashboard Initialization Start ---");
+            runDiagnostics();
+            populateProfileSection();
+            populateTeamSection();
+            populateDeviceSection();
+            populateFundingSection();
+            populateInsightsSection();
+            initializeAccordions();
+            initializeScrollSpy();
+            initializeMobileNav();
+            initializeCompetitiveLandscape();
+            initializeTeamCardFlipper();
+            console.log("--- Dashboard Initialization Success ---");
+        } catch (error) {
+            console.error("--- Dashboard Initialization Failed ---", error);
+            const body = document.querySelector('body');
+            if(body) body.innerHTML = `<div style="padding: 2rem; text-align: center; font-family: sans-serif;"><h1>An error occurred</h1><p>The dashboard could not be loaded. Please check the console for details.</p><pre style="text-align: left; background: #f0f0f0; padding: 1rem; border-radius: 8px; white-space: pre-wrap;">${error.stack}</pre></div>`;
+        }
+
+        // --- SAFE DOM MANIPULATION & HELPER FUNCTIONS ---
+        function setText(id, text) {
+            const el = document.getElementById(id);
+            if (el) { el.textContent = text; } 
+            else { console.warn(`Element with ID '${id}' not found.`); }
+        }
+
+        function createChartSafely(canvasId, config) {
+            const ctx = document.getElementById(canvasId);
+            if (ctx) {
+                try { new Chart(ctx.getContext('2d'), config); } 
+                catch (error) { console.error(`Chart creation failed for canvas ID '${canvasId}':`, error); }
+            } else { console.warn(`Canvas element with ID '${canvasId}' not found.`);}
+        }
+
+        // --- DATA POPULATION FUNCTIONS ---
+        function populateProfileSection() {
+            const profile = dashboardData.companyProfile;
+            if (!profile) return;
+            setText('profile-description', profile.description.value);
+            setText('profile-description-source', `Source: ${profile.description.source}`);
+            setText('profile-founded-year', profile.founded.year);
+            setText('profile-founded-location', profile.founded.location);
+            setText('profile-founded-source', `Source: ${profile.founded.source}`);
+            setText('profile-leadership-name', profile.leadership.name);
+            setText('profile-leadership-title', profile.leadership.title);
+            setText('profile-leadership-source', `Source: ${profile.leadership.source}`);
+            setText('profile-location-city', profile.location.city);
+            setText('profile-location-detail', profile.location.detail);
+            setText('profile-location-source', `Source: ${profile.location.source}`);
+        }
+
+        function populateTeamSection() {
+            const container = document.getElementById('team-container');
+            if (!container) return;
+            
+            let teamHtml = '';
+            dashboardData.team.members.forEach(member => {
+                const cardId = member.name === "Dr. Edelman" ? 'id="edelman-card"' : '';
+                
+                const backCardContent = `
+                    <h3 class="text-lg font-bold text-center mb-2">${member.name}</h3>
+                    ${member.workExperienceSummary ? `<p class="text-xs text-center text-gray-600 mb-4 leading-relaxed">${member.workExperienceSummary}</p>` : ''}
+                    
+                    ${member.workExperience && member.workExperience.length > 0 ? `
+                        <h4 class="font-semibold text-sm text-gray-500 mb-2 mt-4 border-t pt-2 text-center">Experience</h4>
+                        <div class="space-y-4 flex-grow">
+                            ${member.workExperience.map(job => `
+                                <div class="work-history-item">
+                                    ${job.logoUrl ? `<img src="${job.logoUrl}" alt="${job.name} logo">` : '<div class="logo-placeholder"></div>'}
+                                    <div>
+                                        <p class="font-semibold text-sm text-gray-800">${job.title}</p>
+                                        <p class="text-xs text-gray-600">${job.name}</p>
+                                        <p class="text-xs text-gray-400">${job.dates}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    ${member.education && member.education.length > 0 ? `
+                        <h4 class="font-semibold text-sm text-gray-500 mb-2 mt-4 border-t pt-2 text-center">Education</h4>
+                        <div class="space-y-3">
+                            ${member.education.map(edu => `
+                                <div class="work-history-item">
+                                    ${edu.logoUrl ? `<img src="${edu.logoUrl}" alt="${edu.name} logo">` : '<div class="logo-placeholder"></div>'}
+                                    <div>
+                                        <p class="font-semibold text-sm text-gray-800">${edu.name}</p>
+                                        <p class="text-xs text-gray-600">${edu.degree}</p>
+                                        <p class="text-xs text-gray-400">${edu.dates}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                `;
+
+                teamHtml += `
+                    <div class="team-card" ${cardId}>
+                        <div class="team-card-inner">
+                            <div class="team-card-front team-card-face p-6 rounded-lg">
+                                <img src="${member.image}" alt="Photo of ${member.name}" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border">
+                                <h3 class="text-center text-lg font-bold text-gray-900">${member.name}</h3>
+                                <p class="text-center text-sm text-[#8c7a6b] font-medium mb-4">${member.title}</p>
+                                <p class="text-sm text-gray-600 leading-relaxed flex-grow">${member.bio}</p>
+                                <div class="text-center text-xs text-gray-400 mt-4 pt-2 border-t border-gray-100">Click to flip</div>
+                            </div>
+                            <div class="team-card-back team-card-face p-6 rounded-lg">
+                                ${backCardContent}
+                                <div class="text-center text-xs text-gray-400 mt-auto pt-2 border-t border-gray-100">Click to flip</div>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+            container.innerHTML = teamHtml;
+        }
+        
+        function populateDeviceSection() {
+            const details = dashboardData.deviceDetails;
+            const heroContainer = document.getElementById('device-hero-container');
+            const videoContainer = document.getElementById('device-video-container');
+            const exhibitsContainer = document.getElementById('device-exhibits-container');
+
+            if(heroContainer) {
+                heroContainer.innerHTML = `
+                    <div class="kpi-card p-6 rounded-lg">
+                        <img src="${details.heroImage}" alt="Autus Valve Product Render" class="rounded-md mb-4 shadow">
+                        <h3 class="font-bold text-lg text-gray-800">${details.summaryTitle}</h3>
+                        <ul class="mt-2 space-y-1">${details.features.map(f => `<li class="text-gray-700">${f}</li>`).join('')}</ul>
+                    </div>`;
+            }
+            if(videoContainer) {
+                 videoContainer.innerHTML = `
+                     <div style="aspect-ratio: 16/9;" class="w-full">
+                         <iframe src="https://www.youtube.com/embed/${details.youtubeId}" title="YouTube video player" frameborder="0" sandbox="allow-scripts allow-same-origin allow-presentation allow-forms allow-popups" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-lg shadow-lg"></iframe>
+                     </div>`;
+            }
+            if(exhibitsContainer) {
+                 exhibitsContainer.innerHTML = details.patentExhibits.map(exhibit => `
+                    <div class="kpi-card p-6 rounded-lg">
+                        <h4 class="font-bold text-lg text-gray-800 mb-2">${exhibit.title}</h4>
+                        <img src="${exhibit.imageSrc}" alt="${exhibit.caption}" class="rounded-md mb-3 border border-gray-200">
+                        <p class="text-sm text-gray-600">${exhibit.caption}</p>
+                        <p class="text-xs text-gray-400 mt-2">Source: ${exhibit.source}</p>
+                    </div>`).join('');
+            }
+        }
+
+        function populateFundingSection() {
+            const funding = dashboardData.funding;
+            const fundingContainer = document.getElementById('funding-total-container');
+            const timelineContainer = document.getElementById('timeline-container');
+
+            if (fundingContainer) {
+                fundingContainer.innerHTML = `<h3 class="text-sm font-medium text-gray-500">Total Public Funding to Date</h3><p class="mt-1 text-4xl font-semibold text-[#8c7a6b]">$${funding.total.toLocaleString()}</p>`;
+            }
+            if(timelineContainer) {
+                timelineContainer.innerHTML = funding.timeline.map(item => `
+                    <div class="relative pl-8 border-l-2 border-gray-200">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 bg-[#8c7a6b] rounded-full border-4 border-[#f8f7f4]"></div>
+                        <p class="text-sm font-medium text-gray-500">${item.date}</p>
+                        <h4 class="font-bold text-gray-800">${item.title}</h4>
+                        <p class="text-sm text-gray-600">${item.description} ${item.sourceUrl ? `<a href="./${item.sourceUrl}" target="_blank" class="source-link">Source</a>` : ''}</p>
+                    </div>`).join('');
+            }
+            
+            createChartSafely('fundingTypeChart', {
+                type: 'doughnut',
+                data: {
+                    labels: funding.chartData.labels,
+                    datasets: [{
+                        data: funding.chartData.amounts,
+                        backgroundColor: ['#8c7a6b', '#d4c8be'],
+                        borderColor: '#f8f7f4',
+                        borderWidth: 4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }}, layout: { padding: 10 } }
+            });
+        }
+
+        function populateInsightsSection() {
+            const container = document.getElementById('accordion-container');
+            if(container) {
+                container.innerHTML = dashboardData.insights.items.map((item, index) => `
+                    <div class="kpi-card rounded-lg overflow-hidden">
+                        <h3 id="accordion-header-${index}" class="accordion-header w-full text-left font-semibold p-4 flex justify-between items-center cursor-pointer" aria-expanded="false" aria-controls="accordion-content-${index}">
+                            ${item.title}
+                            <span class="accordion-icon"></span>
+                        </h3>
+                        <div id="accordion-content-${index}" class="accordion-content bg-gray-50 p-4 border-t border-gray-200" style="display: none;" role="region" aria-labelledby="accordion-header-${index}">
+                            <p class="text-gray-700">${item.content}</p>
+                        </div>
+                    </div>`).join('');
+            }
+        }
+
+        // --- INTERACTIVITY INITIALIZATION ---
+        
+        function initializeTeamCardFlipper() {
+            const container = document.getElementById('team-container');
+            if(container) {
+                container.addEventListener('click', function(e) {
+                    const card = e.target.closest('.team-card');
+                    if (card) card.classList.toggle('is-flipped');
+                });
+            }
+        }
+
+        function initializeAccordions() {
+            const container = document.getElementById('accordion-container');
+            if(container) {
+                container.addEventListener('click', (e) => {
+                    const header = e.target.closest('.accordion-header');
+                    if (header) {
+                        const content = document.getElementById(header.getAttribute('aria-controls'));
+                        const isExpanded = header.getAttribute('aria-expanded') === 'true';
+                        header.setAttribute('aria-expanded', !isExpanded);
+                        if(content) content.style.display = isExpanded ? 'none' : 'block';
+                    }
+                });
+            }
+        }
+        
+        function initializeScrollSpy() {
+            const sections = document.querySelectorAll('main > section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            if (sections.length === 0 || navLinks.length === 0) return;
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, { rootMargin: '-40% 0px -60% 0px' });
+            sections.forEach(section => observer.observe(section));
+        }
+
+        function initializeMobileNav() {
+            const mobileNav = document.getElementById('mobile-nav');
+            if (!mobileNav) return;
+            mobileNav.addEventListener('change', () => {
+                const target = mobileNav.value;
+                if (target.startsWith('#')) {
+                    window.location.hash = target;
+                } else {
+                    window.location.href = target;
+                }
+            });
+        }
+
+        function initializeCompetitiveLandscape() {
+            const tabsContainer = document.getElementById('tabs');
+            const tabContents = document.querySelectorAll('#competitors .tab-content');
+            const featureButtonsContainer = document.getElementById('feature-buttons');
+            const featureContents = document.querySelectorAll('#competitors [data-feature-content]');
+            
+            if (tabsContainer) {
+                tabsContainer.addEventListener('click', function (e) {
+                    if (e.target.classList.contains('tab-btn')) {
+                        const targetTab = e.target.dataset.tab;
+                        tabsContainer.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+                        tabContents.forEach(content => {
+                            content.classList.toggle('hidden', content.id !== targetTab);
+                        });
+                    }
+                });
+            }
+            
+            if (featureButtonsContainer) {
+                featureButtonsContainer.addEventListener('click', function(e) {
+                    if(e.target.classList.contains('feature-btn')) {
+                        const targetFeature = e.target.dataset.feature;
+                        const isActive = e.target.classList.contains('active');
+                        featureButtonsContainer.querySelectorAll('.feature-btn').forEach(btn => btn.classList.remove('active'));
+                        featureContents.forEach(content => content.classList.remove('highlight-feature'));
+                        if (!isActive) {
+                            e.target.classList.add('active');
+                            document.querySelectorAll(`#competitors [data-feature-content="${targetFeature}"]`).forEach(el => {
+                                el.classList.add('highlight-feature');
+                            });
+                        }
+                    }
+                });
+            }
+
+            const evidenceData = {
+                labels: ['Autus Valve', 'SAPIEN 3 w/ Alterra', 'Harmony™ TPV', 'Melody™ TPV'],
+                datasets: [{
+                    label: 'Patients Studied/Implanted (Estimate)',
+                    data: [11, 60, 200, 18000], 
+                    backgroundColor: ['rgba(20, 184, 166, 0.6)', 'rgba(168, 85, 247, 0.6)', 'rgba(99, 102, 241, 0.6)', 'rgba(59, 130, 246, 0.6)'],
+                    borderColor: ['rgb(13, 148, 136)','rgb(147, 51, 234)','rgb(79, 70, 229)','rgb(37, 99, 235)'],
+                    borderWidth: 1
+                }]
+            };
+
+            createChartSafely('evidenceChart', {
+                type: 'bar',
+                data: evidenceData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { x: { type: 'logarithmic', title: { display: true, text: 'Number of Patients (Log Scale)' }}, y: { beginAtZero: true }},
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: function(context) { let label = context.dataset.label || ''; if (label) label += ': '; if (context.parsed.x !== null) label += '~' + context.parsed.x.toLocaleString(); return label; }}},
+                        title: { display: true, text: 'Clinical Evidence Base Maturity (Patient Volume)', font: { size: 16 }}
+                    },
+                    layout: { padding: 10 }
+                }
+            });
+        }
+        
+        function runDiagnostics() {
+            console.log('--- Running Diagnostics ---');
+            console.log(`Chart.js loaded: ${typeof Chart !== 'undefined'}`);
+            console.log(`Team container present: ${!!document.getElementById('team-container')}`);
+            console.log(`Funding chart canvas present: ${!!document.getElementById('fundingTypeChart')}`);
+            console.log(`Evidence chart canvas present: ${!!document.getElementById('evidenceChart')}`);
+            console.log('--- Diagnostics End ---');
+        }
+    });
+    </script>
+</body>
+</html>
+

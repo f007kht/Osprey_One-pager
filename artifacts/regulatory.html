@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Regulatory Overview – Pediatric Pulmonary Valve</title>
+  <style>
+    :root{
+      --bg:#0b1220;--panel:#121a2b;--muted:#30415f;--card:#0f1626;--text:#ebf2ff;--accent:#4cc9f0;--accent-2:#a3ffb0;--warn:#ffd166;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#0a0f1a);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.45}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+    aside{background:var(--panel);padding:20px;border-right:1px solid #1f2b44}
+    main{padding:28px 32px}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#5ef0c4)}
+    h1{font-size:22px;margin:0}
+    .subtle{color:#b7c3d7;font-size:12px}
+    nav ul{list-style:none;padding:0;margin:10px 0 0}
+    nav li{margin:4px 0}
+    .nav-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:#cfe3ff}
+    .nav-link:hover{background:#0a1324}
+    .chip{font-size:11px;padding:2px 8px;border:1px solid var(--muted);border-radius:999px;color:#a6b6d6}
+    .section{scroll-margin-top:90px;margin-bottom:28px}
+    .header{position:sticky;top:0;background:linear-gradient(180deg,rgba(11,18,32,.98),rgba(11,18,32,.85));backdrop-filter:blur(8px);z-index:20;padding:14px 24px;border-bottom:1px solid #17233a;display:flex;align-items:center;gap:14px}
+    .header h2{margin:0;font-size:18px}
+    .grid{display:grid;gap:16px}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width:1100px){.app{grid-template-columns:1fr}.grid.cols-2{grid-template-columns:1fr}.grid.cols-3{grid-template-columns:1fr 1fr}}
+    @media (max-width:720px){.grid.cols-3{grid-template-columns:1fr}}
+    .card{background:linear-gradient(180deg,var(--card),#0a0f1a);border:1px solid #1b2742;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 6px;font-size:16px}
+    .muted{color:#9fb0cc}
+    .pill{padding:4px 8px;border-radius:8px;background:#0e1b32;border:1px solid #22365b;color:#a6bee6}
+    .table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    .table th{font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#9fb0cc;text-align:left;padding:0 12px}
+    .table td{background:#0b1426;border:1px solid #1b2742;border-left:none;border-right:none;padding:12px;border-radius:10px}
+    .table tr td:first-child{border-left:1px solid #1b2742;border-top-left-radius:12px;border-bottom-left-radius:12px}
+    .table tr td:last-child{border-right:1px solid #1b2742;border-top-right-radius:12px;border-bottom-right-radius:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#182844,#0e1a30);border:1px solid #213358;border-radius:12px;padding:10px 12px;color:#cfe3ff}
+    .btn:hover{filter:brightness(1.1)}
+    .sep{height:1px;background:#1a2743;margin:14px 0}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>Regulatory Overview</h1>
+        <div class="subtle">U.S. Pediatric Pulmonary Valve</div>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="nav-link" href="./index.html">← Back to Index</a></li>
+        <li><a class="nav-link" href="./Consolidated_Deep_Dive_Dashboard_client_friendly.html">← Back to Consolidated Dashboard</a></li>
+        <li class="sep"></li>
+        <li><span class="chip">Sections</span></li>
+        <li><a class="nav-link" href="#overview">Executive Summary</a></li>
+        <li><a class="nav-link" href="#classification">Device Classification</a></li>
+        <li><a class="nav-link" href="#pma">PMA Requirements</a></li>
+        <li><a class="nav-link" href="#hde">HDE / HUD Pathway</a></li>
+        <li><a class="nav-link" href="#breakthrough">Breakthrough Device</a></li>
+        <li><a class="nav-link" href="#ide">IDE & Clinical Evidence</a></li>
+        <li><a class="nav-link" href="#timeline">Timelines & Costs</a></li>
+        <li><a class="nav-link" href="#eu">EU MDR (CE Mark)</a></li>
+        <li><a class="nav-link" href="#checklist">Submission Checklist</a></li>
+        <li><a class="nav-link" href="#sources">Project Sources</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <header class="header">
+      <h2>Regulatory Overview – Pediatric Pulmonary Valve</h2>
+      <span class="pill">Aligned to FDA PMA/HDE/Breakthrough Programs</span>
+      <a href="./Consolidated_Deep_Dive_Dashboard_client_friendly.html" class="btn" style="margin-left:auto">Back to Dashboard</a>
+    </header>
+
+    <section id="overview" class="section">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Executive Summary</h3>
+          <p>U.S. pediatric pulmonary valves are Class III devices and typically require <b>PMA</b>. For rare pediatric populations, <b>HDE/HUD</b> can be leveraged to demonstrate <i>safety and probable benefit</i>. Programs addressing significant unmet needs can seek <b>Breakthrough Device designation</b> to accelerate interactions across IDE and PMA. Typical programs progress from <b>Early Feasibility (IDE)</b> to <b>Pivotal IDE</b> with long-term follow-up commitments (often up to 10 years).</p>
+        </div>
+        <div class="card">
+          <h3>At-a-Glance</h3>
+          <table class="table">
+            <thead><tr><th>Pathway</th><th>Core Proof</th><th>Where It Fits</th></tr></thead>
+            <tbody>
+              <tr><td>PMA</td><td>Safety & Effectiveness</td><td>Standard for Class III valves</td></tr>
+              <tr><td>HDE/HUD</td><td>Safety & Probable Benefit</td><td>Rare pediatric populations (&lt;8,000/yr)</td></tr>
+              <tr><td>Breakthrough</td><td>Superior benefit / unmet need</td><td>Expedited FDA interactions</td></tr>
+              <tr><td>IDE</td><td>Clinical study authorization</td><td>EFS → Pivotal clinical evidence</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="classification" class="section">
+      <div class="card">
+        <h3>Device Classification</h3>
+        <p>Pulmonary valve prostheses are <b>Class III</b> devices. FDA expects robust preclinical (bench + animal) and clinical data, with durability under repeated balloon expansions for growth-accommodating concepts, and hemodynamic performance (gradients, regurgitation) across the labeled size range.</p>
+      </div>
+    </section>
+
+    <section id="pma" class="section">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>PMA: What Must Be Proven</h3>
+          <ul>
+            <li>Longitudinal <b>safety & effectiveness</b> (freedom from reintervention, survival, NYHA symptoms as applicable).</li>
+            <li>Acceptable <b>hemodynamics</b> (peak/mean gradients, regurgitation) at implant and across follow-up.</li>
+            <li><b>Durability</b> across repeat expansions (for growth-accommodating designs) without structural failure.</li>
+            <li>Validated <b>manufacturing & quality</b> (Design Controls, Process Validation, Sterility, Biocompatibility).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>PMA Package – Typical Contents</h3>
+          <ul>
+            <li>Bench + Fatigue/Accelerated Wear; Hydrodynamics; Simulations.</li>
+            <li>Animal data demonstrating tissue response and function.</li>
+            <li>Clinical (pivotal IDE) results with independent core lab.</li>
+            <li>Risk management (ISO 14971) & Human factors (as applicable).</li>
+            <li>Labeling (IFU, MRI info), Post-approval study plan.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="hde" class="section">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>HDE / HUD (Rare Pediatric Pathway)</h3>
+          <ul>
+            <li>For devices addressing conditions affecting <b>&lt;8,000</b> individuals in the U.S. per year.</li>
+            <li>Standard is <b>safety</b> and <b>probable benefit</b> (not full effectiveness).</li>
+            <li><b>Profit permitted</b> for pediatric indications under HDE (with caps/conditions).</li>
+            <li>Useful when randomized trials are impractical due to small populations.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>When to Use HDE</h3>
+          <p>Consider HDE for highly specific pediatric anatomies or rare RVOT reconstructions where a PMA-sized dataset is infeasible. The PMA route remains preferred when broader commercial indications or international harmonization are planned.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="breakthrough" class="section">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Breakthrough Device Designation</h3>
+          <ul>
+            <li>For devices that provide more effective treatment/diagnosis for life-threatening or irreversibly debilitating diseases.</li>
+            <li>Unlocks <b>expedited, interactive review</b> during IDE and PMA.</li>
+            <li>Can reduce review cycles and align on pivotal endpoints earlier.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Implications for Growth-Accommodating Valves</h3>
+          <p>Programs showing credible evidence of reduced reoperation burden via <b>repeat expansions</b> and sustained hemodynamics can qualify. This can streamline endpoint alignment and statistical analysis plans with FDA earlier in development.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ide" class="section">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>IDE & Clinical Evidence Plan</h3>
+          <ul>
+            <li><b>Early Feasibility Study (EFS):</b> initial safety and performance; often single-arm with staged expansion plans.</li>
+            <li><b>Pivotal IDE:</b> prospective multicenter; durability and reintervention endpoints; core-lab adjudication.</li>
+            <li><b>Follow-up:</b> long-term (often up to 10 years) to satisfy durability requirements.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Illustrative Cadence</h3>
+          <ul>
+            <li>FIH → Pivotal start: ~<b>26 months</b> in recent programs.</li>
+            <li>Pivotal duration to primary endpoint: typically <b>2–5 years</b> depending on design and endpoints.</li>
+            <li>Post-approval study: additional <b>5–10 years</b> follow-up.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline" class="section">
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Budget & Capitalization</h3>
+          <ul>
+            <li>Pivotal IDE program cost typically <b>$10M+</b> (device-specific).</li>
+            <li>Additional CMC/quality scale-up & post-market commitments add materially to spend.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Program Timeline</h3>
+          <ul>
+            <li>Preclinical + EFS: ~12–24 months.</li>
+            <li>Pivotal IDE to PMA decision: ~24–48 months (device- and data-dependent).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Common Risks</h3>
+          <ul>
+            <li>Expansion durability, thrombosis/neo-intimal hyperplasia.</li>
+            <li>Manufacturing validation & supply chain readiness.</li>
+            <li>Enrollment pace in narrow pediatric anatomies.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="eu" class="section">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>EU MDR (CE Mark)</h3>
+          <ul>
+            <li>Higher evidentiary and post-market surveillance requirements under MDR vs. legacy MDD.</li>
+            <li>Clinical evaluation alignment with U.S. pivotal can de-risk dual submissions.</li>
+            <li>Ongoing PSUR/PMCF expectations post-CE mark.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Harmonization Tips</h3>
+          <ul>
+            <li>Design pivotal endpoints to serve both FDA PMA and EU MDR clinical evaluation.</li>
+            <li>Engage Notified Body early to validate acceptability of pediatric evidence.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="checklist" class="section">
+      <div class="card">
+        <h3>Submission Checklist (PMA/HDE)</h3>
+        <ul>
+          <li>Clinical: SAP, core lab plan, adjudication charter, data monitoring plan.</li>
+          <li>Preclinical: hydrodynamics, fatigue/accelerated wear, biocompatibility, sterility, shelf-life.</li>
+          <li>Quality: design history file, process validation, supplier controls, UDI/labeling.</li>
+          <li>Risk: ISO 14971 file, usability/human factors (if applicable), cybersecurity (if applicable).</li>
+          <li>Post-market: PAS/PMCF protocols and registries.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sources" class="section">
+      <div class="card">
+        <h3>Project Sources (internal)</h3>
+        <ul class="muted">
+          <li>Osprey Intel research and analysis (regulatory timelines, costs, MDR, IDE→pivotal cadence).</li>
+          <li>Valve Competition – Autus vs. Medtronic (HDE example, competitive positioning).</li>
+          <li>Autus Valve notes (Breakthrough Device designation; FIH→pivotal timing; 10‑year follow‑up).</li>
+          <li>VC/IC memo & valuation models (budget signaling for pivotal execution).</li>
+        </ul>
+        <p class="muted">Note: This page summarizes regulatory content from the project files to support the Consolidated Deep Dive Dashboard.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="muted">© 2025 Osprey Intel LLC • This document aligns with the consolidated dashboard and index for consistent client delivery.</div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

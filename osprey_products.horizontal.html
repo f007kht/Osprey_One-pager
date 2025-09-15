@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speed | Precision | Depth</title>
+  <style>
+    :root {
+      --ink: #0b1f2b;
+      --teal: #0f8a8a;
+      --teal-light: #4db3b3;
+      --bg: #f8fafb;
+      --card: #ffffff;
+      --muted: #5b6b73;
+      --chip: #e6f3f3;
+      --chip-hover: #d1eded;
+      --shadow: 0 6px 24px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.05);
+      --shadow-hover: 0 8px 30px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+      --radius: 14px;
+      --border: #e9eff1;
+      --accent: #f0f9ff;
+      --accent-border: #0369a1;
+    }
+    
+    * { 
+      box-sizing: border-box; 
+    }
+    
+    html, body { 
+      margin: 0; 
+      padding: 0; 
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif; 
+      color: var(--ink); 
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    
+    sup {
+      line-height: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background-image: url('brand/products-splash.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      color: white;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      padding: 40px 20px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 18, 32, 0.65);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.2;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+      margin: 0 0 16px;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 2.5vw, 22px);
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+      line-height: 1.5;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    a { 
+      color: var(--teal); 
+      text-decoration: none; 
+      transition: color 0.2s ease;
+    }
+    
+    a:hover { 
+      color: var(--teal-light);
+      text-decoration: underline; 
+    }
+    
+    .container { 
+      max-width: 1100px; 
+      margin: 0 auto; 
+      padding: 0 20px 64px;
+    }
+    
+    header { 
+      display: flex; 
+      align-items: center;
+      justify-content: space-between; 
+      gap: 16px; 
+      flex-wrap: wrap;
+      background: var(--card);
+      padding: 16px 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      position: relative;
+      margin-top: -60px;
+      z-index: 10;
+    }
+    
+    .brand { 
+      display: flex; 
+      align-items: center; 
+      gap: 16px; 
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .brand .mark { 
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      padding: 5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+
+    .brand .mark img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      display: block;
+    }
+    
+    h1 { 
+      font-size: clamp(22px, 2.8vw, 28px); 
+      margin: 0; 
+      line-height: 1.2; 
+      font-weight: 700;
+    }
+    
+    .tagline { 
+      color: var(--muted); 
+      margin-top: 4px; 
+      font-size: 15px;
+      max-width: 600px;
+    }
+    
+    .header-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-link { 
+      color: var(--teal); 
+      font-size: 14px; 
+      font-weight: 600;
+      background: var(--chip);
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(15, 138, 138, 0.2);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .contact-link:hover {
+      background: var(--chip-hover);
+      text-decoration: none;
+      color: var(--teal);
+      transform: translateY(-1px);
+    }
+
+    /* Strategic Positioning Section */
+    .positioning {
+      background: var(--accent);
+      border: 2px solid var(--accent-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 48px 0 0;
+      position: relative;
+    }
+    
+    .positioning::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-border), #0ea5e9);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    
+    .positioning h2 {
+      color: var(--accent-border);
+      margin: 0 0 16px;
+      font-size: 22px;
+    }
+    
+    .positioning-grid {
+      display: grid;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    @media (min-width: 768px) {
+      .positioning-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    .positioning-item {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(3, 105, 161, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .positioning-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(3, 105, 161, 0.1);
+    }
+
+    .positioning-item-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .positioning-icon {
+      color: var(--accent-border);
+      flex-shrink: 0;
+    }
+    
+    .positioning-item h3 {
+      color: var(--accent-border);
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .positioning-item p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .quote {
+      font-style: italic;
+      color: var(--accent-border);
+      font-weight: 500;
+      border-left: 3px solid var(--accent-border);
+      padding-left: 12px;
+      margin: 12px 0;
+    }
+    
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(12, 1fr); 
+      gap: 24px; 
+      margin-top: 48px; 
+    }
+    
+    .card { 
+      grid-column: span 12; 
+      background: var(--card); 
+      border-radius: var(--radius); 
+      box-shadow: var(--shadow); 
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    
+    .card-image-container {
+      width: 100%;
+      height: 450px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .card-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .card-content {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    @media (min-width: 992px) {
+      .card.half { 
+        grid-column: span 6; 
+      }
+    }
+    
+    h2 { 
+      font-size: clamp(20px, 2.4vw, 24px); 
+      margin: 0 0 6px; 
+      font-weight: 700;
+      color: var(--ink);
+    }
+    
+    h3 {
+      font-size: 18px;
+      margin: 0 0 8px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    
+    .sub { 
+      color: var(--muted); 
+      margin: 0 0 18px; 
+      font-size: 15px;
+    }
+    
+    .chips { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 8px; 
+      margin: 16px 0 8px; 
+    }
+    
+    .chip { 
+      background: var(--chip); 
+      color: var(--teal); 
+      padding: 6px 12px; 
+      border-radius: 20px; 
+      font-size: 12px; 
+      font-weight: 600;
+      border: 1px solid rgba(15, 138, 138, 0.2);
+      transition: all 0.2s ease;
+    }
+    
+    .chip:hover {
+      background: var(--chip-hover);
+      transform: translateY(-1px);
+    }
+    
+    .list { 
+      margin: 12px 0 0; 
+      padding-left: 20px; 
+      line-height: 1.7; 
+    }
+    
+    .list li {
+      margin-bottom: 8px;
+    }
+    
+    .list li:last-child {
+      margin-bottom: 0;
+    }
+    
+    .hr { 
+      height: 1px; 
+      background: var(--border); 
+      margin: 20px 0; 
+      border: none;
+    }
+    
+    .cta-bar { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 12px; 
+      margin-top: auto;
+      padding-top: 20px;
+    }
+    
+    .btn { 
+      display: inline-block; 
+      background: var(--teal); 
+      color: #fff; 
+      padding: 12px 18px; 
+      border-radius: 10px; 
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      border: 2px solid var(--teal);
+    }
+    
+    .btn:hover {
+      background: var(--teal-light);
+      border-color: var(--teal-light);
+      transform: translateY(-1px);
+      text-decoration: none;
+      color: white;
+    }
+    
+    .btn.ghost { 
+      background: transparent; 
+      color: var(--teal); 
+      border: 2px solid var(--teal);
+    }
+    
+    .btn.ghost:hover {
+      background: var(--teal);
+      color: white;
+    }
+    
+    .section-title { 
+      margin: 48px 0 16px; 
+      font-size: clamp(20px, 2.2vw, 24px); 
+      font-weight: 700;
+      color: var(--ink);
+    }
+    
+    .foot { 
+      margin-top: 48px; 
+      color: var(--muted); 
+      font-size: 13px; 
+      background: var(--card);
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    
+    .small { 
+      font-size: 13px; 
+      color: var(--muted); 
+      font-weight: 400;
+    }
+    
+    /* Product Specific Styling */
+    .product-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .product-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--teal);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+    
+    .feature-item {
+      padding: 12px;
+      background: rgba(15, 138, 138, 0.05);
+      border-radius: 8px;
+      border: 1px solid rgba(15, 138, 138, 0.1);
+    }
+    
+    .feature-item strong {
+      color: var(--teal);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 31, 43, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none; /* Hidden by default */
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: var(--shadow-hover);
+      position: relative;
+      border: 1px solid var(--border);
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+
+    .modal-close:hover {
+      color: var(--ink);
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .email-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-top: 16px;
+    }
+
+    .email-container span {
+      flex-grow: 1;
+      font-family: monospace;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    #copy-email-btn {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    #copy-email-btn:hover {
+      background: var(--teal-light);
+    }
+
+    #copy-success-msg {
+        text-align: center;
+        font-weight: 500;
+        color: var(--teal);
+        margin-top: 12px;
+        display: none;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 991px) {
+      .positioning-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 767px) {
+      header {
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: -80px;
+      }
+      
+      .brand {
+        min-width: auto;
+      }
+      
+      .contact-link {
+        align-self: flex-start;
+      }
+
+      .header-links {
+        justify-content: flex-start;
+        margin-top: 12px;
+      }
+
+      .positioning-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cta-bar {
+        flex-direction: column;
+      }
+      
+      .btn {
+        text-align: center;
+      }
+    }
+  
+/* === Unified horizontal visuals (added) === */
+.card-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;      /* Force horizontal format */
+  height: auto;               /* Let aspect-ratio control height */
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: #0b1f2b;
+}
+.card-image-container img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;          /* Default: crop to fill horizontally */
+  object-position: center;
+}
+/* Letterbox mode for vertical sources: blurred cover bg + contained foreground */
+.card-image-container.letterbox::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  filter: blur(18px) saturate(1.05) brightness(0.9);
+  transform: scale(1.08);
+}
+.card-image-container.letterbox img {
+  position: relative;
+  z-index: 1;
+  object-fit: contain;        /* Don’t crop the vertical osprey */
+}
+@media (max-width: 767px) {
+  .card-image-container { aspect-ratio: 16 / 9; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Osprey Intel Products</h1>
+      <p>Precision Intelligence For Private Capital Markets</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="mark">
+          <img src="brand/osprey-spirit.png" alt="Osprey Intel Logo">
+        </div>
+        <div>
+          <h1>Speed | Precision | Depth</h1>
+          <div class="tagline">Vertical AI agent for investment intelligence.</div>
+        </div>
+      </div>
+      <div class="header-links">
+        <a href="osprey_talonstrike_profile.enhanced.patched.html" class="contact-link ghost">← Back to Company Profile</a>
+        <button id="contact-btn" class="contact-link">Contact Us</button>
+      </div>
+    </header>
+
+    <!-- PRODUCTS SECTION -->
+    <div class="grid">
+      <!-- Deep Dive Product -->
+      <section class="card half" aria-labelledby="deepdive-title">
+        <div class="card-image-container" class="card-image-container letterbox" style="--bg-image: url(\'brand/osprey-spirit.png\')">
+          <img src="brand/osprey-spirit.png" alt="Osprey Deep Dive illustration" loading="lazy" decoding="async" width="768" height="1344">
+        </div>
+        <div class="card-content">
+          <div class="product-header">
+            <div class="product-icon">DD</div>
+            <div>
+              <h2 id="deepdive-title">Osprey Deep Dive<sup>™</sup> <span class="small">— 6-module static report (PDF/HTML)</span></h2>
+            </div>
+          </div>
+          <p class="sub">A concise, heavily cited research pack designed to get an investment team to "IC-ready" quickly.</p>
+
+          <div class="chips" aria-label="Use cases">
+            <span class="chip">Deal screening</span>
+            <span class="chip">Sector brief</span>
+            <span class="chip">Board/IC prep</span>
+          </div>
+
+          <div class="hr"></div>
+          <strong>Core modules</strong>
+          <ol class="list">
+            <li><strong>Investor & Deal Activity</strong> — funding trends, active investors, and recent transactions.</li>
+            <li><strong>Company Financials & Business Models</strong> — revenue models, unit economics, pathways to scale.</li>
+            <li><strong>Technology & IP Landscape</strong> — modality map, patents, and defensibility signals.</li>
+            <li><strong>Market Sizing & Forecasts</strong> — explicit assumptions, scenarios, and sensitivity bands.</li>
+            <li><strong>Regulatory & Policy Context</strong> — pathways, guidances, and post-market dynamics.</li>
+            <li><strong>Strategic Positioning & White Space</strong> — comp map, archetypes, and where to play.</li>
+          </ol>
+
+          <div class="cta-bar">
+            <a class="btn" href="Pediatric Congenital Heart Disease (CHD)_Osprey Deep Dive.pdf" target="_blank" rel="noopener">View sample Deep Dive</a>
+            <a class="btn ghost" href="GPCR Licensing One‑Pager.html" target="_blank" rel="noopener">Open executive brief</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- TalonStrike Micro-app Product -->
+      <section class="card half" aria-labelledby="talonstrike-title">
+        <div class="card-image-container">
+          <img src="brand/speed-accuracy.png" alt="Osprey TalonStrike illustration" loading="lazy" decoding="async" width="1075" height="738">
+        </div>
+        <div class="card-content">
+          <div class="product-header">
+            <div class="product-icon">TS</div>
+            <div>
+              <h2 id="talonstrike-title">Osprey TalonStrike™ <span class="small">— interactive micro-app suite</span></h2>
+            </div>
+          </div>
+          <p class="sub">A clickable, source-linked decision app. Ships with the Deep Dive core pack, plus interactive analytics modules.</p>
+
+          <div class="chips" aria-label="Key traits">
+            <span class="chip">Clickable</span>
+            <span class="chip">Cited</span>
+            <span class="chip">Explainable</span>
+            <span class="chip">Audit-ready</span>
+          </div>
+
+          <div class="hr"></div>
+          <strong>Included modules</strong>
+          <ul class="list">
+            <li><strong>Deep Dive Core Pack</strong> — the six modules at left, rendered as interactive pages.</li>
+            <li><strong>Comparables (Comps)</strong> — dynamic comp set with filters, KPIs, and notes.</li>
+            <li><strong>Benchmarking</strong> — peer benchmarks for clinical, commercial, and financial metrics.</li>
+            <li><strong>Market Sizing — Top-Down</strong> — adjustable assumptions and instant scenarioing.</li>
+            <li><strong>Market Sizing — Bottom-Up</strong> — cohort/flow models with exposed inputs.</li>
+            <li><strong>Company Profiles</strong> — individual deep dives (e.g., <em>Autus Valve</em>) with linked evidence.</li>
+            <li><strong>Consolidated Shell & Index</strong> — a client-friendly control panel that ties it all together.</li>
+            <li><strong>References & VC Toolkit</strong> — full citation trail and reusable investor artifacts.</li>
+          </ul>
+
+          <div class="cta-bar">
+            <a class="btn" href="https://f007kht.github.io/Osprey-Intel_AVT-Dashboard/" target="_blank" rel="noopener">Open TalonStrike demo</a>
+            <a class="btn ghost" href="https://f007kht.github.io/Osprey-Intel_AVT-Dashboard/1_autus_dashboard_preview%20main.html" target="_blank" rel="noopener">Open Autus Valve example</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- TECHNOLOGY & WORKFLOW INTEGRATION -->
+    <h3 class="section-title">Technology & VC Workflow Integration</h3>
+    <div class="grid">
+      <section class="card half">
+        <div class="card-content">
+          <div class="product-header">
+            <div class="product-icon">⚡</div>
+            <div>
+              <h3>Technology & Data Moat</h3>
+            </div>
+          </div>
+          <p class="sub">Domain-trained AI synthesis powered by licensed institutional data sources.</p>
+          
+          <div class="feature-grid">
+            <div class="feature-item">
+              <strong>Licensed Data Ecosystem</strong>
+              PitchBook, Cap IQ, LSEG/Refinitiv, ClinicalTrials.gov, GlobalData, Evaluate
+            </div>
+            <div class="feature-item">
+              <strong>AI-Powered Synthesis</strong>
+              Regulatory pathway mapping, market modeling, competitive intelligence automation
+            </div>
+            <div class="feature-item">
+              <strong>Interactive vs Static</strong>
+              Real-time exploration, scenario planning, assumption testing vs fixed PDFs
+            </div>
+            <div class="feature-item">
+              <strong>Enterprise Security</strong>
+              Data licensing compliance, access controls, audit trails, secure sharing
+            </div>
+          </div>
+
+          <div class="chips" style="margin-top: auto; padding-top: 20px;">
+            <span class="chip">Licensed data only</span>
+            <span class="chip">Citation-first</span>
+            <span class="chip">Audit-ready</span>
+          </div>
+        </div>
+      </section>
+      
+      <section class="card half">
+        <div class="card-content">
+          <div class="product-header">
+            <div class="product-icon">🎯</div>
+            <div>
+              <h3>Private Capital Workflow Integration</h3>
+            </div>
+          </div>
+          <p class="sub">Purpose-built for investment decision workflows across VCs, PEs, and family offices.</p>
+          
+          <div class="feature-grid">
+            <div class="feature-item">
+              <strong>Decision Meeting Enhancement</strong>
+              Real-time exploration during investment discussions, scenario testing, deal evaluation
+            </div>
+            <div class="feature-item">
+              <strong>Team Collaboration</strong>
+              Investment team sharing, annotation capabilities, centralized research assets
+            </div>
+            <div class="feature-item">
+              <strong>Institutional Knowledge</strong>
+              Portfolio insights, reusable sector frameworks, historical deal context
+            </div>
+            <div class="feature-item">
+              <strong>Investment Audit Trails</strong>
+              Source tracking, assumption documentation, thesis validation, compliance support
+            </div>
+          </div>
+
+          <div class="chips" style="margin-top: auto; padding-top: 20px;">
+            <span class="chip">Decision-ready</span>
+            <span class="chip">Team-friendly</span>
+            <span class="chip">Portfolio intel</span>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- STRATEGIC POSITIONING SECTION -->
+    <section class="positioning">
+      <h2>Vertical Agent, Application Layer Value</h2>
+      <p>While foundation models commoditize, <strong>Osprey Intel captures value where it matters</strong>: purpose-built vertical intelligence for investment decisions. We're not a GPT wrapper—we're a domain-trained research agent that outperforms traditional consulting workflows.</p>
+      
+      <div class="quote">
+        "The value will ultimately accrue to the application layer... Vertical agents trained end-to-end to excel in very specific workflows"
+        <br>
+        <span style="font-size: 12px; color: var(--muted);">— Sequoia AI Ascent 2025</span>
+      </div>
+      
+      <div class="positioning-grid">
+        <div class="positioning-item">
+          <div class="positioning-item-header">
+            <svg class="positioning-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <h3>Beyond Engagement Ratios</h3>
+          </div>
+          <p>We solved AI app engagement by <strong>integrating directly into IC meetings</strong>. Interactive research applications replace static decks, enabling real-time exploration during investment decisions.</p>
+        </div>
+        
+        <div class="positioning-item">
+          <div class="positioning-item-header">
+            <svg class="positioning-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 14 4-4"/>
+              <path d="M3.34 19a10 10 0 1 1 17.32 0"/>
+            </svg>
+            <h3>Stochastic Advantage</h3>
+          </div>
+          <p>Investment research is inherently uncertain. We <strong>quantify uncertainty with confidence bands</strong>, scenario modeling, and risk-adjusted frameworks for decision-making with incomplete information.</p>
+        </div>
+        
+        <div class="positioning-item">
+          <div class="positioning-item-header">
+            <svg class="positioning-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 6.5a5.5 5.5 0 1 1-5.5 5.5"/>
+              <path d="M12 6.5a5.5 5.5 0 1 0 5.5 5.5"/>
+              <path d="M12 4v2.5"/>
+              <path d="M12 17.5V20"/>
+              <path d="m4.2 7.5 1.5 1.5"/>
+              <path d="m18.3 16-1.5 1.5"/>
+              <path d="M7.5 4.2 6 5.7"/>
+              <path d="m16 18.3 1.5 1.5"/>
+            </svg>
+            <h3>Domain-Specific Training</h3>
+          </div>
+          <p>Licensed data synthesis (PitchBook, Cap IQ), regulatory pathway mapping, bottom-up market modeling—trained end-to-end for investment workflows.</p>
+        </div>
+        
+        <div class="positioning-item">
+          <div class="positioning-item-header">
+            <svg class="positioning-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+            <h3>Proven Traction</h3>
+          </div>
+          <p>Validated with tier-1 VCs: <strong>3x analytical depth vs traditional consulting</strong> in 3-4 weeks instead of 12-16. Direct IC integration drives premium pricing.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">
+      <div><strong>Scope note:</strong> Osprey Intel LLC 2025. We're building the infrastructure for the agent economy in investment intelligence.</div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="close-modal-btn" class="modal-close">&times;</button>
+      <h2>Contact Information</h2>
+      <p>For inquiries, please reach out to us at the email address below.</p>
+      <div class="email-container">
+        <span id="email-address">ospr3yintel@gmail.com</span>
+        <button id="copy-email-btn">Copy</button>
+      </div>
+      <div id="copy-success-msg">Email copied to clipboard!</div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const contactBtn = document.getElementById('contact-btn');
+      const contactModal = document.getElementById('contact-modal');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const copyEmailBtn = document.getElementById('copy-email-btn');
+
+      // --- Modal Logic ---
+      if (contactBtn && contactModal && closeModalBtn) {
+        const showModal = () => contactModal.style.display = 'flex';
+        const hideModal = () => {
+          contactModal.style.display = 'none';
+          document.getElementById('copy-success-msg').style.display = 'none'; // Reset message
+        };
+
+        contactBtn.addEventListener('click', showModal);
+        closeModalBtn.addEventListener('click', hideModal);
+        contactModal.addEventListener('click', (e) => {
+          if (e.target === contactModal) hideModal();
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && contactModal.style.display === 'flex') hideModal();
+        });
+      }
+
+      // --- Clipboard Logic ---
+      function showCopyMessage(success) {
+        const msg = document.getElementById('copy-success-msg');
+        if (success) {
+            msg.textContent = 'Email copied to clipboard!';
+            msg.style.color = 'var(--teal)';
+        } else {
+            msg.textContent = 'Failed to copy email!';
+            msg.style.color = '#d9534f'; // Error red
+        }
+        msg.style.display = 'block';
+        setTimeout(() => { msg.style.display = 'none'; }, 2500);
+      }
+
+      function fallbackCopyTextToClipboard(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            showCopyMessage(successful);
+        } catch (err) {
+            console.error('Fallback copy method failed', err);
+            showCopyMessage(false);
+        }
+        document.body.removeChild(textArea);
+      }
+
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', () => {
+          const emailToCopy = document.getElementById('email-address').textContent;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(emailToCopy).then(() => {
+              showCopyMessage(true);
+            }).catch(err => {
+              console.warn('Modern clipboard API failed. Falling back.', err);
+              fallbackCopyTextToClipboard(emailToCopy);
+            });
+          } else {
+            console.warn('Modern clipboard API not available. Using fallback.');
+            fallbackCopyTextToClipboard(emailToCopy);
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

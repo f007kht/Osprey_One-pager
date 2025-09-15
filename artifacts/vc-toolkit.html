@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VC Analysis Toolkit | Autus Valve Technologies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #383733;
+        }
+        .interactive-tool {
+            background: linear-gradient(145deg, #ffffff, #f7f5f2);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 20px; height: 20px;
+            background: #8c7a6b; cursor: pointer;
+            border-radius: 50%; border: 2px solid #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px; height: 20px;
+            background: #8c7a6b; cursor: pointer;
+            border-radius: 50%; border: 2px solid #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        .scenario-btn {
+            transition: all 0.2s;
+        }
+        .scenario-btn.active {
+            background-color: #8c7a6b;
+            color: white;
+            border-color: #8c7a6b;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <h1 class="text-xl font-bold text-[#383733]">VC Analysis Toolkit</h1>
+                <a href="./1_autus_dashboard_preview main.html" class="text-sm font-medium text-gray-600 hover:text-[#8c7a6b] transition-colors">&larr; Back to Main Dashboard</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="tools">
+            <p class="text-lg text-gray-600 mb-8 max-w-3xl">Interactive models for pre-money valuation and capitalization table forecasting, aligned with the VC Method. Adjust the Series A investment to see how pre-money valuation and ownership change while the post-money valuation remains fixed by your exit assumptions.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="interactive-tool p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">Valuation & Round KPIs</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="exitValue" class="text-sm font-medium text-gray-700 block mb-1">Exit Value ($M)</label>
+                            <input type="number" id="exitValue" value="250" class="w-full p-2 border border-gray-300 rounded-md">
+                        </div>
+                        <div>
+                            <label for="targetReturn" class="text-sm font-medium text-gray-700 block mb-1">Target Multiple (MoIC)</label>
+                            <input type="number" id="targetReturn" value="5" class="w-full p-2 border border-gray-300 rounded-md">
+                        </div>
+                        <div>
+                             <label for="futureDilution" class="text-sm font-medium text-gray-700 block mb-1">Future Dilution</label>
+                            <input type="number" id="futureDilution" value="10" class="w-full p-2 border border-gray-300 rounded-md" placeholder="e.g., 10 for 10%">
+                        </div>
+                         <div>
+                            <label for="preFD" class="text-sm font-medium text-gray-700 block mb-1">Pre-Round Shares</label>
+                            <input type="number" id="preFD" value="10000000" class="w-full p-2 border border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                    <div class="bg-[#f8f7f4] p-4 rounded-lg border border-dashed border-[#d4c8be]" aria-live="polite">
+                        <div class="flex justify-between items-center py-2">
+                            <span class="font-medium">Required Ownership:</span>
+                            <span id="ownership" class="font-bold text-lg text-[#8c7a6b]">33.33%</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-t border-gray-200">
+                            <span class="font-medium">Post-Money Valuation:</span>
+                            <span id="postMoney" class="font-bold text-lg text-gray-800">$45.0M</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-t border-gray-200">
+                            <span class="font-medium">Pre-Money Valuation:</span>
+                            <span id="preMoney" class="font-bold text-lg text-gray-800">$30.0M</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-tool p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-2">Pro Forma Cap Table</h3>
+                    <div>
+                        <label for="seriesAInvestment" class="text-sm font-medium text-gray-700 block mb-1">Simulate Series A Investment ($M): <span id="seriesAValue" class="font-bold text-[#8c7a6b]">15.0</span></label>
+                        <input type="range" id="seriesAInvestment" min="5" max="25" value="15" step="0.5" class="w-full h-2 bg-[#d4c8be] rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-center gap-2 mt-3" id="scenario-buttons">
+                            <button class="scenario-btn px-3 py-1 text-sm border border-gray-300 rounded-full" data-investment="10">$10M Round</button>
+                            <button class="scenario-btn active px-3 py-1 text-sm border border-gray-300 rounded-full" data-investment="15">$15M Round</button>
+                            <button class="scenario-btn px-3 py-1 text-sm border border-gray-300 rounded-full" data-investment="20">$20M Round</button>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-4 py-2">Stakeholder</th>
+                                    <th scope="col" class="px-4 py-2 text-right">Pre-Series A</th>
+                                    <th scope="col" class="px-4 py-2 text-right">Post-Series A</th>
+                                </tr>
+                            </thead>
+                            <tbody id="capTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-xs text-gray-500">
+            <p>&copy; 2025 Osprey Intel LLC. For modeling and informational purposes only.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            function initializeVCToolkit() {
+                // --- DOM element references ---
+                const ui = {
+                    exitValue: document.getElementById('exitValue'),
+                    targetReturn: document.getElementById('targetReturn'),
+                    futureDilution: document.getElementById('futureDilution'),
+                    preFD: document.getElementById('preFD'),
+                    seriesASlider: document.getElementById('seriesAInvestment'),
+                    seriesAValue: document.getElementById('seriesAValue'),
+                    capTableBody: document.getElementById('capTableBody'),
+                    ownership: document.getElementById('ownership'),
+                    postMoney: document.getElementById('postMoney'),
+                    preMoney: document.getElementById('preMoney'),
+                    scenarioButtons: document.getElementById('scenario-buttons')
+                };
+
+                // --- Helper functions for formatting ---
+                const format = {
+                    pct: (n) => `${(n * 100).toFixed(2)}%`,
+                    usd: (n) => `$${n.toFixed(1)}M`,
+                    shares: (n) => Math.round(n).toLocaleString('en-US')
+                };
+
+                function recomputeAndRender() {
+                    // --- 1. Get all inputs ---
+                    const inputs = {
+                        exit: parseFloat(ui.exitValue.value) || 250,
+                        multiple: parseFloat(ui.targetReturn.value) || 5,
+                        dilution: (parseFloat(ui.futureDilution.value) || 10) / 100,
+                        preFDShares: parseInt(ui.preFD.value, 10) || 10000000,
+                        investment: parseFloat(ui.seriesASlider.value) || 15,
+                        esopPostTarget: 0.15 // 15% post-money target, included in pre
+                    };
+                    
+                    ui.seriesAValue.textContent = inputs.investment.toFixed(1);
+
+                    // --- 2. Core VC Method Calculations (from Canvas 1) ---
+                    // Post-money valuation is "pinned" by exit assumptions. Pre-money floats.
+                    const requiredOwnershipNow = (inputs.investment * inputs.multiple / inputs.exit) / (1 - inputs.dilution);
+                    const postMoneyVal = inputs.investment / requiredOwnershipNow;
+                    const preMoneyVal = postMoneyVal - inputs.investment;
+
+                    // --- 3. Share-level Mathematics (from Canvas 2) ---
+                    const pps = (preMoneyVal * 1_000_000) / inputs.preFDShares;
+                    const newSeriesAShares = (inputs.investment * 1_000_000) / pps;
+                    
+                    // --- 4. ESOP Top-Up Calculation ---
+                    // Calculate ESOP shares needed to hit the post-money target.
+                    const postMoneyShares = inputs.preFDShares + newSeriesAShares;
+                    const esopShares = inputs.esopPostTarget * postMoneyShares;
+                    
+                    // Since ESOP is "included in pre", it dilutes founders, not new investors.
+                    const founderShares = inputs.preFDShares - esopShares;
+                    if (founderShares < 0) {
+                        console.error("ESOP target is too high for the given pre-money shares.");
+                        ui.capTableBody.innerHTML = '<tr><td colspan="3" class="text-center text-red-500 p-4">Error: ESOP target exceeds pre-money shares.</td></tr>';
+                        return;
+                    }
+
+                    // --- 5. Update KPI cards ---
+                    ui.ownership.textContent = format.pct(requiredOwnershipNow);
+                    ui.postMoney.textContent = format.usd(postMoneyVal);
+                    ui.preMoney.textContent = format.usd(preMoneyVal);
+                    
+                    // --- 6. Render the Pro Forma Cap Table ---
+                    const tableData = {
+                        pre: {
+                            founders: { pct: founderShares / inputs.preFDShares, shares: founderShares },
+                            esop: { pct: esopShares / inputs.preFDShares, shares: esopShares },
+                            total: inputs.preFDShares
+                        },
+                        post: {
+                            founders: { pct: founderShares / postMoneyShares, shares: founderShares },
+                            esop: { pct: esopShares / postMoneyShares, shares: esopShares },
+                            seriesA: { pct: newSeriesAShares / postMoneyShares, shares: newSeriesAShares },
+                            total: postMoneyShares
+                        }
+                    };
+
+                    ui.capTableBody.innerHTML = `
+                        <tr class="bg-white border-b">
+                            <td class="px-4 py-2 font-medium text-gray-900">Founders & Early</td>
+                            <td class="px-4 py-2 text-right">${format.pct(tableData.pre.founders.pct)}</td>
+                            <td class="px-4 py-2 text-right font-semibold text-[#383733]">${format.pct(tableData.post.founders.pct)}</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-4 py-2 font-medium text-gray-900">ESOP (Option Pool)</td>
+                            <td class="px-4 py-2 text-right">${format.pct(tableData.pre.esop.pct)}</td>
+                            <td class="px-4 py-2 text-right font-semibold text-[#383733]">${format.pct(tableData.post.esop.pct)}</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-4 py-2 font-medium text-gray-900">Series A</td>
+                            <td class="px-4 py-2 text-right">&mdash;</td>
+                            <td class="px-4 py-2 text-right font-semibold text-[#8c7a6b]">${format.pct(tableData.post.seriesA.pct)}</td>
+                        </tr>
+                        <tr class="bg-gray-50 border-t-2">
+                            <td class="px-4 py-2 font-bold">Total Shares</td>
+                            <td class="px-4 py-2 text-right font-bold">${format.shares(tableData.pre.total)}</td>
+                            <td class="px-4 py-2 text-right font-bold">${format.shares(tableData.post.total)}</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-4 py-2 font-bold">Price Per Share (PPS)</td>
+                            <td colspan="2" class="px-4 py-2 text-right font-bold">$${pps.toFixed(3)}</td>
+                        </tr>
+                    `;
+
+                    // Update active state on scenario buttons
+                    ui.scenarioButtons.querySelectorAll('.scenario-btn').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.investment == inputs.investment);
+                    });
+                }
+
+                // --- Event Listeners ---
+                const allInputs = [ui.exitValue, ui.targetReturn, ui.futureDilution, ui.preFD, ui.seriesASlider];
+                allInputs.forEach(input => {
+                    input.addEventListener('input', recomputeAndRender);
+                });
+
+                ui.scenarioButtons.addEventListener('click', (e) => {
+                    if (e.target.matches('.scenario-btn')) {
+                        const investment = e.target.dataset.investment;
+                        ui.seriesASlider.value = investment;
+                        recomputeAndRender(); // Re-render with new value
+                    }
+                });
+
+                // --- Initial Calculation on Load ---
+                recomputeAndRender();
+            }
+
+            initializeVCToolkit();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management of Congenital RVOT Lesions: An Interactive Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #007bff;
+            border-bottom-color: #007bff;
+        }
+        .section-title {
+            color: #003d7a;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .pathway-step {
+            cursor: pointer;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+        .pathway-step.active {
+            border-color: #007bff;
+            background-color: #e7f3ff;
+            color: #003d7a;
+            transform: scale(1.05);
+        }
+        .pathway-arrow {
+            color: #adb5bd;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .btn {
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-secondary.active {
+            background-color: #343a40;
+        }
+        .unmet-need-card.active {
+            border: 2px solid #007bff;
+        }
+        .unmet-need-content {
+            display: none;
+        }
+        .unmet-need-content.active {
+            display: block;
+        }
+        .citation {
+            font-size: 0.7rem;
+            color: #6c757d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="./index.html" class="text-sm text-gray-500 hover:text-blue-600 transition-colors">&larr; Return to Index</a>
+                    <div class="text-2xl font-bold text-gray-800">RVOT Lesion Management</div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#overview" class="nav-link active">Overview</a>
+                    <a href="#pathway" class="nav-link">Care Pathway</a>
+                    <a href="#tech" class="nav-link">Technologies</a>
+                    <a href="#needs" class="nav-link">Unmet Needs</a>
+                    <a href="#future" class="nav-link">Future Outlook</a>
+                </div>
+                 <button id="mobile-menu-button" class="md:hidden flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-black hover:border-black">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-3z"/></svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden flex flex-col items-center mt-4 space-y-4">
+                 <a href="./index.html" class="nav-link">Return to Index</a>
+                 <a href="#overview" class="nav-link active">Overview</a>
+                 <a href="#pathway" class="nav-link">Care Pathway</a>
+                 <a href="#tech" class="nav-link">Technologies</a>
+                 <a href="#needs" class="nav-link">Unmet Needs</a>
+                 <a href="#future" class="nav-link">Future Outlook</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <section id="overview" class="scroll-mt-20">
+            <h1 class="text-4xl font-bold text-center mb-4 section-title">The Lifelong Journey of Managing Congenital RVOT Lesions</h1>
+            <p class="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-12">The clinical management of Right Ventricular Outflow Tract (RVOT) lesions is not a single event, but a lifelong journey marked by serial interventions. The core challenge stems from a fundamental technology gap: current prosthetic valves cannot grow with a child, necessitating repeated high-risk, high-cost procedures.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 text-center">
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-2">Staggering Economic Burden</h3>
+                    <p class="text-5xl font-extrabold text-gray-800 mb-4">$2.2M</p>
+                    <p class="text-gray-600">Estimated average lifetime financial cost for a patient with complex congenital heart disease. <span class="citation">(Primary: Additional Ventures; Secondary: Osprey research and analysis)</span></p>
+                </div>
+                <div class="card p-8">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-2">The Core Clinical Problem</h3>
+                    <p class="text-5xl font-extrabold text-gray-800 mb-4">→ Re-intervention</p>
+                    <p class="text-gray-600">Fixed-size prostheses force a cycle of re-operations, the central unmet need in pediatric cardiac valve therapy. <span class="citation">(Primary: Nature Biomed Eng 2018; Secondary: Osprey research and analysis)</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pathway" class="mt-20 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-4 section-title">Interactive Pediatric Care Pathway</h2>
+            <p class="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-12">This pathway illustrates the typical treatment journey for a child with an RVOT lesion, from initial diagnosis and palliation to definitive repair and long-term surveillance. Click on each step to explore the specific clinical decisions, procedures, and challenges involved.</p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 mb-8">
+                <div id="path-step-1" class="pathway-step active p-4 rounded-lg w-full md:w-auto text-center"><strong>1.</strong> Neonate/Infant Staging</div>
+                <div class="pathway-arrow text-2xl font-bold transform md:-rotate-0 rotate-90">&rarr;</div>
+                <div id="path-step-2" class="pathway-step p-4 rounded-lg w-full md:w-auto text-center"><strong>2.</strong> Primary Definitive Repair</div>
+                <div class="pathway-arrow text-2xl font-bold transform md:-rotate-0 rotate-90">&rarr;</div>
+                <div id="path-step-3" class="pathway-step p-4 rounded-lg w-full md:w-auto text-center"><strong>3.</strong> Surveillance & PVR Timing</div>
+                <div class="pathway-arrow text-2xl font-bold transform md:-rotate-0 rotate-90">&rarr;</div>
+                <div id="path-step-4" class="pathway-step p-4 rounded-lg w-full md:w-auto text-center"><strong>4.</strong> PVR Modality Choice</div>
+            </div>
+
+            <div id="pathway-content" class="card p-8 min-h-[300px]">
+            </div>
+        </section>
+
+        <section id="tech" class="mt-20 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-4 section-title">Technology Comparison: Surgical vs. Transcatheter PVR</h2>
+            <p class="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-12">Pulmonary valve replacement (PVR) can be performed via traditional open-heart surgery or a minimally invasive transcatheter (TPVR) approach. Recent long-term data suggests similar 10-year freedom from re-intervention between Melody TPVR and surgery. <span class="citation">(Primary: AHA Journals/Munich Study; Secondary: Osprey research and analysis)</span> Use the buttons to switch between datasets.</p>
+            
+            <div class="flex justify-center space-x-4 mb-8">
+                <button id="show-durability" class="btn btn-secondary active px-6 py-2 rounded-md">Durability</button>
+                <button id="show-complications" class="btn btn-secondary px-6 py-2 rounded-md">Complications</button>
+            </div>
+            
+            <div class="card p-4 md:p-8">
+                <div class="chart-container">
+                    <canvas id="pvrComparisonChart"></canvas>
+                </div>
+            </div>
+             <div class="mt-12 grid md:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-2 text-center text-blue-700">Biological vs. Mechanical</h4>
+                    <p class="text-gray-600"><strong>Biological valves</strong> are standard in the pulmonary position to avoid anticoagulation, but degenerate over time. <strong>Mechanical valves</strong> are rare due to thrombosis risk. <span class="citation">(Primary: SpringerLink; Secondary: Osprey research and analysis)</span></p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-2 text-center text-blue-700">"Expandable" (Today)</h4>
+                    <p class="text-gray-600">Current devices can be post-dilated, but valve leaflets don't grow, leading to eventual patient-prosthesis mismatch. <span class="citation">(Primary: eifu.edwards.com; Secondary: Osprey research and analysis)</span></p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-2 text-center text-blue-700">"Growth-Accommodating" (Future)</h4>
+                    <p class="text-gray-600">The goal is a valve that expands with the child. Investigational devices (e.g., Autus Valve) aim to solve this. <span class="citation">(Primary: Autus Valve; Secondary: Osprey research and analysis)</span></p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="needs" class="mt-20 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-4 section-title">Unmet Needs & The Innovation Frontier</h2>
+            <p class="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-12">Despite significant advances, critical challenges remain in the management of pediatric RVOT lesions. These "unmet needs" define the innovation frontier, driving research into new materials, devices, and clinical strategies. Click each need to see the corresponding approaches.</p>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/3">
+                    <ul class="space-y-4">
+                       <li><button data-need="1" class="unmet-need-card active text-left w-full card p-4"><strong>Lack of Growth:</strong> The core pediatric problem.</button></li>
+                       <li><button data-need="2" class="unmet-need-card text-left w-full card p-4"><strong>Infective Endocarditis (IE):</strong> A risk, especially with TPVR.</button></li>
+                       <li><button data-need="3" class="unmet-need-card text-left w-full card p-4"><strong>Anatomic Coverage:</strong> TPVR challenged by large/irregular RVOTs.</button></li>
+                       <li><button data-need="4" class="unmet-need-card text-left w-full card p-4"><strong>Device Profile & Access:</strong> Sheath sizes limit use in small children.</button></li>
+                       <li><button data-need="5" class="unmet-need-card text-left w-full card p-4"><strong>PVR Timing:</strong> Pediatric-specific triggers are still debated.</button></li>
+                    </ul>
+                </div>
+                <div class="md:w-2/3 card p-8">
+                    <div id="unmet-need-content-1" class="unmet-need-content active">
+                        <h3 class="font-bold text-xl mb-3 text-blue-700">Attacking the Lack of Growth</h3>
+                        <p>Fixed-size prostheses lead to inevitable re-interventions. This is the primary pain point in pediatric care.</p>
+                        <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                            <li><strong>New Approaches:</strong>
+                                <ul class="list-disc list-inside ml-6">
+                                    <li><strong>Growth-accommodating valves:</strong> Investigational devices like the Autus Valve are designed to expand over time. <span class="citation">(Primary: Autus Valve; Secondary: Osprey research and analysis)</span></li>
+                                    <li><strong>Tissue-engineered valves:</strong> Using a patient's own cells to grow a living valve. <span class="citation">(Primary: JHLT Online; Secondary: Osprey research and analysis)</span></li>
+                                    <li><strong>Partial heart transplant:</strong> An emerging concept to implant living pediatric valves. <span class="citation">(Primary: JAMA Network)</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="unmet-need-content-2" class="unmet-need-content">
+                        <h3 class="font-bold text-xl mb-3 text-blue-700">Combating Infective Endocarditis</h3>
+                        <p>IE risk is higher after TPVR, particularly with bovine jugular vein (BJV) tissue. <span class="citation">(Primary: JAHA 2019 meta-analysis; Secondary: Osprey research and analysis)</span></p>
+                         <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                            <li><strong>New Approaches:</strong>
+                                <ul class="list-disc list-inside ml-6">
+                                    <li><strong>Material Science:</strong> Developing more infection-resistant biomaterials.</li>
+                                    <li><strong>Prevention Protocols:</strong> Enhanced antibiotic stewardship and dental care education.</li>
+                                    <li><strong>Homografts:</strong> Surgical PVR with homografts shows lower IE risk vs BJV conduits.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="unmet-need-content-3" class="unmet-need-content">
+                         <h3 class="font-bold text-xl mb-3 text-blue-700">Expanding Anatomic Coverage</h3>
+                        <p>Very large or irregular native RVOTs can be unsuitable for current TPVR devices, forcing a surgical approach.</p>
+                         <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                            <li><strong>New Approaches:</strong>
+                                <ul class="list-disc list-inside ml-6">
+                                    <li><strong>New Devices:</strong> Harmony and Alterra+SAPIEN 3 systems have significantly expanded eligibility. <span class="citation">(Primary: Medtronic/Edwards; Secondary: Osprey research and analysis)</span></li>
+                                    <li><strong>Ex-US Technology:</strong> Self-expanding systems like Venus P-valve (CE-marked) are filling gaps. <span class="citation">(Primary: Cardiac Interventions Today)</span></li>
+                                    <li><strong>Hybrid Approaches:</strong> Combining surgical and transcatheter techniques.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                     <div id="unmet-need-content-4" class="unmet-need-content">
+                        <h3 class="font-bold text-xl mb-3 text-blue-700">Improving Access for Small Children</h3>
+                        <p>Large delivery sheath sizes and venous access challenges limit the use of TPVR in low-weight children.</p>
+                         <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                            <li><strong>New Approaches:</strong>
+                                <ul class="list-disc list-inside ml-6">
+                                    <li><strong>Downsized Delivery Systems:</strong> Research into smaller, more flexible catheters.</li>
+                                    <li><strong>Alternative Access Routes:</strong> Exploring non-femoral access points for device delivery.</li>
+                                    <li><strong>Staged Strategies:</strong> Using smaller interventions as a bridge to definitive TPVR.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                     <div id="unmet-need-content-5" class="unmet-need-content">
+                        <h3 class="font-bold text-xl mb-3 text-blue-700">Refining PVR Timing</h3>
+                        <p>The standard RV volume thresholds for PVR (e.g., RVEDVi ≥160 mL/m²) are derived from adult data. <span class="citation">(Primary: ACC/AHA 2018 ACHD; Secondary: Osprey research and analysis)</span></p>
+                         <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                            <li><strong>New Approaches:</strong>
+                                <ul class="list-disc list-inside ml-6">
+                                    <li><strong>Advanced Imaging:</strong> Using cardiac MRI strain analysis and 4D flow to detect early signs of RV dysfunction.</li>
+                                    <li><strong>Biomarkers:</strong> Research into blood-based markers that could predict adverse RV remodeling.</li>
+                                    <li><strong>Longitudinal Studies:</strong> Pediatric-focused studies to establish optimal, evidence-based timing thresholds.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="mt-20 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-4 section-title">What to Watch: #RegWatch & #TechScouting</h2>
+            <p class="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-12">The field is evolving rapidly. Keep an eye on these key regulatory and technological developments that are poised to shape the future standard of care.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-2 text-blue-700">Harmony & Alterra</h4>
+                    <p class="text-gray-600">Post-market data for these devices will continue to refine patient selection and procedural workflow. <span class="citation">(Primary: FDA PMA P200046B; Secondary: Osprey research and analysis)</span></p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-2 text-blue-700">Ex-US Devices</h4>
+                    <p class="text-gray-600">The Venus P-valve (CE-marked 2022) and Pulsta are gaining clinical experience, offering potential new options. <span class="citation">(Primary: Cardiovascular News)</span></p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-2 text-blue-700">Autus Valve</h4>
+                    <p class="text-gray-600">A true growth-accommodating valve with FDA Breakthrough designation. Early clinical data is highly anticipated. <span class="citation">(Primary: Boston Children's; Secondary: Osprey research and analysis)</span></p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl mb-2 text-blue-700">Tissue Engineering</h4>
+                    <p class="text-gray-600">While early, advances in creating living, self-repairing heart valves represent the ultimate long-term solution. <span class="citation">(Primary: Circulation Research; Secondary: Osprey research and analysis)</span></p>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center text-sm text-gray-500 mt-20 py-6 border-t">
+            <p>This interactive analysis is for illustrative purposes and is based on a synthesis of publicly available epidemiological and clinical data.</p>
+            <p>© 2025 Osprey Intel LLC. All Rights Reserved.</p>
+        </footer>
+    </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const pathwayData = {
+        'path-step-1': {
+            title: 'Step 1: Neonate/Infant Staging & Palliation',
+            content: `
+                <p class="mb-4">Initial management is highly lesion-specific. The goal is to establish stable pulmonary blood flow and prepare the infant for a later definitive repair.</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Isolated Valvar PS:</strong> Balloon pulmonary valvuloplasty (BPV) is the first-line, standard-of-care procedure. It's a transcatheter intervention that avoids a sternotomy. <span class="citation">(Primary: Thoracic & Cardiovascular Surgery; Secondary: Osprey research and analysis)</span></li>
+                    <li><strong>Duct-Dependent Flow (e.g., PA/IVS, TOF variants):</strong> Ductal and RVOT stenting are increasingly favored over surgical shunts as they provide pulsatile flow, which may promote more balanced pulmonary artery growth. <span class="citation">(Primary: AHA Journals/Frontiers; Secondary: Osprey research and analysis)</span></li>
+                </ul>
+            `
+        },
+        'path-step-2': {
+            title: 'Step 2: Primary Definitive Repair',
+            content: `
+                <p class="mb-4">For conditions like Tetralogy of Fallot (TOF), complete repair is typically performed in the first year of life. The surgical approach has long-term consequences.</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Valve-Sparing Repair:</strong> This is the preferred technique when the patient's anatomy allows, leading to less lifelong pulmonary regurgitation (PR).</li>
+                    <li><strong>Transannular Patch:</strong> Used when the pulmonary valve annulus is too small. This approach guarantees significant PR, setting the stage for future RV dilation and the eventual need for a pulmonary valve replacement (PVR). <span class="citation">(Primary: JAMA Network; Secondary: Osprey research and analysis)</span></li>
+                    <li><strong>RV-PA Conduits:</strong> Required for the most complex anatomies (e.g., Rastelli-type repairs), also necessitating future replacement.</li>
+                </ul>
+            `
+        },
+        'path-step-3': {
+            title: 'Step 3: Surveillance and Timing of PVR',
+            content: `
+                <p class="mb-4">Following primary repair, patients enter a long phase of surveillance to monitor for the consequences of chronic PR, primarily RV dilation and dysfunction. Timing the PVR is a critical decision.</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Monitoring:</strong> Patients undergo serial echocardiograms and cardiac MRIs (CMR). CMR is the gold standard for quantifying RV volumes and function.</li>
+                    <li><strong>PVR Triggers (ACC/AHA Guidelines):</strong> PVR is considered with ≥moderate PR plus symptoms. If asymptomatic, intervention is considered if ≥2 criteria are met, such as severe RV dilation (RVEDVi ≥160 mL/m² or RVESVi ≥80 mL/m²). <span class="citation">(Primary: American College of Cardiology; Secondary: Osprey research and analysis)</span></li>
+                </ul>
+            `
+        },
+        'path-step-4': {
+            title: 'Step 4: Choosing the PVR Modality',
+            content: `
+                <p class="mb-4">The choice between surgical PVR and transcatheter PVR (TPVR) is driven entirely by the patient's specific RVOT anatomy. Pre-procedural imaging (CT/MRI) is mandatory.</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>Anatomy: Conduit/Failed Surgical Valve:</strong> Often candidates for TPVR with devices like the Medtronic Melody or Edwards SAPIEN 3 valves.</li>
+                    <li><strong>Anatomy: Native/Patch RVOT:</strong> Addressed by newer devices like the Medtronic Harmony or the Alterra adaptive prestent + SAPIEN 3. <span class="citation">(Primary: Medtronic/Edwards Lifesciences; Secondary: Osprey research and analysis)</span></li>
+                    <li><strong>Safety Step:</strong> A mandatory coronary compression test must be performed before any TPVR to ensure the device will not obstruct coronary arteries. <span class="citation">(Primary: AHA Journals/EJ Radiology)</span></li>
+                </ul>
+            `
+        }
+    };
+    
+    const pathwaySteps = document.querySelectorAll('.pathway-step');
+    const pathwayContentEl = document.getElementById('pathway-content');
+
+    function updatePathwayContent(stepId) {
+        const data = pathwayData[stepId];
+        pathwayContentEl.innerHTML = `<h3 class="text-2xl font-bold mb-4 text-blue-800">${data.title}</h3><div>${data.content}</div>`;
+        pathwaySteps.forEach(step => {
+            step.classList.toggle('active', step.id === stepId);
+        });
+    }
+
+    pathwaySteps.forEach(step => {
+        step.addEventListener('click', () => {
+            updatePathwayContent(step.id);
+        });
+    });
+
+    updatePathwayContent('path-step-1');
+
+    const durabilityData = {
+        labels: ['Surgical PVR', 'TPVR (Melody)'],
+        datasets: [{
+            label: '10-Year Freedom from Re-intervention',
+            data: [89, 90],
+            backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+            borderColor: ['rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)'],
+            borderWidth: 1
+        }]
+    };
+
+    const complicationsData = {
+        labels: ['Surgical PVR (Homograft)', 'TPVR (BJVC Tissue)'],
+        datasets: [{
+            label: 'Relative Risk of Infective Endocarditis',
+            data: [1, 2.5], 
+            backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+            borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+            borderWidth: 1
+        }]
+    };
+    
+    const chartConfig = {
+        type: 'bar',
+        data: durabilityData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) { return value + '%' }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Percentage (%)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Durability: 10-Year Freedom from Re-intervention',
+                    font: {
+                        size: 16
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw}%`;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    const ctx = document.getElementById('pvrComparisonChart').getContext('2d');
+    let pvrChart = new Chart(ctx, chartConfig);
+
+    const durabilityBtn = document.getElementById('show-durability');
+    const complicationsBtn = document.getElementById('show-complications');
+    
+    durabilityBtn.addEventListener('click', () => {
+        pvrChart.data = durabilityData;
+        pvrChart.options.scales.y.max = 100;
+        pvrChart.options.scales.y.title.text = 'Percentage (%)';
+        pvrChart.options.plugins.title.text = 'Durability: 10-Year Freedom from Re-intervention';
+         pvrChart.options.plugins.tooltip.callbacks.label = function(context) {
+            return `${context.dataset.label}: ${context.raw}%`;
+        };
+        pvrChart.update();
+        durabilityBtn.classList.add('active');
+        complicationsBtn.classList.remove('active');
+    });
+
+    complicationsBtn.addEventListener('click', () => {
+        pvrChart.data = complicationsData;
+        pvrChart.options.scales.y.max = 3;
+        pvrChart.options.scales.y.title.text = 'Relative Risk (Index)';
+        pvrChart.options.plugins.title.text = 'Complications: Relative Risk of Infective Endocarditis';
+        pvrChart.options.plugins.tooltip.callbacks.label = function(context) {
+            return `${context.dataset.label}: ~${context.raw}x Risk vs Homograft`;
+        };
+        pvrChart.update();
+        complicationsBtn.classList.add('active');
+        durabilityBtn.classList.remove('active');
+    });
+    
+    const needButtons = document.querySelectorAll('.unmet-need-card');
+    const needContents = document.querySelectorAll('.unmet-need-content');
+
+    needButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const needId = button.dataset.need;
+
+            needButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            needContents.forEach(content => {
+                content.classList.toggle('active', content.id === `unmet-need-content-${needId}`);
+            });
+        });
+    });
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                });
+            }
+        });
+    }, { rootMargin: "-50% 0px -50% 0px" });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            document.querySelector(targetId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+});
+</script>
+</body>
+</html>
+

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Talon — GPCR Licensing One‑Pager (2021–2025)</title>
+<style>
+  :root{
+    --bg:#0b0c10;
+    --panel:#111317;
+    --ink:#e8ecf1;
+    --muted:#99a3ad;
+    --accent:#66d9ed;
+    --accent-2:#8ad47a;
+    --danger:#ff7a7a;
+    --grid-gap:16px;
+    --card-radius:14px;
+  }
+  html,body{height:100%}
+  html{background:var(--bg); color:var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;}
+  body{margin:0; padding:24px; line-height:1.45}
+  .wrap{max-width:1100px; margin:0 auto}
+  header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:24px}
+  header h1{font-size:24px; margin:0}
+  header .tags{display:flex; gap:8px; flex-wrap:wrap}
+  .tag{background:#1a1f27; color:#cfe7ff; border:1px solid #2a3442; padding:4px 8px; border-radius:999px; font-size:12px; white-space:nowrap}
+  .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:var(--grid-gap)}
+  .card{background:var(--panel); border:1px solid #202632; border-radius:var(--card-radius); padding:16px}
+  .shadow{box-shadow: 0 10px 24px rgba(0,0,0,.25)}
+  h2{font-size:16px; margin:0 0 8px 0; letter-spacing:.2px}
+  h3{font-size:13px; margin:0 0 8px 0; color:var(--muted); font-weight:600}
+  p{margin:0 0 10px 0}
+  small, .meta{color:var(--muted)}
+  .kpi{display:flex; align-items:flex-end; justify-content:space-between}
+  .kpi .num{font-size:32px; font-weight:700}
+  .kpi .lbl{font-size:12px; color:var(--muted)}
+  .cols-3{grid-column: span 3}
+  .cols-4{grid-column: span 4}
+  .cols-5{grid-column: span 5}
+  .cols-6{grid-column: span 6}
+  .cols-7{grid-column: span 7}
+  .cols-8{grid-column: span 8}
+  .cols-12{grid-column: span 12}
+  .bullets{padding-left:18px; margin:0}
+  .bullets li{margin:6px 0}
+  .progress{height:10px; border-radius:8px; background:#1a1f27; border:1px solid #2a3442; overflow:hidden}
+  .progress > i{display:block; height:100%; width:calc(var(--pct) * 1%); background:linear-gradient(90deg, var(--accent), var(--accent-2));}
+  .pair{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:10px 0}
+  .pair .label{color:var(--ink)}
+  .pair .value{color:var(--ink); font-weight:600}
+  table{width:100%; border-collapse:collapse; font-size:13px}
+  th, td{padding:8px 10px; border-bottom:1px solid #242a36; vertical-align:top}
+  th{color:#b6c2cf; text-align:left; font-weight:600}
+  .pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; border:1px solid #2a3442; margin-right:6px}
+  .pill.good{color:#89f0a5; border-color:#2f4a38}
+  .pill.caution{color:#ffd399; border-color:#4a3f2f}
+  .pill.bad{color:#ff9d9d; border-color:#4a2f2f}
+  .callout{border-left:4px solid var(--accent); padding-left:12px; background:#0e1117; border-radius:10px; padding:12px}
+  .footnotes{font-size:12px}
+  .btns{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px}
+  .btn{cursor:pointer; border:1px solid #2a3442; background:#18202b; color:#d4e7ff; padding:8px 10px; border-radius:10px; font-size:12px}
+  .btn:hover{filter:brightness(1.1)}
+  @media (max-width:900px){
+    .cols-3, .cols-4, .cols-5, .cols-6, .cols-7, .cols-8{grid-column: span 12}
+    header{flex-direction:column; align-items:flex-start}
+  }
+  @media print{
+    body{background:#fff; color:#111; padding:0}
+    .card{border-color:#ddd; box-shadow:none}
+    .tag{border-color:#ddd; color:#333}
+    .btns{display:none}
+    header{margin-bottom:12px}
+    .wrap{max-width:none; margin:0; padding:0}
+  }
+  .src{color:#cfe7ff}
+  .src small{display:block; color:#8aa2bd}
+  .muted{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Project Talon — GPCR Licensing One‑Pager</h1>
+      <div class="meta">Scope: 35 verified licensing transactions • Jan 2021 – Jul 2025 • Consolidated from Cortellis update, interim board materials, and draft report</div>
+      <div class="tags" style="margin-top:8px">
+        <span class="tag">#MarketSizing</span>
+        <span class="tag">#InvestorTrends</span>
+        <span class="tag">#StrategicBenchmarking</span>
+        <span class="tag">#RegWatch</span>
+        <span class="tag">#DealComparables</span>
+      </div>
+    </div>
+    <div class="btns">
+      <button class="btn" onclick="window.print()">Save to PDF</button>
+      <button class="btn" onclick="toggle('limits')">Toggle limitations</button>
+    </div>
+  </header>
+
+  <!-- KPI row -->
+  <section class="grid">
+    <div class="card shadow cols-3">
+      <div class="kpi">
+        <div>
+          <div class="num">35</div>
+          <div class="lbl">Verified licensing transactions</div>
+        </div>
+      </div>
+      <small class="muted">Cortellis + SEC/press verification with multi‑source triangulation. <!-- fileciteturn0file0 --></small>
+    </div>
+    <div class="card shadow cols-3">
+      <div class="kpi">
+        <div>
+          <div class="num">$45M</div>
+          <div class="lbl">Pre‑clinical median upfront</div>
+        </div>
+      </div>
+      <small class="muted">Range $4M–$250M; median total deal value $713M. <!-- fileciteturn0file0 --></small>
+    </div>
+    <div class="card shadow cols-3">
+      <div class="kpi">
+        <div>
+          <div class="num">$150M</div>
+          <div class="lbl">Phase 1 median upfront</div>
+        </div>
+      </div>
+      <small class="muted">Range $22.5M–$350M; median total deal value $1.47B. <!-- fileciteturn0file0 --></small>
+    </div>
+    <div class="card shadow cols-3">
+      <div class="kpi">
+        <div>
+          <div class="num">$383M</div>
+          <div class="lbl">Phase 2 median upfront</div>
+        </div>
+      </div>
+      <small class="muted">Range $100M–$1.4B; median total deal value $1.70B. <!-- fileciteturn0file0 --></small>
+    </div>
+  </section>
+
+  <!-- Value acceleration -->
+  <section class="grid" style="margin-top:16px">
+    <div class="card cols-6 shadow">
+      <h2>Stage‑gated value acceleration</h2>
+      <div class="pair"><span class="label">Pre‑clinical → Phase 1</span><span class="value">3.3× median upfront</span></div>
+      <div class="pair"><span class="label">Phase 1 → Phase 2</span><span class="value">2.5× median upfront</span></div>
+      <div class="pair"><span class="label">Pre‑clinical → Phase 2</span><span class="value">8.3× median upfront</span></div>
+      <small class="muted">Quartile distributions confirm step‑ups (P1 Q2: $150M; P2 Q2: $375M). <!-- fileciteturn0file0 --></small>
+    </div>
+
+    <div class="card cols-6 shadow">
+      <h2>Development risk / cost benchmarks</h2>
+      <div class="pair"><span class="label">Pre‑clinical</span><span class="value">60–70% attrition • $5–15M • 12–18 mo</span></div>
+      <div class="pair"><span class="label">Phase 1</span><span class="value">~25% failure • $25–40M • 18–24 mo</span></div>
+      <div class="pair"><span class="label">Phase 2</span><span class="value">15–20% failure • $50–150M • 24–36 mo</span></div>
+      <small class="muted">From stage‑gate framework in Cortellis update. <!-- fileciteturn0file0 --></small>
+    </div>
+  </section>
+
+  <!-- Mix -->
+  <section class="grid" style="margin-top:16px">
+    <div class="card cols-6 shadow">
+      <h2>Therapeutic area distribution</h2>
+      <div class="pair"><span class="label">Inflammation / Autoimmune</span><span class="value">43% • median upfront $70M</span></div>
+      <div class="progress"><i style="--pct:43"></i></div>
+
+      <div class="pair"><span class="label">Metabolic / Obesity</span><span class="value">23% • median upfront $200M</span></div>
+      <div class="progress"><i style="--pct:23"></i></div>
+
+      <div class="pair"><span class="label">Oncology</span><span class="value">17% • median upfront $125M</span></div>
+      <div class="progress"><i style="--pct:17"></i></div>
+
+      <div class="pair"><span class="label">CNS / Neurology</span><span class="value">11% • median upfront $350M</span></div>
+      <div class="progress"><i style="--pct:11"></i></div>
+
+      <div class="pair"><span class="label">Other</span><span class="value">6% • median upfront $65M</span></div>
+      <div class="progress"><i style="--pct:6"></i></div>
+
+      <small class="muted">Counts (n=35): 15 / 8 / 6 / 4 / 2 respectively. <!-- fileciteturn0file0 --></small>
+    </div>
+
+    <div class="card cols-6 shadow">
+      <h2>Modality & technology premiums</h2>
+      <ul class="bullets">
+        <li><span class="pill good">2.9×</span> Platform technologies (median upfront ~$200M) — premium vs. small molecule baseline. <!-- fileciteturn0file0 --></li>
+        <li><span class="pill good">2.1×</span> Oral formulations (median upfront ~$150M). <!-- fileciteturn0file0 --></li>
+        <li><span class="pill good">1.8×</span> Biologics (median upfront ~$125M). <!-- fileciteturn0file0 --></li>
+        <li><span class="pill">1.0×</span> Small molecule baseline (median upfront ~$70M). <!-- fileciteturn0file0 --></li>
+      </ul>
+      <h3 style="margin-top:12px">Strategic buyers, 2021–2025</h3>
+      <ul class="bullets">
+        <li>Novo Nordisk — 4 deals, $2.24B committed (metabolic/CNS focus). <!-- fileciteturn0file0 --></li>
+        <li>Novartis — 3 deals, $5.38B committed (broad platform approach). <!-- fileciteturn0file0 --></li>
+        <li>AbbVie — 2 deals, $2.94B committed (inflammation/obesity). <!-- fileciteturn0file0 --></li>
+        <li>Ipsen — 2 deals, $3.85B committed (rare disease). <!-- fileciteturn0file0 --></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Notable deals -->
+  <section class="grid" style="margin-top:16px">
+    <div class="card cols-12 shadow">
+      <h2>Notable disclosed transactions (selection)</h2>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Buyer → Seller</th><th>Asset / Target</th><th>Stage</th><th>Upfront</th><th>Total Deal</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mar 2025</td><td>Roche → Zealand</td><td>CT‑388, petrelintide (amylin/GIP/GLP‑1)</td><td>Phase 2</td><td>$1.40B</td><td>$5.6B</td><td>Obesity; standout late‑stage economics. <!-- fileciteturn0file2 --></td>
+          </tr>
+          <tr>
+            <td>Nov 2024</td><td>Novartis → PTC Therapeutics</td><td>PTC‑518 (HTT splicing modulator)</td><td>Phase 2</td><td>$1.00B</td><td>$2.9B</td><td>Neuro (Huntington’s). <!-- fileciteturn0file2 --></td>
+          </tr>
+          <tr>
+            <td>Jan 2025</td><td>Gilead → LEO Pharma</td><td>LP‑0184 (JAK1)</td><td>Pre‑clinical</td><td>$250M</td><td>$1.7B</td><td>Dermatitis/Asthma; rare pre‑clinical mega‑upfront. <!-- fileciteturn0file0 --></td>
+          </tr>
+          <tr>
+            <td>Nov 2023</td><td>AstraZeneca → Eccogene</td><td>ECC‑5004 (GLP‑1)</td><td>Phase 1</td><td>$245M</td><td>$1.47B</td><td>Metabolic; high P1 benchmark. <!-- fileciteturn0file2 --></td>
+          </tr>
+          <tr>
+            <td>Aug 2022</td><td>Genentech → Kiniksa</td><td>Vixarelimab (OSM‑Rβ)</td><td>Phase 2</td><td>$125M</td><td>$700M</td><td>Autoinflammation. <!-- fileciteturn0file2 --></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Market context / validation -->
+  <section class="grid" style="margin-top:16px">
+    <div class="card cols-6 shadow">
+      <h2>Market validation</h2>
+      <ul class="bullets">
+        <li>Recent activity: 4 of 10 tracked deals completed in 2024 (40%). <!-- fileciteturn0file1 --></li>
+        <li>Antidiabetic market: $44B (2024E) → $99B (2033E), 9.2% CAGR. <!-- fileciteturn0file1 --></li>
+        <li>GPCR pipeline: 23,875 compounds; 44.3% small molecules; 27% oral delivery. <!-- fileciteturn0file1 --></li>
+      </ul>
+      <div style="margin-top:8px">
+        <span class="tag">#MarketSizing</span>
+        <span class="tag">#InvestorTrends</span>
+      </div>
+    </div>
+
+    <div class="card cols-6 shadow">
+      <h2>Strategic value drivers by stage</h2>
+      <ul class="bullets">
+        <li><strong>Pre‑clinical:</strong> Novel MoA (1.5–3× premium), oral bioavailability (1.5–2×), platform potential (2–4×). <!-- fileciteturn0file0 --></li>
+        <li><strong>Phase 1:</strong> Safety differentiation (1.2–1.5×), PK advantages (1.3–1.7×), biomarker correlations (1.4–2×). <!-- fileciteturn0file0 --></li>
+        <li><strong>Phase 2:</strong> Efficacy vs. SoC (2–5×), biomarker‑driven selection (1.8–3×), commercial market validation (2–4×). <!-- fileciteturn0file0 --></li>
+      </ul>
+      <div style="margin-top:8px">
+        <span class="tag">#StrategicBenchmarking</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Actions & risks -->
+  <section class="grid" style="margin-top:16px">
+    <div class="card cols-7 shadow">
+      <h2>Immediate actions (from interim board materials)</h2>
+      <ol class="bullets">
+        <li><strong>Source 3–5 Phase 1 licensing comps</strong> to complete valuation curve before investor meeting. <!-- fileciteturn0file1 --></li>
+        <li>Expand dataset to <strong>15–20 high‑quality licensing comps</strong>; cross‑reference via SEC and press. <!-- fileciteturn0file1 --></li>
+        <li>Automate data mining of SEC filings & press; track GLP‑1 competitive trends. <!-- fileciteturn0file1 --></li>
+      </ol>
+      <div style="margin-top:8px">
+        <span class="tag">#Process</span>
+        <span class="tag">#Automation</span>
+      </div>
+    </div>
+    <div class="card cols-5 shadow" id="limits">
+      <h2>Key risks & limitations</h2>
+      <ul class="bullets">
+        <li>Stage classification & geography heterogeneity can skew medians. <!-- fileciteturn0file0 --></li>
+        <li>Acquisition premiums (e.g., Karuna/Cerevel) not directly comparable to licensing. <!-- fileciteturn0file1 --></li>
+        <li>Public‑only disclosure bias; milestone structures add hidden economics. <!-- fileciteturn0file0 --></li>
+      </ul>
+      <div style="margin-top:8px">
+        <span class="pill caution">Use as directional; not a fairness opinion.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section class="grid" style="margin-top:16px">
+    <div class="card cols-12 shadow src">
+      <h2>Sources</h2>
+      <ul class="bullets">
+        <li>Project Talon — GPCR Deals Starter Database: <strong>Cortellis Intelligence Update</strong> (Jul 2025). <!-- fileciteturn0file0 --></li>
+        <li>Project Talon — <strong>Interim Update (Board Review)</strong> (Jul 2025). <!-- fileciteturn0file1 --></li>
+        <li>Project Talon — <strong>Report DRAFT/Appendix</strong> (2025). <!-- fileciteturn0file2 --></li>
+      </ul>
+      <small>Figures above cite the most recent Cortellis‑verified dataset unless noted in‑line.</small>
+    </div>
+  </section>
+
+  <footer style="margin-top:18px; text-align:center; color:var(--muted)">
+    One‑pager generated for internal use. Print‑optimized; click “Save to PDF” for distribution.
+  </footer>
+</div>
+
+<script>
+function toggle(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+}
+</script>
+</body>
+</html>

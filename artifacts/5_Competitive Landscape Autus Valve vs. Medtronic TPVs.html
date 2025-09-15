@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitive Landscape: Pediatric Pulmonary Valve Technologies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .tab-btn.active {
+            border-color: #0d9488; /* teal-600 */
+            color: #0d9488; /* teal-600 */
+            font-weight: 600;
+        }
+        .feature-btn.active {
+            background-color: #0d9488; /* teal-600 */
+            color: white;
+        }
+        .highlight-feature {
+            background-color: #ccfbf1; /* teal-100 */
+            border: 2px solid #0d9488; /* teal-600 */
+            transition: all 0.3s ease-in-out;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="./index.html" class="text-sm text-slate-500 hover:text-teal-600 transition-colors">&larr; Return to Index</a>
+                <h1 class="text-xl md:text-2xl font-bold text-teal-700">Pulmonary Valve Competitive Landscape</h1>
+            </div>
+            <div class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#snapshot" class="text-slate-600 hover:text-teal-600 transition">Snapshot</a>
+                <a href="#journey" class="text-slate-600 hover:text-teal-600 transition">Patient Journey</a>
+                <a href="#analysis" class="text-slate-600 hover:text-teal-600 transition">Deep Dive</a>
+                <a href="#investor" class="text-slate-600 hover:text-teal-600 transition">Investor View</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="summary" class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">A Paradigm Shift in Pediatric Pulmonary Valve Replacement</h2>
+            <p class="max-w-3xl mx-auto text-base md:text-lg text-slate-600">
+                The Autus Valve challenges the current standard of care with a "grow-with-the-child" technology, aiming to reduce the lifetime burden of repeat open-heart surgeries. This analysis compares its disruptive potential against market-leading, fixed-size transcatheter pulmonary valves (TPVs).
+            </p>
+        </section>
+
+        <section id="snapshot" class="mb-12 md:mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Interactive Device Snapshot</h2>
+                <p class="max-w-2xl mx-auto mt-2 text-slate-600">Select a feature to compare all devices at a glance. This section provides a direct comparison of the core attributes of each valve, helping to quickly identify their fundamental differences in design, application, and patient suitability.</p>
+            </div>
+
+            <div id="feature-buttons" class="flex flex-wrap justify-center gap-2 md:gap-3 mb-8">
+                <button data-feature="design" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-slate-300 rounded-full hover:bg-slate-100 transition">Design & Material</button>
+                <button data-feature="indications" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-slate-300 rounded-full hover:bg-slate-100 transition">Indications</button>
+                <button data-feature="access" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-slate-300 rounded-full hover:bg-slate-100 transition">Access Profile</button>
+                <button data-feature="growth" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-slate-300 rounded-full hover:bg-slate-100 transition">Growth Accommodation</button>
+                <button data-feature="evidence" class="feature-btn px-4 py-2 text-sm font-medium bg-white border border-slate-300 rounded-full hover:bg-slate-100 transition">Evidence Base</button>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="device-card bg-white rounded-lg shadow-md p-6 border-t-4 border-teal-500">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Autus Valve</h3>
+                    <div data-feature-content="design" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Design & Material</h4>
+                        <p class="text-sm">Surgically implanted, fully synthetic bileaflet valve inspired by venous-valve geometry.</p>
+                    </div>
+                    <div data-feature-content="indications" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Indications / Anatomy</h4>
+                        <p class="text-sm">Pediatric pulmonary valve replacement. Currently in an FDA-approved pivotal study.</p>
+                    </div>
+                    <div data-feature-content="access" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Access Profile</h4>
+                        <p class="text-sm">Initial surgical implant. Later expansions are catheter-based, avoiding large venous access.</p>
+                    </div>
+                    <div data-feature-content="growth" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Growth Accommodation</h4>
+                        <p class="text-sm font-bold text-teal-600">Yes. Core design principle. Can be expanded post-implant to match somatic growth.</p>
+                    </div>
+                    <div data-feature-content="evidence" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Evidence Base / Stage</h4>
+                        <p class="text-sm">Early clinical stage. Successful 11-subject Early Feasibility Study. Now in pivotal study.</p>
+                    </div>
+                </div>
+                 <div class="device-card bg-white rounded-lg shadow-md p-6 border-t-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Medtronic Melody™ TPV</h3>
+                     <div data-feature-content="design" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Design & Material</h4>
+                        <p class="text-sm">Balloon-expandable TPV from a bovine jugular vein valve sewn into a platinum-iridium stent.</p>
+                    </div>
+                    <div data-feature-content="indications" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Indications / Anatomy</h4>
+                        <p class="text-sm">Dysfunctional RVOT conduits or existing bioprosthetic valves (≥16 mm). Not for native RVOT.</p>
+                    </div>
+                    <div data-feature-content="access" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Access Profile</h4>
+                        <p class="text-sm">Requires 22 Fr venous access for its delivery system.</p>
+                    </div>
+                    <div data-feature-content="growth" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Growth Accommodation</h4>
+                        <p class="text-sm font-bold text-red-600">No. The device has a fixed frame size.</p>
+                    </div>
+                    <div data-feature-content="evidence" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Evidence Base / Stage</h4>
+                        <p class="text-sm">Extensive post-market data from over 18,000 patients globally. Known risks: stent fracture, endocarditis.</p>
+                    </div>
+                </div>
+                <div class="device-card bg-white rounded-lg shadow-md p-6 border-t-4 border-indigo-500">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Medtronic Harmony™ TPV</h3>
+                    <div data-feature-content="design" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Design & Material</h4>
+                        <p class="text-sm">Self-expanding TPV from porcine pericardial leaflets in a nitinol frame with anti-mineralization treatment.</p>
+                    </div>
+                    <div data-feature-content="indications" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Indications / Anatomy</h4>
+                        <p class="text-sm">Severe pulmonary regurgitation in a native or surgically-repaired RVOT.</p>
+                    </div>
+                    <div data-feature-content="access" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Access Profile</h4>
+                        <p class="text-sm">Requires ~25 Fr venous access for its delivery catheter.</p>
+                    </div>
+                    <div data-feature-content="growth" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Growth Accommodation</h4>
+                        <p class="text-sm font-bold text-red-600">No. The device has a fixed frame size.</p>
+                    </div>
+                    <div data-feature-content="evidence" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Evidence Base / Stage</h4>
+                        <p class="text-sm">FDA approved in 2021. Growing data shows favorable performance, no endocarditis in one-year trial cohorts.</p>
+                    </div>
+                </div>
+                <div class="device-card bg-white rounded-lg shadow-md p-6 border-t-4 border-purple-500">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Edwards SAPIEN 3 w/ Alterra</h3>
+                    <div data-feature-content="design" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Design & Material</h4>
+                        <p class="text-sm">Two-part system: A self-expanding nitinol 'Alterra' prestent creates a landing zone for the SAPIEN 3 valve.</p>
+                    </div>
+                    <div data-feature-content="indications" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Indications / Anatomy</h4>
+                        <p class="text-sm">Severe pulmonary regurgitation in patients with a wide range of RVOT morphologies.</p>
+                    </div>
+                    <div data-feature-content="access" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Access Profile</h4>
+                        <p class="text-sm">Requires 16 Fr eSheath, the smallest access profile of the current TPVs.</p>
+                    </div>
+                    <div data-feature-content="growth" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Growth Accommodation</h4>
+                        <p class="text-sm font-bold text-red-600">No. The device has a fixed frame size.</p>
+                    </div>
+                    <div data-feature-content="evidence" class="feature-content mb-4 p-3 rounded-lg transition-all duration-300">
+                        <h4 class="font-semibold text-sm text-slate-600 mb-1">Evidence Base / Stage</h4>
+                        <p class="text-sm">FDA approved in 2021 for severe PR. Clinical data is growing from pivotal trials and early commercial use.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey" class="mb-12 md:mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800">The Patient Journey: A Lifetime View</h2>
+                <p class="max-w-3xl mx-auto mt-2 text-slate-600">This timeline contrasts the potential lifetime treatment pathways. The Autus Valve's core value is its attempt to change a history of serial surgeries into a single surgery followed by minimally invasive expansions, profoundly altering the patient and family experience.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-8 items-start">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-teal-600 mb-4">Autus Valve Pathway</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold mr-4">1</div>
+                            <div>
+                                <h4 class="font-semibold">Initial Surgery (Young Child)</h4>
+                                <p class="text-sm text-slate-600">One-time open-heart surgery to implant the Autus Valve.</p>
+                            </div>
+                        </div>
+                        <div class="ml-4 h-12 border-l-2 border-dashed border-slate-300"></div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold mr-4">2</div>
+                            <div>
+                                <h4 class="font-semibold">Growth & Expansion</h4>
+                                <p class="text-sm text-slate-600">As the child grows, the valve is expanded via minimally invasive balloon dilation as needed.</p>
+                            </div>
+                        </div>
+                        <div class="ml-4 h-12 border-l-2 border-dashed border-slate-300"></div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold mr-4">3</div>
+                            <div>
+                                <h4 class="font-semibold">Adulthood</h4>
+                                <p class="text-sm text-slate-600">Patient reaches adulthood, potentially deferring or eliminating the need for further major valve surgeries.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Typical TPV/Surgical Pathway</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                             <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-500 text-white flex items-center justify-center font-bold mr-4">1</div>
+                            <div>
+                                <h4 class="font-semibold">Initial Surgery (Young Child)</h4>
+                                <p class="text-sm text-slate-600">Surgical valve or conduit placement. Child is too small for TPVs.</p>
+                            </div>
+                        </div>
+                        <div class="ml-4 h-12 border-l-2 border-dashed border-slate-300"></div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-500 text-white flex items-center justify-center font-bold mr-4">2</div>
+                            <div>
+                                <h4 class="font-semibold">Outgrowth & Degeneration</h4>
+                                <p class="text-sm text-slate-600">The fixed-size valve degenerates or is outgrown, requiring intervention.</p>
+                            </div>
+                        </div>
+                        <div class="ml-4 h-12 border-l-2 border-dashed border-slate-300"></div>
+                        <div class="flex items-start">
+                             <div class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-500 text-white flex items-center justify-center font-bold mr-4">3</div>
+                            <div>
+                                <h4 class="font-semibold">Repeat Interventions</h4>
+                                <p class="text-sm text-slate-600">Patient undergoes repeat open-heart surgeries or, when large enough, a TPV procedure (e.g., Melody™, Harmony™, or SAPIEN 3 w/ Alterra).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="mb-12 md:mb-16">
+            <div class="text-center mb-8">
+                 <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Deep Dive Analysis</h2>
+                 <p class="max-w-2xl mx-auto mt-2 text-slate-600">Explore the nuanced differences in patient targeting, anatomical application, materials science, and safety. This section provides the detailed clinical and commercial context behind the high-level comparisons.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md">
+                <div class="border-b border-slate-200">
+                    <div id="tabs" class="flex flex-wrap -mb-px px-4">
+                        <button class="tab-btn active text-sm font-medium p-4 border-b-2 border-transparent" data-tab="patient">Patient Segment & Access</button>
+                        <button class="tab-btn text-sm font-medium p-4 border-b-2 border-transparent" data-tab="anatomy">Anatomical Fit</button>
+                        <button class="tab-btn text-sm font-medium p-4 border-b-2 border-transparent" data-tab="materials">Materials & Durability</button>
+                        <button class="tab-btn text-sm font-medium p-4 border-b-2 border-transparent" data-tab="safety">Safety Profile & Evidence</button>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8">
+                    <div id="patient" class="tab-content space-y-4 text-slate-600">
+                        <p>The primary distinction is the target population. Autus Valve is aimed at younger, smaller children needing surgical replacement who are poor candidates for the large delivery systems of most TPVs.</p>
+                        <p>The TPVs compete for larger children, adolescents, and adults. Here, access profile is a key differentiator. The Edwards SAPIEN 3 with Alterra has the smallest profile at 16 Fr, potentially expanding access to smaller patients compared to Melody™ (22 Fr) and Harmony™ (~25 Fr). Autus's paradigm—one surgery followed by catheter-based expansions—aims to avoid this TPV sizing issue altogether in early childhood.</p>
+                    </div>
+                    <div id="anatomy" class="tab-content hidden space-y-4 text-slate-600">
+                        <p>Melody™ is for patients with existing RVOT conduits or bioprosthetic valves. Harmony™ was the first TPV for a native or surgically-repaired RVOT.</p>
+                        <p>The SAPIEN 3 with Alterra system expands the addressable anatomy by using a prestent to create a predictable landing zone in a wide variety of native RVOTs, directly competing with Harmony™. The Autus Valve, as a surgical implant, is versatile for the pulmonary position, but its key innovation is spanning multiple pediatric sizes over time, a feature no TPV offers.</p>
+                    </div>
+                    <div id="materials" class="tab-content hidden space-y-4 text-slate-600">
+                        <p>Autus utilizes a fully synthetic leaflet platform, avoiding potential calcification associated with bioprosthetic (animal tissue) valves. Long-term durability after expansion is the key variable.</p>
+                        <p>The commercial TPVs all use bioprosthetic tissue: Melody™ (bovine), Harmony™ (porcine), and SAPIEN 3 (bovine pericardium). The Alterra prestent is a nitinol frame with a PET covering. These tissue valves are known to degenerate over time and cannot grow with the patient.</p>
+                    </div>
+                    <div id="safety" class="tab-content hidden">
+                        <div class="chart-container">
+                            <canvas id="evidenceChart"></canvas>
+                        </div>
+                        <div class="mt-4 text-xs text-center text-slate-500">
+                            *Number of patients reflects data from pivotal trials or cited global post-market data. This chart illustrates the vast difference in clinical data maturity. The value for SAPIEN 3 w/ Alterra is an estimate based on initial clinical trial sizes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="investor" class="bg-slate-100 rounded-lg p-6 md:p-8">
+             <div class="text-center mb-8">
+                 <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Investor Dashboard</h2>
+                 <p class="max-w-2xl mx-auto mt-2 text-slate-600">This is the bottom line for investors: understanding Autus Valve's unique market position, the critical data to watch, and the likely competitive landscape in the coming years. Success hinges on proving long-term durability and safety.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg text-teal-700 mb-2">Differentiation</h3>
+                    <p class="text-sm text-slate-600">Growth accommodation is the defining advantage. The "one surgical implant, multiple catheter-based upsizes" proposition is a powerful differentiator that could allow Autus to dominate the small-child segment where TPVs are not viable.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg text-teal-700 mb-2">Proof Points to Monitor</h3>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                        <li>Leaflet durability after multiple dilations.</li>
+                        <li>Rates of calcification & thrombosis vs. tissue valves.</li>
+                        <li>Real-world safety of balloon expansion procedures.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg text-teal-700 mb-2">Market Segmentation</h3>
+                    <p class="text-sm text-slate-600">The market is not a zero-sum game. TPVs will remain standard for older patients. The battleground for Autus is the younger pediatric surgical segment. The TPV market itself sees intense competition on access profile and anatomical fit.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white mt-12 border-t">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
+            <p>This interactive analysis is based on public information and provided reports. For investigational use only.</p>
+            <p class="mt-2">&copy; 2025 Osprey Intel LLC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabsContainer = document.getElementById('tabs');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            if(tabsContainer) {
+                tabsContainer.addEventListener('click', function (e) {
+                    if (e.target.classList.contains('tab-btn')) {
+                        const targetTab = e.target.dataset.tab;
+
+                        tabsContainer.querySelectorAll('.tab-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+
+                        tabContents.forEach(content => {
+                            if (content.id === targetTab) {
+                                content.classList.remove('hidden');
+                            } else {
+                                content.classList.add('hidden');
+                            }
+                        });
+                    }
+                });
+            }
+
+            const featureButtonsContainer = document.getElementById('feature-buttons');
+            const featureContents = document.querySelectorAll('.feature-content');
+
+            if(featureButtonsContainer) {
+                featureButtonsContainer.addEventListener('click', function(e) {
+                    if(e.target.classList.contains('feature-btn')) {
+                        const targetFeature = e.target.dataset.feature;
+
+                        const isActive = e.target.classList.contains('active');
+
+                        featureButtonsContainer.querySelectorAll('.feature-btn').forEach(btn => btn.classList.remove('active'));
+                        
+                        featureContents.forEach(content => content.classList.remove('highlight-feature'));
+                        
+                        if (!isActive) {
+                            e.target.classList.add('active');
+                            document.querySelectorAll(`[data-feature-content="${targetFeature}"]`).forEach(el => {
+                                el.classList.add('highlight-feature');
+                            });
+                        }
+                    }
+                });
+            }
+
+            const evidenceData = {
+                labels: ['Autus Valve', 'SAPIEN 3 w/ Alterra', 'Harmony™ TPV', 'Melody™ TPV'],
+                datasets: [{
+                    label: 'Patients Studied/Implanted (Estimate)',
+                    data: [11, 60, 200, 18000], 
+                    backgroundColor: [
+                        'rgba(20, 184, 166, 0.6)',  // Teal
+                        'rgba(168, 85, 247, 0.6)',  // Purple
+                        'rgba(99, 102, 241, 0.6)',  // Indigo
+                        'rgba(59, 130, 246, 0.6)'   // Blue
+                    ],
+                    borderColor: [
+                        'rgb(13, 148, 136)',
+                        'rgb(147, 51, 234)',
+                        'rgb(79, 70, 229)',
+                        'rgb(37, 99, 235)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const evidenceChartCtx = document.getElementById('evidenceChart');
+            if(evidenceChartCtx) {
+                new Chart(evidenceChartCtx, {
+                    type: 'bar',
+                    data: evidenceData,
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                type: 'logarithmic',
+                                title: {
+                                    display: true,
+                                    text: 'Number of Patients (Log Scale)'
+                                }
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.x !== null) {
+                                            label += '~' + context.parsed.x.toLocaleString();
+                                        }
+                                        return label;
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Clinical Evidence Base Maturity (Patient Volume)',
+                                font: {
+                                    size: 16
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

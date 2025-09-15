@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Analysis: Pediatric Pulmonary Valve Market</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .nav-link.active {
+            background-color: #e2e8f0;
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+        }
+         @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        sup {
+            font-size: 0.6em;
+            vertical-align: super;
+            color: #4f46e5;
+            cursor: pointer;
+            margin-left: 2px;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+        .value-box p {
+             font-size: 2.25rem;
+             line-height: 2.5rem;
+             font-weight: 700;
+             color: #4f46e5;
+        }
+         .value-box h3 {
+             font-size: 0.875rem;
+             line-height: 1.25rem;
+             color: #475569;
+             margin-bottom: 0.5rem;
+             font-weight: 500;
+         }
+    </style>
+</head>
+<body class="text-slate-700">
+    <header class="bg-slate-50/80 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="./index.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 py-2 px-3 rounded-md">
+                        &larr; Return to Index
+                    </a>
+                    <h1 class="text-xl font-bold text-slate-800">Pediatric Pulmonary Valve Market</h1>
+                </div>
+                <div class="hidden md:flex md:space-x-2">
+                    <a href="#overview" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Overview</a>
+                    <a href="#us-market" class="nav-link text-sm font-medium py-2 px-3 rounded-md">U.S. Market</a>
+                    <a href="#global-dynamics" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Global Dynamics</a>
+                    <a href="#technology" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Technology</a>
+                    <a href="#competition" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Competition</a>
+                    <a href="#innovation" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Innovation</a>
+                    <a href="#sources" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Sources</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <section id="overview" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-6">Executive Summary</h2>
+            <div class="bg-white p-6 rounded-xl shadow-md text-slate-600 space-y-6">
+                 <div>
+                    <h3 class="text-xl font-semibold text-slate-800 mb-3">A Top-Down Validation of the Market Opportunity</h3>
+                    <p class="mb-4">This report provides a comprehensive top-down analysis of the global pediatric pulmonary valve market, serving as a complementary exercise to our granular bottom-up market model. Our findings are based on a "consensus" view, derived from a rigorous process of triangulating data between premier market research firms (BCC Research, Statista), advanced analytical modeling, and validation against real-world clinical and regulatory sources. This ensures a comprehensive, reliable, and defensible market perspective.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t">
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Key Findings</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="font-semibold text-slate-700">Market Size & Growth:</strong> The market is valued at <strong class="text-slate-800">$275-325M in 2024</strong> and is projected to grow at a <strong class="text-slate-800">6-8% CAGR</strong>, driven by improved CHD survival rates and technology adoption.<a href="#sources"><sup>S1</sup></a></li>
+                            <li><strong class="font-semibold text-slate-700">Technology Migration:</strong> A definitive shift towards minimally invasive <strong class="text-slate-800">transcatheter therapies</strong> is underway. These premium-priced devices capture disproportionate market value despite lower volumes.<a href="#sources"><sup>S2</sup></a></li>
+                            <li><strong class="font-semibold text-slate-700">U.S. Market Nuance:</strong> The U.S. realized device revenue today is <strong class="text-slate-800">~$55-75M</strong>, while the strategic TAM, assuming premium pricing across all procedures, is <strong class="text-slate-800">~$133M</strong>.<a href="#sources"><sup>S7</sup></a></li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Strategic Implications</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="font-semibold text-slate-700">Innovation Imperative:</strong> The most significant opportunity lies in <strong class="text-slate-800">growth-accommodating valves</strong> that solve the critical unmet need of reducing lifelong re-operations for children.<a href="#sources"><sup>S4</sup></a></li>
+                            <li><strong class="font-semibold text-slate-700">Investment Focus:</strong> The high-growth transcatheter segment and companies with breakthrough device potential represent the most attractive investment targets.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="us-market" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">U.S. Market Deep Dive</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-4xl">
+                The U.S. market illustrates the key dynamics shaping the industry. While the total addressable market (TAM) is significant, the currently realized revenue reflects a mixed adoption of surgical and premium-priced transcatheter devices. This interactive model demonstrates how shifts in procedure volume and pricing impact the market's value.
+            </p>
+             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center max-w-6xl mx-auto bg-white p-6 rounded-xl shadow-md">
+                    <div class="lg:col-span-1 space-y-6">
+                        <div>
+                            <label for="procedure-slider" class="block text-sm font-medium text-gray-700">Annual Procedures: <span id="procedure-value" class="font-bold text-indigo-600">3,800</span><a href="#sources"><sup>S7</sup></a></label>
+                            <input id="procedure-slider" type="range" min="3000" max="5000" value="3800" step="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <label for="asp-slider" class="block text-sm font-medium text-gray-700">Blended ASP: <span id="asp-value" class="font-bold text-indigo-600">$18,158</span><a href="#sources"><sup>S7</sup></a></label>
+                            <input id="asp-slider" type="range" min="15000" max="35000" value="18158" step="500" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div class="pt-4">
+                            <div class="kpi-card value-box text-center">
+                                <h3>U.S. Market Value</h3>
+                                <p id="tam-value">$69.0M</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 chart-container w-full h-96">
+                        <canvas id="marketSizeChart"></canvas>
+                    </div>
+                </div>
+        </section>
+
+        <section id="global-dynamics" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">Global Market Dynamics</h2>
+             <p class="text-lg text-slate-600 mb-8 max-w-4xl">
+                This section explores the financial trajectory and geographic distribution of the global market. The consistent growth is underpinned by increasing diagnosis rates, improved survival for congenital heart disease, and expanding healthcare access in developing regions.
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-4 text-center">Global Market Growth Projection (USD Millions)<a href="#sources"><sup>S1</sup></a></h3>
+                    <div class="chart-container">
+                        <canvas id="globalMarketGrowthChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex justify-center items-center mb-4">
+                        <h3 class="text-xl font-semibold text-slate-800">Regional Dynamics<a href="#sources"><sup>S5</sup></a></h3>
+                        <div class="ml-4 bg-slate-100 p-1 rounded-lg">
+                            <button id="shareBtn" class="px-3 py-1 text-sm font-medium rounded-md bg-white text-cyan-700 shadow">Share %</button>
+                            <button id="cagrBtn" class="px-3 py-1 text-sm font-medium rounded-md text-slate-600">CAGR %</button>
+                        </div>
+                    </div>
+                    <div class="chart-container" style="height:360px;">
+                        <canvas id="regionalDynamicsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="technology" class="mb-16">
+             <h2 class="text-3xl font-bold text-slate-900 mb-2">Technology & Procedural Landscape</h2>
+             <p class="text-lg text-slate-600 mb-8 max-w-4xl">
+                 A fundamental shift is underway from traditional open-heart surgery to minimally invasive transcatheter procedures. While surgical options still represent the majority of procedures, their transcatheter counterparts command significantly higher prices, allowing them to capture a disproportionately large share of the market's total value.
+             </p>
+             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                 <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-md">
+                     <h3 class="text-xl font-semibold text-slate-800 mb-4 text-center">Procedure Volume vs. Market Value Share<a href="#sources"><sup>S2</sup></a></h3>
+                      <div class="chart-container">
+                         <canvas id="volumeVsValueChart"></canvas>
+                     </div>
+                 </div>
+                 <div class="lg:col-span-2 space-y-6">
+                     <div class="kpi-card">
+                         <h4 class="font-semibold text-slate-800">Surgical Valves (SPVR)</h4>
+                         <p class="text-3xl font-bold text-cyan-600 mt-2">$8k - $15k<a href="#sources"><sup>S6</sup></a></p>
+                         <p class="text-sm text-slate-500 mt-1">Average Selling Price</p>
+                     </div>
+                      <div class="kpi-card">
+                         <h4 class="font-semibold text-slate-800">Transcatheter Valves (TPVR)</h4>
+                         <p class="text-3xl font-bold text-cyan-600 mt-2">$30k - $40k<a href="#sources"><sup>S6</sup></a></p>
+                         <p class="text-sm text-slate-500 mt-1">Average Selling Price</p>
+                     </div>
+                 </div>
+             </div>
+        </section>
+        
+        <section id="competition" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">Competitive Intelligence</h2>
+              <p class="text-lg text-slate-600 mb-8 max-w-4xl">
+                 The market is highly concentrated, with Medtronic and Edwards Lifesciences forming a near duopoly. This dominance is protected by significant barriers to entry, including immense clinical trial costs, stringent regulatory approvals, and robust intellectual property portfolios.
+             </p>
+             <div class="bg-white p-6 rounded-xl shadow-md">
+                <h3 class="text-xl font-semibold text-slate-800 mb-6 text-center">Market Leaders & Key Products</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <h4 class="text-lg font-semibold text-slate-800">Medtronic (35-40% Share)</h4>
+                        <p class="text-sm text-slate-600 mt-1">The market leader with a purpose-built portfolio for different patient anatomies.</p>
+                        <img src="https://placehold.co/400x200/F0F9FF/334155?text=Medtronic+Valves" alt="Medtronic Valve Products" class="my-4 rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x200/F0F9FF/334155?text=Image+Not+Available';">
+                        <ul class="mt-4 space-y-2 text-sm">
+                            <li><span class="font-semibold">Melody™ TPV:</span> For dysfunctional RV-to-PA conduits.</li>
+                            <li><span class="font-semibold">Harmony™ TPV:</span> For larger, native or repaired RVOTs.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-slate-800">Edwards Lifesciences (25-30% Share)</h4>
+                        <p class="text-sm text-slate-600 mt-1">Leverages its flagship SAPIEN platform, adapting it for pulmonary use.</p>
+                        <img src="https://placehold.co/400x200/F0F9FF/334155?text=Edwards+SAPIEN+3" alt="Edwards SAPIEN 3 Valve" class="my-4 rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x200/F0F9FF/334155?text=Image+Not+Available';">
+                        <ul class="mt-4 space-y-2 text-sm">
+                            <li><span class="font-semibold">SAPIEN™ 3 Valve with Alterra™ Prestent:</span> A two-part system to reshape the RVOT for a SAPIEN implant.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="mt-8 border-t pt-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4 text-center">Global Market Share (2024 Est.)<a href="#sources"><sup>S3</sup></a></h3>
+                            <div class="chart-container" style="height:360px;">
+                                <canvas id="competitiveShareChart"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4 text-center">High Barriers to Entry<a href="#sources"><sup>S4</sup></a></h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-6 w-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold">1</div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold">Clinical & Regulatory Hurdles</h4>
+                                        <p class="text-slate-600 text-sm">Lengthy and expensive pivotal trials required for FDA/PMA approval.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-6 w-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold">2</div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold">Intellectual Property Moat</h4>
+                                        <p class="text-slate-600 text-sm">Incumbents hold extensive patent portfolios protecting core technologies.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-6 w-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold">3</div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold">Physician Relationships</h4>
+                                        <p class="text-slate-600 text-sm">Established trust and training programs with leading pediatric cardiologists.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section id="innovation" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">The Innovation Imperative</h2>
+              <p class="text-lg text-slate-600 mb-8 max-w-4xl">
+                 The future of pediatric cardiac care hinges on breaking the cycle of repeat operations. The most significant market disruption will come from growth-accommodating valves. These devices promise a "one valve for life" solution, fundamentally altering the treatment paradigm.
+             </p>
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h3 class="text-xl font-semibold text-slate-800 mb-6 text-center">Patient Journey: Current vs. Future Paradigm<a href="#sources"><sup>S4</sup></a></h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold text-center text-red-600">Current Paradigm: Repeat Surgeries</h4>
+                        <div class="mt-4 flex flex-col items-center space-y-2 text-sm">
+                            <div class="p-3 bg-red-100 rounded-lg w-full text-center font-medium">Implant #1 (Infancy)</div>
+                            <div class="text-red-500 font-bold text-xl">↓</div>
+                            <div class="p-3 bg-red-100 rounded-lg w-full text-center font-medium">Re-Operation (Childhood)</div>
+                            <div class="text-red-500 font-bold text-xl">↓</div>
+                            <div class="p-3 bg-red-100 rounded-lg w-full text-center font-medium">Re-Operation (Adolescence)</div>
+                        </div>
+                    </div>
+                     <div>
+                        <h4 class="font-semibold text-center text-green-600">Future Paradigm: Growth-Accommodation</h4>
+                        <div class="mt-4 flex flex-col items-center space-y-2 text-sm">
+                            <div class="p-3 bg-green-100 rounded-lg w-full text-center font-medium">Single Surgical Implant</div>
+                            <div class="text-green-500 font-bold text-xl">↓</div>
+                            <div class="p-3 bg-green-100 rounded-lg w-full text-center font-medium">Catheter Expansion #1</div>
+                            <div class="text-green-500 font-bold text-xl">↓</div>
+                            <div class="p-3 bg-green-100 rounded-lg w-full text-center font-medium">Catheter Expansion #2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sources" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">Sources Log</h2>
+            <div class="bg-white p-6 rounded-xl shadow-md overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Claim</th>
+                            <th>Primary Source</th>
+                            <th>Secondary Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>S1</td>
+                            <td>Market Size & Growth Projections</td>
+                            <td>BCC Research, Statista</td>
+                            <td>Top-Down Sizing Analysis, Meta-Narrative</td>
+                        </tr>
+                         <tr>
+                            <td>S2</td>
+                            <td>Technology Migration & Volume/Value Split</td>
+                            <td>Grand View Research, ClinicalTrials.gov</td>
+                            <td>Top-Down Sizing Analysis, Note: Autus Valve</td>
+                        </tr>
+                        <tr>
+                            <td>S3</td>
+                            <td>Competitive Market Share</td>
+                            <td>Company SEC Filings, Investor Reports</td>
+                            <td>Top-Down Sizing Analysis, Meta-Narrative</td>
+                        </tr>
+                         <tr>
+                            <td>S4</td>
+                            <td>Innovation Imperative & Unmet Needs</td>
+                            <td>Autus Valve Patent Filings, PubMed Clinical Reviews</td>
+                            <td>RVOT Lesion Management Report, Meta-Narrative</td>
+                        </tr>
+                        <tr>
+                            <td>S5</td>
+                            <td>Regional Market Dynamics & CAGR</td>
+                            <td>BCC Research, Statista</td>
+                            <td>Top-Down Sizing Analysis</td>
+                        </tr>
+                         <tr>
+                            <td>S6</td>
+                            <td>Average Selling Prices (ASPs) - Global</td>
+                            <td>Hospital Purchasing Data, Reimbursement Schedules</td>
+                            <td>Meta-Narrative, Top-Down Sizing Analysis</td>
+                        </tr>
+                         <tr>
+                            <td>S7</td>
+                            <td>U.S. Market Sizing (Procedures, ASPs, Revenue)</td>
+                            <td>IMPACT Registry, Payer Contract Data</td>
+                            <td>Osprey Intel research and analysis</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+    </main>
+    <footer class="text-center mt-16 text-slate-500 text-sm">
+        <p>&copy; 2025 Osprey Intel LLC. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const createChart = (ctx, config) => {
+            if (ctx.chart) ctx.chart.destroy();
+            ctx.chart = new Chart(ctx, config);
+        };
+
+        // U.S. Market Interactive Chart
+        const procedureSlider = document.getElementById('procedure-slider');
+        const aspSlider = document.getElementById('asp-slider');
+        const procedureValue = document.getElementById('procedure-value');
+        const aspValue = document.getElementById('asp-value');
+        const tamValue = document.getElementById('tam-value');
+        const usMarketCtx = document.getElementById('marketSizeChart').getContext('2d');
+        let usMarketChart;
+
+        function formatCurrency(value, isTAM = false) {
+            if (isTAM) {
+                 return '$' + (value / 1000000).toFixed(1) + 'M';
+            }
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+        }
+
+        function updateUSMarket() {
+            const procedures = parseInt(procedureSlider.value);
+            const asp = parseInt(aspSlider.value);
+            const tam = procedures * asp;
+
+            procedureValue.textContent = procedures.toLocaleString();
+            aspValue.textContent = formatCurrency(asp);
+            tamValue.textContent = formatCurrency(tam, true);
+            
+            updateUSChart(procedures, asp);
+        }
+        
+        function updateUSChart(procedures, asp) {
+                const dataPoints = [0.8, 0.9, 1.0, 1.1, 1.2];
+                const labels = dataPoints.map(p => `${Math.round(p*100)}% of Base`);
+                const data = dataPoints.map(p => (procedures * p * asp) / 1000000);
+
+                if(usMarketChart) {
+                    usMarketChart.data.labels = labels;
+                    usMarketChart.data.datasets[0].data = data;
+                    usMarketChart.update();
+                } else {
+                     usMarketChart = new Chart(usMarketCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Market Size ($M)',
+                                data: data,
+                                backgroundColor: '#a5b4fc',
+                                borderColor: '#6366f1',
+                                borderWidth: 1,
+                                borderRadius: 4,
+                            }]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            scales: {
+                                y: { beginAtZero: true, title: { display: true, text: 'Market Size ($M)' }},
+                                x: { title: { display: true, text: 'Sensitivity to Procedure Volume' }}
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { callbacks: { label: (c) => `$${c.raw.toFixed(1)}M` } }
+                            }
+                        }
+                    });
+                }
+            }
+
+        procedureSlider.addEventListener('input', updateUSMarket);
+        aspSlider.addEventListener('input', updateUSMarket);
+        updateUSMarket();
+
+
+        // Global Market Growth Chart
+        const globalMarketGrowthCtx = document.getElementById('globalMarketGrowthChart').getContext('2d');
+        createChart(globalMarketGrowthCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2025', '2027', '2029', '2031', '2033', '2035'],
+                datasets: [{
+                    label: 'Global Market Value (USD Millions)',
+                    data: [325, 390, 470, 560, 650, 700],
+                    backgroundColor: 'rgba(22, 163, 175, 0.7)',
+                    borderColor: 'rgba(22, 163, 175, 1)',
+                    borderWidth: 1, borderRadius: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `$${c.raw}M` } } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'USD Millions' } } } }
+        });
+
+        const regionalCtx = document.getElementById('regionalDynamicsChart').getContext('2d');
+        const regionalData = {
+            share: {
+                labels: ['North America', 'Europe', 'Asia-Pacific', 'Rest of World'],
+                datasets: [{ data: [45, 28, 18, 9], backgroundColor: ['#06b6d4', '#22d3ee', '#67e8f9', '#a5f3fc'] }]
+            },
+            cagr: {
+                labels: ['North America', 'Europe', 'Asia-Pacific', 'Rest of World'],
+                datasets: [{ data: [7.5, 7.1, 10.6, 6.5], backgroundColor: ['#0891b2', '#0e7490', '#155e75', '#164e63'] }]
+            }
+        };
+
+        const shareBtn = document.getElementById('shareBtn');
+        const cagrBtn = document.getElementById('cagrBtn');
+        const updateRegionalChart = (view) => {
+            const data = view === 'share' ? regionalData.share : regionalData.cagr;
+            const titleText = view === 'share' ? 'Market Share (2024)' : 'Projected CAGR % (2025-2035)';
+            shareBtn.classList.toggle('bg-white', view === 'share');
+            shareBtn.classList.toggle('text-cyan-700', view === 'share');
+            cagrBtn.classList.toggle('bg-white', view === 'cagr');
+            cagrBtn.classList.toggle('text-cyan-700', view === 'cagr');
+            createChart(regionalCtx, { type: 'doughnut', data: data, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, title: { display: true, text: titleText }, tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw}%` } } } } });
+        };
+        shareBtn.addEventListener('click', () => updateRegionalChart('share'));
+        cagrBtn.addEventListener('click', () => updateRegionalChart('cagr'));
+        updateRegionalChart('share');
+
+        const volumeVsValueCtx = document.getElementById('volumeVsValueChart').getContext('2d');
+        createChart(volumeVsValueCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Surgical', 'Transcatheter'],
+                datasets: [
+                    { label: 'Procedure Volume %', data: [75, 25], backgroundColor: 'rgba(100, 116, 139, 0.7)'},
+                    { label: 'Market Value %', data: [65, 35], backgroundColor: 'rgba(22, 163, 175, 0.7)'}
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.raw}%` } } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'Percentage (%)' } } } }
+        });
+
+        const competitiveShareCtx = document.getElementById('competitiveShareChart').getContext('2d');
+        createChart(competitiveShareCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Medtronic', 'Edwards Lifesciences', 'Other/Emerging'],
+                datasets: [{ data: [38, 28, 34], backgroundColor: ['#06b6d4', '#0891b2', '#a5f3fc'] }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw}%` } } } }
+        });
+
+        const sections = document.querySelectorAll('main > section');
+        const navLinks = document.querySelectorAll('nav a.nav-link');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                    });
+                }
+            });
+        }, { rootMargin: "-40% 0px -60% 0px" });
+        sections.forEach(section => observer.observe(section));
+    });
+    </script>
+</body>
+</html>

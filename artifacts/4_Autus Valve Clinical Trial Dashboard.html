@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autus Valve Pivotal Study (NCT05006404) Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #1e293b;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 640px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .accordion-content {
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <a href="./index.html" class="text-sm text-slate-500 hover:text-blue-600 transition-colors mb-2 block">&larr; Return to Index</a>
+            <h1 class="text-3xl font-bold leading-tight text-slate-800">Autus Valve Pivotal Study</h1>
+            <p class="mt-1 text-md text-slate-600">NCT05006404 | Sponsored by Autus Valve Technologies, Inc.</p>
+        </div>
+    </header>
+
+    <nav id="navbar" class="sticky-nav bg-slate-700 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center h-16">
+                <div class="flex items-center">
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#overview" class="hover:bg-slate-600 px-3 py-2 rounded-md text-sm font-medium">Overview</a>
+                            <a href="#progress" class="hover:bg-slate-600 px-3 py-2 rounded-md text-sm font-medium">Progress & Timeline</a>
+                            <a href="#eligibility" class="hover:bg-slate-600 px-3 py-2 rounded-md text-sm font-medium">Eligibility</a>
+                            <a href="#locations" class="hover:bg-slate-600 px-3 py-2 rounded-md text-sm font-medium">Locations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0 space-y-12">
+
+            <section id="overview" class="bg-white p-6 rounded-lg shadow-sm">
+                <h2 class="text-2xl font-bold text-slate-800 mb-3">Study Overview</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    This is a prospective, single-arm, multi-center pivotal study designed to evaluate the safety and effectiveness of the Autus Size-Adjustable Valve. This innovative medical device is intended for pediatric patients requiring surgical pulmonary valve replacement. The key feature of the Autus Valve is its ability to be expanded via a minimally-invasive catheter procedure to accommodate a child's growth, potentially reducing the need for repeated open-heart surgeries.
+                </p>
+            </section>
+
+            <section id="progress" class="bg-white p-6 rounded-lg shadow-sm">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4">Progress & Timeline</h2>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    The study is actively recruiting participants across multiple centers in the United States. This section provides a visual summary of the enrollment progress against the study's goal and highlights the key milestones in its long-term timeline.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-700 text-center mb-2">Enrollment Status</h3>
+                        <div class="chart-container">
+                            <canvas id="enrollmentChart"></canvas>
+                        </div>
+                        <p class="text-xs text-center text-slate-500 mt-2">
+                            *Actual enrollment is an analyst estimate. See Sources & Methodology section for details.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 p-4 rounded-lg flex items-center">
+                            <div class="mr-4">
+                                <span class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                                    <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </span>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-800">Status</h4>
+                                <p class="text-green-600 font-bold">Recruiting</p>
+                            </div>
+                        </div>
+                         <div class="bg-slate-50 p-4 rounded-lg flex items-center">
+                            <div class="mr-4">
+                               <span class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                                    <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </span>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-slate-800">Study Start Date</h4>
+                                <p class="text-blue-600 font-bold">February 5, 2024</p>
+                            </div>
+                        </div>
+                        <div class="relative px-2 py-4">
+                            <div class="absolute h-full border border-dashed border-opacity-20 border-slate-700 left-1/2 -translate-x-1/2"></div>
+                            <div class="flex items-center w-full mb-8">
+                                <div class="w-1/2 flex justify-end">
+                                    <div class="text-right pr-8">
+                                        <p class="font-bold text-slate-800">Primary Completion</p>
+                                        <p class="text-sm text-slate-500">August 2026 (Est.)</p>
+                                    </div>
+                                </div>
+                                <div class="w-10 h-10 rounded-full bg-slate-700 text-white inline-flex items-center justify-center relative z-10">▼</div>
+                            </div>
+                            <div class="flex items-center w-full">
+                                <div class="w-1/2 flex justify-end">
+                                    <div class="text-right pr-8">
+                                        <p class="font-bold text-slate-800">Study Completion</p>
+                                        <p class="text-sm text-slate-500">February 2036 (Est.)</p>
+                                    </div>
+                                </div>
+                                <div class="w-10 h-10 rounded-full bg-slate-700 text-white inline-flex items-center justify-center relative z-10">▼</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eligibility" class="bg-white p-6 rounded-lg shadow-sm">
+                <h2 class="text-2xl font-bold text-slate-800 mb-3">Participant Eligibility</h2>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    To be considered for this study, potential participants must meet specific criteria. Below is a summary of the key requirements. Please consult with the study coordinators at the listed locations for a complete evaluation.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                        <h3 class="font-semibold text-blue-800">Age Range</h3>
+                        <p class="text-2xl font-bold text-blue-900">2 to 21 Years</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                        <h3 class="font-semibold text-blue-800">Sex</h3>
+                        <p class="text-2xl font-bold text-blue-900">All</p>
+                    </div>
+                </div>
+
+                <div class="space-y-2" id="accordion-container">
+                    <div class="accordion-item border rounded-lg">
+                        <button class="accordion-header w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100">
+                            <span class="font-semibold text-slate-700">Inclusion Criteria</span>
+                            <span class="accordion-icon text-slate-500 text-xl font-bold">+</span>
+                        </button>
+                        <div class="accordion-content max-h-0 overflow-hidden bg-white">
+                            <ul class="p-4 list-disc list-inside text-slate-600 space-y-2">
+                                <li>Recommended for surgical pulmonary valve replacement.</li>
+                                <li>Has a native or repaired right ventricular outflow tract.</li>
+                                <li>Body size suitable for implantation of a study device.</li>
+                                <li>One of the following findings: Severe pulmonary stenosis, Moderate or greater pulmonary regurgitation, or a combination of both.</li>
+                                <li>Willingness to provide informed written consent.</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="accordion-item border rounded-lg">
+                        <button class="accordion-header w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-slate-100">
+                            <span class="font-semibold text-slate-700">Exclusion Criteria</span>
+                            <span class="accordion-icon text-slate-500 text-xl font-bold">+</span>
+                        </button>
+                        <div class="accordion-content max-h-0 overflow-hidden bg-white">
+                             <ul class="p-4 list-disc list-inside text-slate-600 space-y-2">
+                                <li>Requires valve replacement in a non-pulmonary position.</li>
+                                <li>Has a prosthetic valve at another valve position.</li>
+                                <li>Has pulmonary arterial hypertension.</li>
+                                <li>Has an active infection requiring systemic antibiotic therapy.</li>
+                                <li>Has active endocarditis.</li>
+                                <li>Known hypersensitivity to anticoagulants and antiplatelet drugs.</li>
+                                <li>Participating in another investigational study of a new drug or device.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="locations" class="bg-white p-6 rounded-lg shadow-sm">
+                <h2 class="text-2xl font-bold text-slate-800 mb-3">Recruiting Locations</h2>
+                 <p class="text-slate-600 leading-relaxed mb-6">
+                    This study is being conducted at several leading pediatric hospitals across the country. Click on a location below to view more details, including contact information and principal investigators. If you believe you or your child may be eligible, please reach out to the research coordinator at the nearest facility.
+                </p>
+                <div id="locations-list" class="space-y-3">
+                </div>
+            </section>
+
+            <section id="sourcing" class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="accordion-item border-0">
+                    <button class="accordion-header w-full flex justify-between items-center py-2">
+                        <h2 class="text-2xl font-bold text-slate-800">Sources & Methodology</h2>
+                        <span class="accordion-icon text-slate-500 text-3xl font-bold">+</span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden">
+                        <p class="text-slate-600 leading-relaxed mt-4 mb-6">
+                            This log provides traceability for key claims presented in the dashboard, following a dual-citation standard to ensure data integrity.
+                        </p>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full border border-slate-200 text-sm">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="p-3 text-left font-semibold text-slate-600">Claim</th>
+                                        <th class="p-3 text-left font-semibold text-slate-600">Primary Source</th>
+                                        <th class="p-3 text-left font-semibold text-slate-600">Secondary Source / Notes</th>
+                                        <th class="p-3 text-left font-semibold text-slate-600">Date</th>
+                                        <th class="p-3 text-left font-semibold text-slate-600">Fresh?</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-slate-200">
+                                    <tr>
+                                        <td class="p-3">Enrollment goal is 50 participants.</td>
+                                        <td class="p-3"><a href="https://www.autusvalve.com/study-overview" target="_blank" class="text-blue-600 hover:underline">AutusValve.com</a></td>
+                                        <td class="p-3">Provided NCT05006404.json (lists 65). Primary source prioritized due to being more recent.</td>
+                                        <td class="p-3">Jan 2025</td>
+                                        <td class="p-3 text-green-600 font-semibold">Fresh</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3">Actual enrollment is ~10 participants (Estimate).</td>
+                                        <td class="p-3"><a href="https://www.nyp.org/advances/article/pediatric-cardiology/how-a-novel-technology-is-helping-solve-a-longtime-challenge-of-treating-children-with-pulmonary-valve-disease" target="_blank" class="text-blue-600 hover:underline">NY-Presbyterian Article</a></td>
+                                        <td class="p-3">Estimate derived from confirmed 4 enrollments at one of six sites.</td>
+                                        <td class="p-3">Jun 2024</td>
+                                        <td class="p-3 text-green-600 font-semibold">Fresh</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3">Age range is 18 months to 16 years.</td>
+                                        <td class="p-3">Provided NCT05006404.json</td>
+                                        <td class="p-3"><a href="https://www.childrenshospital.org/clinical-trials/nct05006404" target="_blank" class="text-blue-600 hover:underline">Boston Children's Page</a></td>
+                                        <td class="p-3">Jan 2025</td>
+                                        <td class="p-3 text-green-600 font-semibold">Fresh</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="bg-slate-700 mt-12">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-300">
+            <p>This dashboard is for informational purposes only. Data is sourced from ClinicalTrials.gov (NCT05006404).</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const studyData = {
+                enrollment: {
+                    target: 50,
+                    actual: 10 
+                },
+                locations: [
+                    {"facility":"Children's Hospital Los Angeles","status":"RECRUITING","city":"Los Angeles","state":"California","zip":"90027","contacts":[{"name":"Research Coordinator","role":"CONTACT","phone":"323-361-2311","email":"jyoung@chla.usc.edu"},{"name":"Frank F. Ing, MD","role":"PRINCIPAL_INVESTIGATOR"},{"name":"Ram Kumar Subramanyan, MD, PhD","role":"SUB_INVESTIGATOR"}]},
+                    {"facility":"Boston Children's Hospital","status":"RECRUITING","city":"Boston","state":"Massachusetts","zip":"02115","contacts":[{"name":"Mariana Chavez","role":"CONTACT","phone":"617-355-3515","email":"mariana.chavez@childrens.harvard.edu"},{"name":"Christopher W. Baird, MD","role":"PRINCIPAL_INVESTIGATOR"},{"name":"Sophie C. Hofferberth, MD","role":"SUB_INVESTIGATOR"},{"name":"David Hoganson, MD","role":"SUB_INVESTIGATOR"},{"name":"Luis Quinonez, MD","role":"SUB_INVESTIGATOR"}]},
+                    {"facility":"Nationwide Children's Hospital","status":"RECRUITING","city":"Columbus","state":"Ohio","zip":"43205","contacts":[{"name":"Research Coordinator","role":"CONTACT","phone":"614-722-2629","email":"Madison.Schumacher@nationwidechildrens.org"},{"name":"Mark Galantowicz, MD","role":"PRINCIPAL_INVESTIGATOR"},{"name":"Darren Berman, MD","role":"SUB_INVESTIGATOR"}]},
+                    {"facility":"Children's Hospital of Philadelphia","status":"RECRUITING","city":"Philadelphia","state":"Pennsylvania","zip":"19104","contacts":[{"name":"Research Coordinator","role":"CONTACT","phone":"267-426-9029","email":"shannonm@chop.edu"},{"name":"Jonathan J. Rome, MD","role":"PRINCIPAL_INVESTIGATOR"},{"name":"Christopher E. Mascio, MD","role":"SUB_INVESTIGATOR"}]},
+                    {"facility":"University of Utah - Intermountain Primary Children's Hospital","status":"RECRUITING","city":"Salt Lake City","state":"Utah","zip":"84113","contacts":[{"name":"Research Coordinator","role":"CONTACT","phone":"801-587-7523","email":"linda.lambert@hsc.utah.edu"},{"name":"S. Adil Husain, MD","role":"PRINCIPAL_INVESTIGATOR"},{"name":"Mary Martin, MD","role":"SUB_INVESTIGATOR"}]},
+                    {"facility":"Seattle Children's Hospital","status":"RECRUITING","city":"Seattle","state":"Washington","zip":"98105","contacts":[{"name":"Research Coordinator","role":"CONTACT","phone":"206-987-6580","email":"Jeremy.gillis@seattlechildrens.org"},{"name":"Brian Morray, MD","role":"PRINCIPAL_INVESTIGATOR"},{"name":"Christina Greene, MD","role":"SUB_INVESTIGATOR"}]}
+                ]
+            };
+
+            const enrollmentCtx = document.getElementById('enrollmentChart').getContext('2d');
+            const enrollmentChart = new Chart(enrollmentCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Enrolled', 'Remaining Goal'],
+                    datasets: [{
+                        label: 'Enrollment',
+                        data: [studyData.enrollment.actual, studyData.enrollment.target - studyData.enrollment.actual],
+                        backgroundColor: [
+                            '#0d9488', // teal-600
+                            '#e2e8f0'  // slate-200
+                        ],
+                        borderColor: '#f0f4f8',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw} Participants`;
+                                }
+                            }
+                        },
+                         title: {
+                            display: true,
+                            text: `Goal: ${studyData.enrollment.target} Participants`,
+                            font: {
+                                size: 14,
+                                weight: 'normal'
+                            },
+                            color: '#475569'
+                        }
+                    }
+                }
+            });
+
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionContainer.addEventListener('click', function(event) {
+                const header = event.target.closest('.accordion-header');
+                if (!header) return;
+                
+                const item = header.parentElement;
+                const content = item.querySelector('.accordion-content');
+                const icon = header.querySelector('.accordion-icon');
+                const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+                // Close all other accordions within this container
+                item.parentElement.querySelectorAll('.accordion-content').forEach(el => {
+                    if (el !== content) {
+                        el.style.maxHeight = '0px';
+                        el.previousElementSibling.querySelector('.accordion-icon').textContent = '+';
+                    }
+                });
+
+                if (isOpen) {
+                    content.style.maxHeight = '0px';
+                    icon.textContent = '+';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.textContent = '-';
+                }
+            });
+
+            const sourcingAccordion = document.getElementById('sourcing');
+             sourcingAccordion.addEventListener('click', function(event) {
+                const header = event.target.closest('.accordion-header');
+                if (!header) return;
+                
+                const item = header.parentElement;
+                const content = item.querySelector('.accordion-content');
+                const icon = header.querySelector('.accordion-icon');
+                const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+                if (isOpen) {
+                    content.style.maxHeight = '0px';
+                    icon.textContent = '+';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.textContent = '-';
+                }
+            });
+            
+            const locationsList = document.getElementById('locations-list');
+            studyData.locations.forEach(location => {
+                const principalInvestigator = location.contacts.find(c => c.role === 'PRINCIPAL_INVESTIGATOR');
+                const contact = location.contacts.find(c => c.role === 'CONTACT');
+
+                const locationEl = document.createElement('div');
+                locationEl.className = 'border rounded-lg overflow-hidden';
+                locationEl.innerHTML = `
+                    <button class="location-header w-full text-left p-4 bg-slate-50 hover:bg-slate-100 flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold text-slate-800">${location.facility}</p>
+                            <p class="text-sm text-slate-500">${location.city}, ${location.state}</p>
+                        </div>
+                        <span class="location-icon text-slate-500 text-xl font-bold">+</span>
+                    </button>
+                    <div class="location-details hidden p-4 border-t border-slate-200 bg-white">
+                        <h4 class="font-semibold mb-2 text-slate-700">Contact Information</h4>
+                        <p class="text-slate-600"><strong>Principal Investigator:</strong> ${principalInvestigator ? principalInvestigator.name : 'N/A'}</p>
+                        <p class="text-slate-600"><strong>Coordinator:</strong> ${contact ? contact.name : 'N/A'}</p>
+                        <p class="text-slate-600"><strong>Phone:</strong> <a href="tel:${contact ? contact.phone : ''}" class="text-blue-600 hover:underline">${contact ? contact.phone : 'N/A'}</a></p>
+                        <p class="text-slate-600"><strong>Email:</strong> <a href="mailto:${contact ? contact.email : ''}" class="text-blue-600 hover:underline">${contact ? contact.email : 'N/A'}</a></p>
+                    </div>
+                `;
+                locationsList.appendChild(locationEl);
+            });
+
+            locationsList.addEventListener('click', function(event) {
+                const header = event.target.closest('.location-header');
+                if (!header) return;
+
+                const details = header.nextElementSibling;
+                const icon = header.querySelector('.location-icon');
+                const isHidden = details.classList.contains('hidden');
+
+                if (isHidden) {
+                    details.classList.remove('hidden');
+                    icon.textContent = '-';
+                } else {
+                    details.classList.add('hidden');
+                    icon.textContent = '+';
+                }
+            });
+            
+            const navLinks = document.querySelectorAll('nav a');
+            const navBar = document.getElementById('navbar');
+            const navHeight = navBar.offsetHeight;
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
+

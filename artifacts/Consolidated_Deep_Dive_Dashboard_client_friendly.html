@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pediatric Pulmonary Valve – Consolidated Deep Dive Dashboard</title>
+  <style>
+    :root{
+      --bg:#0b1220;--panel:#121a2b;--muted:#30415f;--card:#0f1626;--text:#ebf2ff;--accent:#4cc9f0;--accent-2:#a3ffb0;--warn:#ffd166;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#0a0f1a);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.45}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+    aside{background:var(--panel);padding:20px;border-right:1px solid #1f2b44}
+    main{padding:28px 32px}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#5ef0c4)}
+    h1{font-size:22px;margin:0}
+    .subtle{color:#b7c3d7;font-size:12px}
+    nav ul{list-style:none;padding:0;margin:10px 0 0}
+    nav li{margin:4px 0}
+    .nav-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:#cfe3ff}
+    .nav-link:hover{background:#0a1324}
+    .chip{font-size:11px;padding:2px 8px;border:1px solid var(--muted);border-radius:999px;color:#a6b6d6}
+    .section{scroll-margin-top:90px;margin-bottom:28px}
+    .header{position:sticky;top:0;background:linear-gradient(180deg,rgba(11,18,32,.98),rgba(11,18,32,.85));backdrop-filter:blur(8px);z-index:20;padding:14px 24px;border-bottom:1px solid #17233a;display:flex;align-items:center;gap:14px}
+    .header h2{margin:0;font-size:18px}
+    .kbd{font-family:ui-monospace,Menlo,Monaco,Consolas,monospace;background:#0a1324;border:1px solid #1e2a44;border-bottom-width:2px;border-radius:8px;padding:6px 10px;color:#cfe3ff}
+    .grid{display:grid;gap:16px}
+    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width:1100px){.app{grid-template-columns:1fr}.hide-sm{display:none}.grid.cols-3{grid-template-columns:1fr 1fr}.grid.cols-2{grid-template-columns:1fr}}
+    @media (max-width:720px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+    .card{background:linear-gradient(180deg,var(--card),#0a0f1a);border:1px solid #1b2742;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 6px;font-size:16px}
+    .kpi{font-size:28px;font-weight:700}
+    .muted{color:#9fb0cc}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#182844,#0e1a30);border:1px solid #213358;border-radius:12px;padding:10px 12px;color:#cfe3ff}
+    .btn:hover{filter:brightness(1.1)}
+    .table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    .table th{font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#9fb0cc;text-align:left;padding:0 12px}
+    .table td{background:#0b1426;border:1px solid #1b2742;border-left:none;border-right:none;padding:12px;border-radius:10px}
+    .table tr td:first-child{border-left:1px solid #1b2742;border-top-left-radius:12px;border-bottom-left-radius:12px}
+    .table tr td:last-child{border-right:1px solid #1b2742;border-top-right-radius:12px;border-bottom-right-radius:12px}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid #24406a;border-radius:999px;font-size:12px;color:#cfe3ff}
+    .pill{padding:4px 8px;border-radius:8px;background:#0e1b32;border:1px solid #22365b;color:#a6bee6}
+    .warn{color:var(--warn)}
+    .link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .link-card{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border:1px dashed #25406a;border-radius:12px;color:#bcd0f3}
+    .link-card:hover{background:#0a1324}
+    .sep{height:1px;background:#1a2743;margin:14px 0}
+    .foot{margin-top:24px;color:#8ea6d1;font-size:12px}
+    .search{display:flex;gap:10px}
+    input[type="search"]{flex:1;background:#0a1324;border:1px solid #1f2d4b;border-radius:12px;color:#cfe3ff;padding:10px 12px}
+    .highlight{background:linear-gradient(90deg,rgba(76,201,240,.12),transparent);padding:2px 6px;border-radius:8px}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>PPV Deep Dive</h1>
+        <div class="subtle">U.S. Pediatric Pulmonary Valve</div>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="nav-link" href="#overview">Executive Overview</a></li>
+        <li><a class="nav-link" href="#soc">Standard of Care & Unmet Needs</a></li>
+        <li><a class="nav-link" href="#tech">New Approaches & Landscape</a></li>
+        <li><a class="nav-link" href="#reg">Regulatory (FDA) Requirements</a></li>
+        <li><a class="nav-link" href="#market">Market & Exit Dynamics</a></li>
+        <li><a class="nav-link" href="#kol">KOLs & Publications</a></li>
+        <li class="sep"></li>
+        <li><span class="chip">Appendices & Related Reports</span></li>
+        <li><a class="nav-link" href="./2_Current Standard of Care.html">Current Standard of Care (Clinical Practices & Gaps)</a></li>
+        <li><a class="nav-link" href="./3a_Pediatric Pulmonary Valve Market_Bottom Up.html">Market Sizing – Bottom-Up Model</a></li>
+        <li><a class="nav-link" href="./3b_Pediatric Pulmonary Valve Market_A Top-Down Analysis.html">Market Sizing – Top-Down Analysis</a></li>
+        <li><a class="nav-link" href="./3c_U.S. Pediatric Pulmonary Valve Market_Executive Brief.html">U.S. Market – Executive Brief</a></li>
+        <li><a class="nav-link" href="./5_Competitive Landscape Autus Valve vs. Medtronic TPVs.html">Competitive Landscape – Autus vs. Medtronic TPVs</a></li>
+        <li><a class="nav-link" href="./4_Autus Valve Clinical Trial Dashboard.html">Autus Valve – Clinical Trial Dashboard</a></li>
+        <li><a class="nav-link" href="./1_autus_dashboard_preview main.html">Autus Valve – Company Overview Dashboard</a></li>
+        <li><a class="nav-link" href="./Osprey Intel Deep Dive_Valve & Conduit Replacement_Pediatric CHD.html">Valve & Conduit Replacement – Osprey Intel Deep Dive</a></li>
+        <li><a class="nav-link" href="./vc-toolkit.html">VC Analysis Toolkit</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <header class="header">
+      <h2>Consolidated Deep Dive Dashboard</h2>
+      <span class="pill">Updated: Sep 8, 2025</span>
+      <a href="./index.html" class="btn" style="margin-left:auto">← Back to Index</a>
+      <div class="search hide-sm">
+        <input id="q" type="search" placeholder="Quick filter… (e.g., Breakthrough, HDE, Autus, Medtronic)" oninput="filterCards()" />
+        <button class="btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+      </div>
+    </header>
+
+    <!-- Executive Overview -->
+    <section id="overview" class="section">
+      <div class="grid cols-3">
+        <div class="card" data-tags="tam market size">
+          <h3>Total Addressable Market (U.S.)</h3>
+          <div class="kpi">$125–140M</div>
+          <div class="muted">2025 TAM; trending to ~$180–200M by 2030</div>
+        </div>
+        <div class="card" data-tags="global market forecast">
+          <h3>Global Market Outlook</h3>
+          <div class="kpi">$677M</div>
+          <div class="muted">Projected global 2035 PPV/conduits</div>
+        </div>
+        <div class="card" data-tags="unmet needs surgeries burden cost">
+          <h3>Core Unmet Need</h3>
+          <div class="kpi">Repeat Surgeries</div>
+          <div class="muted">Growth → multiple re-ops; durability & expansion are key</div>
+        </div>
+      </div>
+      <div class="grid cols-2" style="margin-top:16px">
+        <div class="card" data-tags="consolidation executive summary">
+          <h3>What’s in this Summary</h3>
+          <p>This single-page dashboard consolidates insights from 11+ reports into the exact areas Broadview requested: care standards & gaps, new approaches, regulatory requirements (FDA PMA/HDE/Breakthrough/IDE), market & exits, and the thought-leader/pub landscape. Use the left rail to open full appendices.</p>
+          <div class="sep"></div>
+          <div class="muted">Tip: press <span class="kbd">Ctrl/⌘ + F</span> to search, or use the quick filter above.</div>
+        </div>
+        <div class="card" data-tags="links navigation appendices">
+          <h3>Quick Links</h3>
+          <div class="link-grid">
+            <a class="link-card" href="#reg">FDA Requirements <span>→</span></a>
+            <a class="link-card" href="#market">VC & Exits <span>→</span></a>
+            <a class="link-card" href="#tech">Competitive Matrix <span>→</span></a>
+            <a class="link-card" href="#kol">KOLs & Key Pubs <span>→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Standard of Care & Unmet Needs -->
+    <section id="soc" class="section">
+      <h2>Standard of Care & Unmet Needs</h2>
+      <div class="grid cols-2">
+        <div class="card" data-tags="standard of care surgical transcatheter">
+          <h3>Treatment Paradigm Today</h3>
+          <ul>
+            <li>Surgical RV-PA conduits and transcatheter pulmonary valves (TPVs) for select anatomies.</li>
+            <li>Biologic (homograft/xenograft) vs. synthetic (ePTFE, polymer) options.</li>
+            <li>Constraint: fixed-size devices in growing children → reinterventions.</li>
+          </ul>
+        </div>
+        <div class="card" data-tags="unmet needs durability expansion reintervention">
+          <h3>Top Unmet Needs</h3>
+          <ul>
+            <li><span class="highlight">Growth accommodation</span> (repeat balloon expansion without valve failure).</li>
+            <li>Durability under multiple expansions & pediatric hemodynamics.</li>
+            <li>Compatibility across native/repaired RVOT anatomies and sizes.</li>
+            <li>Minimize re-ops; enable transcatheter management over time.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Approaches & Landscape -->
+    <section id="tech" class="section">
+      <h2>New Approaches & Competitive Landscape</h2>
+      <div class="card" data-tags="matrix comparison landscape autus medtronic edwards venus renata xeltis peca polyvascular annoviant">
+        <h3>Landscape Matrix (selected)</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Approach</th>
+              <th>Growth Capability</th>
+              <th>Stage</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="landscape-body">
+            <tr>
+              <td><b>Autus Valve</b></td>
+              <td>Size-adjustable synthetic valve (surgical; balloon-expandable)</td>
+              <td>✔ Growth-accommodating</td>
+              <td>U.S. pivotal (IDE); Breakthrough</td>
+              <td>First-in-human 2021; pediatric-focused design</td>
+            </tr>
+            <tr>
+              <td><b>Medtronic Melody / Harmony</b></td>
+              <td>Transcatheter pulmonary valves</td>
+              <td>Fixed-size</td>
+              <td>Approved (PMA)</td>
+              <td>Established TPV options for suitable anatomies</td>
+            </tr>
+            <tr>
+              <td><b>Renata Medical</b></td>
+              <td>Minima™ growth-accommodating pediatric stent</td>
+              <td>✔ Expandable</td>
+              <td>FDA approved</td>
+              <td>Useful adjunct for staged RVOT/PA interventions</td>
+            </tr>
+            <tr>
+              <td><b>PECA Labs</b></td>
+              <td>MASA surgical RV-PA conduit</td>
+              <td>✔ Growth-accommodating concept</td>
+              <td>Early feasibility (IDE)</td>
+              <td>Synthetic conduit; U.S. EFS ongoing</td>
+            </tr>
+            <tr>
+              <td><b>Xeltis</b></td>
+              <td>Restorative bioabsorbable valved conduit</td>
+              <td>Tissue restoration</td>
+              <td>EU pivotal</td>
+              <td>Regenerative approach; long EU follow-up</td>
+            </tr>
+            <tr>
+              <td><b>PolyVascular</b></td>
+              <td>Polymeric transcatheter PV (younger kids)</td>
+              <td>Potential staged expansion</td>
+              <td>Pre/early clinical</td>
+              <td>Pediatric-first TPV concept</td>
+            </tr>
+            <tr>
+              <td><b>Annoviant</b></td>
+              <td>TxGuard™ regenerative valved conduit</td>
+              <td>Host remodeling</td>
+              <td>Pre/early clinical</td>
+              <td>NIH-backed; regenerative platform</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Regulatory Requirements (FDA) -->
+    <section id="reg" class="section">
+      <h2>Regulatory Environment – Requirements for FDA Approval</h2>
+      <div class="grid cols-2">
+        <div class="card" data-tags="pma class iii requirements">
+          <h3>PMA (Class III Valves)</h3>
+          <ul>
+            <li>Demonstrate <b>safety & effectiveness</b> (durability, gradients, regurgitation, freedom from re-op).</li>
+            <li>Robust bench + animal data; clinical pivotal with long-term follow-up (often ≤10 yrs).</li>
+            <li>Examples: Medtronic Melody & Harmony TPVs.</li>
+          </ul>
+        </div>
+        <div class="card" data-tags="hde hud rare disease pediatric profit">
+          <h3>HDE / HUD (Rare Pediatric)</h3>
+          <ul>
+            <li>&lt;8,000 U.S. patients/year; show <b>safety & probable benefit</b>.</li>
+            <li>Pediatric devices can be <b>sold for profit</b> under HDE.</li>
+            <li>Useful when RCT-scale evidence impractical.</li>
+          </ul>
+        </div>
+        <div class="card" data-tags="breakthrough designation expedited">
+          <h3>Breakthrough Device</h3>
+          <ul>
+            <li>For devices addressing life‑threatening/irreversible diseases with major advantages.</li>
+            <li>Expedited interactions/review; non‑substantive review benefits across IDE/PMA.</li>
+          </ul>
+        </div>
+        <div class="card" data-tags="ide pivotal early feasibility timeline cost">
+          <h3>IDE, Timelines & Costs</h3>
+          <ul>
+            <li>IDE enables U.S. clinical studies (EFS → Pivotal).</li>
+            <li>Illustrative pace: ~26 months FIH → pivotal start; primary endpoints ~2–8 yrs by program.</li>
+            <li>Capital: pivotal programs typically $10M+; long‑term follow-up commitments common.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Market & Exit Dynamics -->
+    <section id="market" class="section">
+      <h2>Market Dynamics, Investors & Exits</h2>
+      <div class="grid cols-2">
+        <div class="card" data-tags="tam forecast buyers">
+          <h3>Market Snapshot</h3>
+          <ul>
+            <li><b>U.S. TAM:</b> ~$125–140M (2025); projected ~$180–200M (2030).</li>
+            <li><b>Global:</b> ~$300M (2024) → ~$677M (2035 projected).</li>
+            <li><b>Strategics:</b> Medtronic, Edwards, Abbott, Boston Scientific.</li>
+          </ul>
+        </div>
+        <div class="card" data-tags="multiples exits comps">
+          <h3>Exit & Valuation Anchors</h3>
+          <table class="table">
+            <thead>
+            <tr><th>Stage</th><th>Typical Range</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Pre‑rev (Breakthrough)</td><td>$12–80M PMV</td><td>Median ≈ $20M</td></tr>
+              <tr><td>Clinical (positive data)</td><td>≈ 2–7× last round</td><td>De‑risked by IDE/pivotal data</td></tr>
+              <tr><td>Commercial specialty</td><td>≈ 3–10× last round</td><td>Near‑term revenue</td></tr>
+              <tr><td>Revenue‑stage M&A</td><td>≈ 4–8× revenue</td><td>Structural heart comps</td></tr>
+            </tbody>
+          </table>
+          <div class="sep"></div>
+          <div class="muted">Selected comps: Edwards–CardiAQ ($320M), Boston Sci–Apama ($300M), Abbott–CSI ($851M), J&J–V‑Wave ($600M upfront).</div>
+        </div>
+      </div>
+      <div class="card" data-tags="investors vcs accelerators grants">
+        <h3>Investor Landscape (selected)</h3>
+        <div class="grid cols-3">
+          <div>
+            <h4>Grants & Consortia</h4>
+            <ul>
+              <li>NIH/NHLBI SBIR/STTR; FDA grants</li>
+              <li>UCSF‑Stanford PDC; CTIP; APDI; SW PDC</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Venture/Angels</h4>
+            <ul>
+              <li>Broadview Ventures; RA, Versant, Deerfield</li>
+              <li>BlueTree Angels; Life Science Angels</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Strategics</h4>
+            <ul>
+              <li>Medtronic; Edwards; Abbott; Boston Sci</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KOLs & Publications -->
+    <section id="kol" class="section">
+      <h2>Thought Leaders & Key Publications</h2>
+      <div class="grid cols-2">
+        <div class="card" data-tags="kol leaders boston children chop nationwide mit">
+          <h3>Key Opinion Leaders (selected)</h3>
+          <ul>
+            <li>Dr. Sophie‑Charlotte Hofferberth (Autus; PI)</li>
+            <li>Dr. Pedro del Nido (Boston Children’s)</li>
+            <li>Dr. Elazer R. Edelman (MIT/Harvard)</li>
+            <li>Dr. Jonathan Chen (CHOP)</li>
+            <li>Dr. Joseph Rossano (CHOP)</li>
+            <li>Dr. David Brown (Boston Children’s)</li>
+            <li>Drs. Toshiharu Shinoka & Christopher Breuer (Nationwide TEVG)</li>
+          </ul>
+        </div>
+        <div class="card" data-tags="publications guidelines registries">
+          <h3>Key Publications & Registries</h3>
+          <ul>
+            <li>Science Translational Medicine (2020): growth‑accommodating valve prototype.</li>
+            <li>Mai et al. 2019; Hoffman & Kaplan 2002; van der Linde 2011; Liu 2019 (CHD epidemiology).</li>
+            <li>AHA/ACC 2018 Adult CHD Guideline.</li>
+            <li>Renata GROWTH pivotal (Minima stent) – FDA approved.</li>
+            <li>ClinicalTrials.gov: NCT05006404 (Autus pivotal).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="foot">Prepared for Broadview Ventures (Daniel Gottlieb) – Consolidated from project HTMLs & notebooks. This dashboard is designed to be the single entry point; use links in the left rail to open detailed appendices.</div>
+    </section>
+  </main>
+</div>
+
+<script>
+  function filterCards(){
+    const q = (document.getElementById('q').value||'').toLowerCase();
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(c=>{
+      const tags = (c.getAttribute('data-tags')||'') + ' ' + c.textContent.toLowerCase();
+      c.style.display = tags.includes(q) ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

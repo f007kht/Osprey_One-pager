@@ -1,0 +1,562 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Analysis: Pediatric Pulmonary Valve Market</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease-in-out;
+            color: #475569; /* slate-600 */
+            font-weight: 500;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: #eef2ff; /* indigo-50 */
+            color: #4f46e5; /* indigo-600 */
+        }
+        .chart-container {
+            position: relative;
+        }
+        .value-box {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .value-box h3 {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            color: #475569; /* slate-600 */
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .value-box p {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            color: #4f46e5; /* indigo-600 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <header class="text-center mb-10">
+            <a href="./index.html" class="text-sm text-gray-500 hover:text-indigo-600 transition-colors mb-2 inline-block">&larr; Return to Index</a>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Pediatric Pulmonary Valve Market: Investment Analysis</h1>
+            <p class="mt-2 text-lg text-gray-600">A data-driven analysis of the pediatric pulmonary valve market, a key subsegment of the congenital heart disease (CHD) landscape.</p>
+        </header>
+
+        <nav class="sticky top-0 bg-white/80 backdrop-blur-sm shadow-sm rounded-lg z-10 mb-8">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex items-center justify-center h-16">
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#chd-market-definition" class="nav-link">CHD Market Overview</a>
+                            <a href="#statistics" class="nav-link">Key Statistics</a>
+                            <a href="#chd-breakdown" class="nav-link">RVOT Cohort Breakdown</a>
+                            <a href="#methodology" class="nav-link">Methodology</a>
+                            <a href="#market-size" class="nav-link">Market Model</a>
+                            <a href="#competitive-landscape" class="nav-link">Competition</a>
+                            <a href="#investment-thesis" class="nav-link">Investment Thesis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="md:hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#chd-market-definition" class="nav-link block">CHD Market Overview</a>
+                    <a href="#statistics" class="nav-link block">Key Statistics</a>
+                    <a href="#chd-breakdown" class="nav-link block">RVOT Cohort Breakdown</a>
+                    <a href="#methodology" class="nav-link block">Methodology</a>
+                    <a href="#market-size" class="nav-link block">Market Model</a>
+                    <a href="#competitive-landscape" class="nav-link block">Competition</a>
+                    <a href="#investment-thesis" class="nav-link block">Investment Thesis</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section id="chd-market-definition" class="mb-16 scroll-mt-20">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Defining the Broader CHD Conduit Market</h2>
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="text-gray-700 space-y-4 text-justify">
+                        <p>
+                            Congenital Heart Disease (CHD) refers to a range of structural problems with the heart that are present at birth. It is the most common type of birth defect. In many complex CHD repairs, surgeons use <strong class="text-indigo-600">conduits</strong>—specialized tubes—to create or reconstruct pathways for blood flow.
+                        </p>
+                        <p>
+                            The overall "CHD conduit market" encompasses various devices used in these procedures. The pediatric pulmonary valve market is a critical subsegment, specifically addressing defects of the <strong class="text-indigo-600">Right Ventricular Outflow Tract (RVOT)</strong>, the pathway that controls blood flow from the heart to the lungs.
+                        </p>
+                    </div>
+                    <div class="text-center">
+                         <h3 class="text-lg font-semibold text-gray-700 mb-2">Market Subsegment View</h3>
+                        <p class="text-sm text-gray-500 mb-4">Illustrative breakdown of the pediatric CHD conduit market.</p>
+                        <div class="chart-container w-full max-w-xs mx-auto h-64 md:h-72">
+                            <canvas id="marketSegmentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="statistics" class="my-16 scroll-mt-20">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Key Statistics (United States)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <div class="value-box">
+                        <h3>Born with CHD Annually</h3>
+                        <p>~40,000</p>
+                    </div>
+                    <div class="value-box">
+                         <h3>Born with RVOT Lesions Annually</h3>
+                         <p>~6,200</p>
+                    </div>
+                    <div class="value-box">
+                        <h3>Children Living with CHD</h3>
+                        <p>~1 Million</p>
+                    </div>
+                    <div class="value-box">
+                        <h3>Addressable Annual Procedures</h3>
+                        <p>~3,800</p>
+                    </div>
+                </div>
+                 <div class="max-w-4xl mx-auto mt-8 text-xs text-gray-500">
+                    <h4 class="font-semibold mb-2">References:</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Mai CT, et al. Birth Defects Research. (2019). [Source for RVOT Lesion cohort size]</li>
+                        <li>Hoffman JL, Kaplan S. J Am Coll Cardiol. (2002). [Source for overall CHD incidence]</li>
+                        <li>Gilboa SM, et al. Circulation. (2016). [Source for CHD prevalence]</li>
+                        <li>Procedure volume is a derived estimate based on clinical registry data and intervention rates.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="chd-breakdown" class="my-16 scroll-mt-20">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">Breaking Down the ~6,200 Annual RVOT Cohort</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">The ~40,000 annual CHD births represent the total patient pool. The target market is a specific ~16% subset of these births involving lesions of the pulmonary valve or the Right Ventricular Outflow Tract (RVOT). This cohort is comprised of several distinct, separately-coded defects.</p>
+                <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="chart-container w-full h-[400px]">
+                        <canvas id="chdBreakdownChart"></canvas>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                            <h3 class="font-bold text-lg text-indigo-800">Key Insight</h3>
+                            <p class="text-sm text-indigo-700">This isn't one disease; it's a clinical cohort. These distinct defects all require intervention in the same anatomical location (the RVOT), creating a unified market for pulmonary valve technologies.</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                             <div class="p-3 bg-white rounded-md shadow-sm">
+                                <p class="font-bold text-lg text-indigo-600">~3,600 / year</p>
+                                <p class="font-semibold text-gray-800">Pulmonary Atresia/Stenosis</p>
+                                <p class="text-sm text-gray-600">The pulmonary valve itself is malformed, being either completely sealed (atresia) or too narrow (stenosis).</p>
+                            </div>
+                             <div class="p-3 bg-white rounded-md shadow-sm">
+                                <p class="font-bold text-lg text-indigo-600">~1,700 / year</p>
+                                <p class="font-semibold text-gray-800">Tetralogy of Fallot</p>
+                                <p class="text-sm text-gray-600">A complex condition of four related defects, which critically includes pulmonary stenosis.</p>
+                            </div>
+                             <div class="p-3 bg-white rounded-md shadow-sm">
+                                <p class="font-bold text-lg text-indigo-600">~630 / year</p>
+                                <p class="font-semibold text-gray-800">Double-Outlet Right Ventricle</p>
+                                <p class="text-sm text-gray-600">Both the aorta and pulmonary artery connect to the right ventricle, often requiring RVOT reconstruction.</p>
+                            </div>
+                             <div class="p-3 bg-white rounded-md shadow-sm">
+                                <p class="font-bold text-lg text-indigo-600">~250 / year</p>
+                                <p class="font-semibold text-gray-800">Truncus Arteriosus</p>
+                                <p class="text-sm text-gray-600">A single large blood vessel leaves the heart; surgical repair involves creating a new RV-to-PA conduit.</p>
+                            </div>
+                        </div>
+
+                         <p class="text-xs text-gray-500 pt-2">Source: Defect-specific birth prevalence from Mai CT, et al. (2019), based on NBDPN 2010–2014 data, applied to a ~3.7M U.S. births baseline.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="methodology" class="my-12 scroll-mt-20">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Market Sizing Methodology</h2>
+                <div class="max-w-4xl mx-auto text-gray-600 space-y-4 text-center">
+                    <p>A credible market model requires a defensible, bottom-up approach. Our methodology moves from broad epidemiological data to specific, addressable procedure volumes, ensuring a transparent data lineage from primary sources to final revenue projections.</p>
+                </div>
+                <div class="mt-10 max-w-5xl mx-auto">
+                   <div class="grid grid-cols-1 md:grid-cols-5 gap-0 items-center text-center">
+                        <div class="p-4">
+                           <div class="flex items-center justify-center w-12 h-12 mx-auto bg-indigo-100 text-indigo-600 rounded-full text-xl font-bold">1</div>
+                           <h3 class="mt-4 font-semibold text-gray-800">Epidemiological Foundation</h3>
+                           <p class="mt-1 text-sm text-gray-600">Start with peer-reviewed data on disease incidence (e.g., CDC, Mai et al.) to establish the total patient population (~6,200 births/yr).</p>
+                        </div>
+
+                        <div class="p-4 relative flex items-center justify-center">
+                             <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+
+                       <div class="p-4">
+                           <div class="flex items-center justify-center w-12 h-12 mx-auto bg-indigo-100 text-indigo-600 rounded-full text-xl font-bold">2</div>
+                           <h3 class="mt-4 font-semibold text-gray-800">Procedure Volume Analysis</h3>
+                           <p class="mt-1 text-sm text-gray-600">Refine the patient pool by analyzing clinical registries (e.g., STS) for actual intervention rates, yielding the addressable market (~3,800 procedures/yr).</p>
+                        </div>
+                        
+                        <div class="p-4 relative flex items-center justify-center">
+                            <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+
+                       <div class="p-4">
+                           <div class="flex items-center justify-center w-12 h-12 mx-auto bg-indigo-100 text-indigo-600 rounded-full text-xl font-bold">3</div>
+                           <h3 class="mt-4 font-semibold text-gray-800">Revenue Projection</h3>
+                           <p class="mt-1 text-sm text-gray-600">Calculate market size by applying average selling prices (ASPs) to the addressable procedure volume.</p>
+                        </div>
+                   </div>
+                </div>
+            </section>
+
+            <section id="market-size" class="my-16 scroll-mt-20">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">U.S. Pediatric Pulmonary Valve Market Model</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">This interactive model demonstrates the bottom-up market sizing. Adjust the sliders to see how changes in annual procedures and average selling price (ASP) affect the total addressable market (TAM).</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center max-w-6xl mx-auto">
+                    <div class="lg:col-span-1 space-y-6 bg-white p-6 rounded-lg shadow-sm">
+                        <div>
+                            <label for="procedure-slider" class="block text-sm font-medium text-gray-700">Annual Addressable Procedures: <span id="procedure-value" class="font-bold text-indigo-600">3,800</span></label>
+                            <input id="procedure-slider" type="range" min="3000" max="5000" value="3800" step="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <label for="asp-slider" class="block text-sm font-medium text-gray-700">Average Selling Price (ASP): <span id="asp-value" class="font-bold text-indigo-600">$35,000</span></label>
+                            <input id="asp-slider" type="range" min="25000" max="45000" value="35000" step="500" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div class="pt-4">
+                            <div class="value-box">
+                                <h3>Total Addressable Market (TAM)</h3>
+                                <p id="tam-value">$133.0M</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 chart-container w-full h-96">
+                        <canvas id="marketSizeChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="competitive-landscape" class="my-16 scroll-mt-20">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">Competitive Landscape & Incumbents</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">The market is a concentrated duopoly between Medtronic and Edwards Lifesciences, who leverage established platforms. Autus Valve aims to disrupt this by addressing the unmet need of somatic growth in the youngest patients.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-t-4 border-green-500">
+                        <h3 class="font-bold text-xl text-gray-800">Autus Valve</h3>
+                        <p class="text-sm text-gray-500 mb-4">Disruptor / New Entrant</p>
+                        <div class="space-y-3 text-sm">
+                            <p><strong class="font-semibold text-gray-700">Key Product:</strong> Growth-accommodating surgical valve</p>
+                            <p><strong class="font-semibold text-gray-700">Strategy:</strong> Target the youngest pediatric patients (18 mos - 16 yrs) with a surgical valve that can be expanded via transcatheter dilation as the child grows, aiming to reduce lifetime reoperations.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-t-4 border-indigo-500">
+                        <h3 class="font-bold text-xl text-gray-800">Medtronic</h3>
+                        <p class="text-sm text-gray-500 mb-4">Market Leader</p>
+                        <div class="space-y-3 text-sm">
+                            <p><strong class="font-semibold text-gray-700">Key Products:</strong> Melody™ & Harmony™ TPVs</p>
+                            <p><strong class="font-semibold text-gray-700">Strategy:</strong> Purpose-built pulmonary valves for different anatomies. Melody for existing conduits; Harmony for native RVOTs, covering a broad older patient segment.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-t-4 border-blue-500">
+                        <h3 class="font-bold text-xl text-gray-800">Edwards Lifesciences</h3>
+                        <p class="text-sm text-gray-500 mb-4">Primary Challenger</p>
+                        <div class="space-y-3 text-sm">
+                            <p><strong class="font-semibold text-gray-700">Key Products:</strong> SAPIEN™ Valve + Alterra™ Stent</p>
+                            <p><strong class="font-semibold text-gray-700">Strategy:</strong> Leverage the dominant SAPIEN platform. The Alterra pre-stent remodels the RVOT to fit a SAPIEN valve, expanding its use.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-t-4 border-gray-400">
+                        <h3 class="font-bold text-xl text-gray-800">Abbott</h3>
+                         <p class="text-sm text-gray-500 mb-4">Niche & Surgical Player</p>
+                         <div class="space-y-3 text-sm">
+                            <p><strong class="font-semibold text-gray-700">Key Products:</strong> Amplatzer™ Plugs, Surgical Valves</p>
+                            <p><strong class="font-semibold text-gray-700">Strategy:</strong> Peripheral in the TPV space; competes with surgical valves and structural heart occluders in adjunctive procedures.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-7xl mx-auto mt-16 space-y-12">
+                    
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-gray-800 mb-6">Detailed Comparison: Patient Population & Indications</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-green-600">Autus Valve</h4>
+                                <p class="text-sm text-gray-600 mt-2">Indicated for <strong class="text-gray-800">young pediatric surgical PVR (18 mos - 16 yrs)</strong>. Targets a critical care gap in the youngest patients requiring a valve that can grow with them.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-indigo-600">Medtronic Melody™ TPV</h4>
+                                <p class="text-sm text-gray-600 mt-2">For patients with existing <strong class="text-gray-800">dysfunctional RVOT conduits or bioprosthetic valves</strong> (≥16 mm). Not for native RVOTs.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-indigo-600">Medtronic Harmony™ TPV</h4>
+                                <p class="text-sm text-gray-600 mt-2">For patients with <strong class="text-gray-800">native or repaired RVOTs</strong> suffering from severe pulmonary regurgitation. Serves a large segment with anatomy unsuitable for balloon-expandable valves.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-gray-800 mb-6">Detailed Comparison: Procedural Access & Delivery</h3>
+                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-green-600">Autus Valve</h4>
+                                <p class="text-sm text-gray-600 mt-2"><strong class="text-gray-800">Initial surgical implant</strong> bypasses vascular access size limitations in small children. Subsequent interventions are minimally invasive transcatheter dilations.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-indigo-600">Medtronic Melody™ TPV</h4>
+                                <p class="text-sm text-gray-600 mt-2">Requires large <strong class="text-gray-800">22 Fr venous access</strong>, a primary factor limiting its use in small children whose femoral veins cannot accommodate the sheath.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-indigo-600">Medtronic Harmony™ TPV</h4>
+                                <p class="text-sm text-gray-600 mt-2">Requires very large <strong class="text-gray-800">~25 Fr venous access</strong>, similarly restricting its application in the youngest pediatric patients.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-gray-800 mb-6">Detailed Comparison: Growth Accommodation</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-green-600">Autus Valve: <span class="text-green-500">Yes</span></h4>
+                                <p class="text-sm text-gray-600 mt-2">Core design principle. The valve can be <strong class="text-gray-800">serially expanded via balloon dilation</strong> from ~12.7 mm up to 22 mm to match the patient's somatic growth into adulthood.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-indigo-600">Medtronic Melody™ TPV: <span class="text-red-500">No</span></h4>
+                                <p class="text-sm text-gray-600 mt-2">The device has a <strong class="text-gray-800">fixed frame size</strong> and cannot be expanded beyond its deployment diameter to accommodate patient growth, necessitating future reoperations.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-indigo-600">Medtronic Harmony™ TPV: <span class="text-red-500">No</span></h4>
+                                <p class="text-sm text-gray-600 mt-2">The self-expanding frame is also of a <strong class="text-gray-800">fixed size</strong> and does not possess any capacity for growth, leading to the same limitation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            
+            <section id="investment-thesis" class="my-16 scroll-mt-20">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Investment Thesis: Key Takeaways</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                        <h3 class="font-semibold text-gray-800">Focused, High-Value Market</h3>
+                        <p class="text-gray-600 text-sm">The market is not multi-billion dollar, but a focused $120-150M segment. Success hinges on capturing premium value, not unrealistic share of an inflated estimate.</p>
+                    </div>
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                        <h3 class="font-semibold text-gray-800">Unmet Clinical Need</h3>
+                        <p class="text-gray-600 text-sm">Existing devices are not designed for growth, leading to repeat surgeries. A growth-accommodating valve would be a paradigm shift, commanding premium pricing.</p>
+                    </div>
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                        <h3 class="font-semibold text-gray-800">Clear Competitive Differentiation</h3>
+                        <p class="text-gray-600 text-sm">Autus Valve's ability to accommodate growth and its surgical access for small children directly addresses the key limitations of incumbent transcatheter devices.</p>
+                    </div>
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                        <h3 class="font-semibold text-gray-800">Achievable Exit Potential</h3>
+                        <p class="text-gray-600 text-sm">Capturing 15-20% market share could yield $20-30M in annual revenue, supporting a $150-250M exit valuation based on typical medtech multiples.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-16 text-gray-500 text-sm">
+            <p>This interactive analysis is for illustrative purposes and is based on a synthesis of publicly available epidemiological and clinical data.</p>
+            <p class="mt-2">&copy; 2025 Osprey Intel LLC. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            Chart.register(ChartDataLabels);
+            Chart.defaults.set('plugins.datalabels', {
+                color: '#fff',
+                font: {
+                    weight: 'bold'
+                }
+            });
+
+            const marketCtx = document.getElementById('marketSegmentChart').getContext('2d');
+            new Chart(marketCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Pediatric Pulmonary Valve Market ($135M)', 'Other Pediatric CHD Conduits ($450M)'],
+                    datasets: [{
+                        data: [135, 450], 
+                        backgroundColor: ['#4f46e5', '#c7d2fe'],
+                        hoverBackgroundColor: ['#4338ca', '#a5b4fc'],
+                        borderColor: '#f8fafc',
+                        borderWidth: 4,
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, cutout: '60%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { padding: 20, boxWidth: 12, font: { size: 12 }}},
+                        tooltip: { callbacks: { label: (c) => `${c.label}: $${c.raw}M (est.)` }},
+                        datalabels: {
+                            formatter: (value, context) => {
+                                return `$${value}M`;
+                            },
+                            color: (context) => {
+                                const segmentColor = context.dataset.backgroundColor[context.dataIndex];
+                                return segmentColor === '#4f46e5' ? '#ffffff' : '#312e81';
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+
+            const chdBreakdownCtx = document.getElementById('chdBreakdownChart').getContext('2d');
+            new Chart(chdBreakdownCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pulmonary Atresia/Stenosis', 'Tetralogy of Fallot', 'DORV', 'Truncus Arteriosus'],
+                    datasets: [
+                        {
+                            label: 'Annual Births',
+                            data: [3600, 1700, 630, 250],
+                            backgroundColor: ['#4f46e5', '#6366f1', '#818cf8', '#a5b4fc'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2,
+                            borderRadius: 4,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Approximate Annual Births' }},
+                        x: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Composition of the Annual RVOT Lesion Cohort (~6,200 Total)', padding: { top: 10, bottom: 20 }, font: {size: 14, weight: '600'}},
+                        tooltip: {
+                            callbacks: {
+                                label: (c) => `~${c.raw.toLocaleString()} births/year`
+                            }
+                        }
+                    }
+                }
+            });
+
+            const procedureSlider = document.getElementById('procedure-slider');
+            const aspSlider = document.getElementById('asp-slider');
+            const procedureValue = document.getElementById('procedure-value');
+            const aspValue = document.getElementById('asp-value');
+            const tamValue = document.getElementById('tam-value');
+
+            let marketSizeChart;
+
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+            }
+
+            function formatTAM(value) {
+                return '$' + (value / 1000000).toFixed(1) + 'M';
+            }
+
+            function updateTAM() {
+                const procedures = parseInt(procedureSlider.value);
+                const asp = parseInt(aspSlider.value);
+                const tam = procedures * asp;
+
+                procedureValue.textContent = procedures.toLocaleString();
+                aspValue.textContent = formatCurrency(asp);
+                tamValue.textContent = formatTAM(tam);
+                
+                updateChart(procedures, asp);
+            }
+
+            function updateChart(procedures, asp) {
+                const dataPoints = [0.8, 0.9, 1.0, 1.1, 1.2];
+                const labels = dataPoints.map(p => `${Math.round(p*100)}% of Base`);
+                const data = dataPoints.map(p => (procedures * p * asp) / 1000000);
+
+                marketSizeChart.data.labels = labels;
+                marketSizeChart.data.datasets[0].data = data;
+                marketSizeChart.update();
+            }
+            
+            const chartCtx = document.getElementById('marketSizeChart').getContext('2d');
+            marketSizeChart = new Chart(chartCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Market Size ($M)',
+                        data: [],
+                        backgroundColor: '#a5b4fc',
+                        borderColor: '#6366f1',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Market Size ($M)' }},
+                        x: { title: { display: true, text: 'Sensitivity to Procedure Volume' }}
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 1 }).format(context.parsed.y) + 'M';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            procedureSlider.addEventListener('input', updateTAM);
+            aspSlider.addEventListener('input', updateTAM);
+
+            updateTAM();
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if(link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
+
