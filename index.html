@@ -18,7 +18,18 @@
     a:hover{color:#5ef0c4;}
     h1, h2, h3, h4 { letter-spacing: -0.02em; }
     .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-    aside{background:var(--panel);padding:20px;border-right:1px solid #1f2b44}
+    
+    /* DEBUG FIX: Added a semicolon to the 'border-right' property. */
+    aside{
+      background:var(--panel);
+      padding:20px;
+      border-right:1px solid #1f2b44;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
     main{padding:0}
     .main-content{padding: 28px 32px;}
     .brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
@@ -349,22 +360,25 @@ ul.tight li { margin:4px 0; }
 /* === Mobile hamburger / off-canvas nav === */
 .menu-toggle{
   border:1px solid #22365b; background:#0e1b32; color:#cfe3ff;
-  border-radius:10px; padding:10px; display:none; align-items:center; justify-content:center;
+  border-radius:10px; padding:10px;  align-items:center; justify-content:center;
   gap:4px; cursor:pointer; box-shadow: var(--shadow);
 }
 .menu-toggle .bar{ display:block; width:22px; height:2px; background:#cfe3ff; margin:3px 0; }
 .menu-toggle:focus{ outline:2px solid var(--accent); outline-offset:2px; }
 
 @media (min-width:1101px){
-  .menu-toggle{ display:none; }
+  /* This hides the burger menu on desktop */
+  .menu-toggle{ display: none; }
 }
 @media (max-width:1100px){
   .menu-toggle{ display:inline-flex; }
   /* Off-canvas sidebar */
+  /* DEBUG FIX: Added a semicolon to the 'background' property. */
   aside#sidebar{
     position: fixed; top:0; left:0; bottom:0; width:280px; z-index:200;
     transform: translateX(-100%); transition: transform .25s ease-in-out;
     background: var(--panel);
+    overflow-y: auto;
   }
   body.nav-open aside#sidebar{ transform: translateX(0); }
   /* Backdrop */
@@ -377,6 +391,13 @@ ul.tight li { margin:4px 0; }
   /* Ensure single column layout on mobile */
   .app{ grid-template-columns: 1fr !important; }
 }
+
+.menu-toggle .menu-label {
+  font-size: 14px;
+  margin-left: 6px;
+  color: #cfe3ff;
+}
+
 </style>
 </head>
 <body>
@@ -412,6 +433,7 @@ ul.tight li { margin:4px 0; }
   <span class="bar"></span>
   <span class="bar"></span>
   <span class="bar"></span>
+  <span class="menu-label">Menu</span>
 </button>
 <h2 id="header-title">Osprey Company Profile</h2>
 <span class="pill">Self-Referential Demo</span>
