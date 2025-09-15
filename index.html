@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
@@ -38,7 +37,7 @@
     .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
     .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
     @media (max-width:1100px){.app{grid-template-columns:1fr}.grid.cols-2, .grid.cols-3{grid-template-columns:1fr}}
-    .card{background:linear-gradient(180deg,var(--card),#0a0f1a);border:1px solid #1b2742;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .card{background:linear-gradient(180deg,var(--card),#0a0f1a);border:1px solid #1b2742;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow); position: relative; overflow: hidden;}
     .card h3{margin:0 0 8px;font-size:18px; color: var(--accent-2);}
     .card h4{margin:0 0 6px;font-size:16px; color: #cfe3ff;}
     .muted{color:#9fb0cc}
@@ -61,71 +60,178 @@
     .founder-photo { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--muted); }
     .founder-details { flex-grow: 1; }
     .founder-details p { margin: 0; line-height: 1.3; }
-    
-    /* IMPROVED LOGO STYLES */
-    .founder-logos { 
-      display: inline-flex; 
-      gap: 8px; 
-      margin-top: 10px; 
-      align-items: center;
-      padding: 6px 8px;
-      background: var(--logo-bg);
-      border-radius: 8px;
-      border: 1px solid var(--logo-border);
-      flex-wrap: wrap;
-    }
-    .founder-logos img { 
-      max-height: 28px; 
-      width: auto; 
-      transition: all 0.2s ease;
-      filter: brightness(0.8) contrast(1.1);
-    }
-    .founder-logos img:hover { 
-      filter: brightness(1) contrast(1.2); 
-      transform: scale(1.05);
-    }
-    
+    .founder-logos { display: inline-flex; gap: 8px; margin-top: 10px; align-items: center; padding: 6px 8px; background: var(--logo-bg); border-radius: 8px; border: 1px solid var(--logo-border); flex-wrap: wrap; }
+    .founder-logos img { max-height: 28px; width: auto; transition: all 0.2s ease; filter: brightness(0.8) contrast(1.1); }
+    .founder-logos img:hover { filter: brightness(1) contrast(1.2); transform: scale(1.05); }
     .clickable-card { cursor: pointer; position: relative; }
     .clickable-card:hover .view-more-founders { opacity: 1; transform: translateY(0); }
-    .view-more-founders { position: absolute; bottom: 10px; left: 20px; font-size: 12px; color: var(--accent); font-weight: 500; opacity: 0; transform: translateY(5px); transition: all 0.2s ease-out; }
+    .view-more-founders { position: absolute; bottom: 16px; left: 20px; font-size: 12px; color: var(--accent); font-weight: 500; opacity: 0; transform: translateY(5px); transition: all 0.2s ease-out; }
     
     /* Modal Styles */
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; }
     .modal-content { background: var(--panel); border: 1px solid var(--muted); border-radius: var(--radius); padding: 24px; width: 90%; max-width: 1000px; max-height: 90vh; overflow-y: auto; position: relative; }
     .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer; line-height: 1; }
     .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    
-    /* IMPROVED MODAL LOGO STYLES */
-    .detail-item { 
-      display: flex; 
-      align-items: center; 
-      gap: 12px; 
-      margin-bottom: 12px;
-      padding: 8px;
-      background: rgba(248, 250, 252, 0.95);
-      border-radius: 8px;
-      border: 1px solid var(--logo-border);
-    }
-    .detail-item img { 
-      width: 32px; 
-      height: 32px; 
-      object-fit: contain; 
-      flex-shrink: 0;
-      filter: brightness(0.8) contrast(1.1);
-      transition: filter 0.2s ease;
-    }
-    .detail-item:hover img {
-      filter: brightness(1) contrast(1.2);
-    }
+    .detail-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; padding: 8px; background: rgba(248, 250, 252, 0.95); border-radius: 8px; border: 1px solid var(--logo-border); }
+    .detail-item img { width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; filter: brightness(0.8) contrast(1.1); transition: filter 0.2s ease; }
+    .detail-item:hover img { filter: brightness(1) contrast(1.2); }
     .detail-item p { margin: 0; line-height: 1.3; color: #1e293b; }
     .detail-item .subtle { font-size: 11px; color: #64748b; }
     .detail-item .subtle.block { display: block; margin-top: 2px; }
-    
-    /* Ensure modal content text remains readable */
-    .modal-content .detail-item strong {
-      color: #1e293b;
-      font-weight: 600;
+    .modal-content .detail-item strong { color: #1e293b; font-weight: 600; }
+
+    /* --- NEW STYLES FOR IMAGES --- */
+    .hero {
+      padding: 0 32px;
+      margin-top: -1px; /* Overlap with header slightly */
     }
+    .hero img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid #1b2742;
+    }
+    .card-with-bg::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--radius);
+      opacity: 0.15;
+      z-index: 1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .card-with-bg:hover::before {
+        opacity: 0.25;
+        transform: scale(1.05);
+    }
+    .card-with-bg > * {
+        position: relative;
+        z-index: 2;
+    }
+    .card-bg-tech { background-image: url('brand/products-splash.png'); }
+    .card-bg-spirit { background-image: url('brand/products-splash.png'); }
+    /* --- END NEW STYLES --- */
+
+  
+/* --- PATCH: Osprey Intel LLC card background + contrast, and founders sizing --- */
+.card-with-bg.card-bg-ospreyintel::before {
+  background-image: url('brand/products-splash.png');
+}
+.card-with-bg.card-contrast::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(7,12,22,0.65) 0%, rgba(7,12,22,0.55) 35%, rgba(7,12,22,0.50) 100%);
+  z-index: 1;
+}
+.card-with-bg.card-contrast > * { position: relative; z-index: 2; }
+.card-with-bg.card-contrast h3 { color: #ffffff; }
+.card-with-bg.card-contrast .muted { color: rgba(235,242,255,0.92); }
+.card-with-bg.card-contrast strong { color: #eaf5ff; }
+
+/* Founders: 3x larger headshots and logos, with layout guardrails */
+.founder-item { align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.founder-photo { width: 192px; height: 192px; border-radius: 16px; object-fit: cover; border: 2px solid var(--muted); }
+.founder-details p { margin: 0 0 6px; }
+.founder-logos { gap: 12px; padding: 10px 12px; border-radius: 10px; }
+.founder-logos img { max-height: 42px; width: auto; }
+
+/* Card spacing to accommodate larger media */
+#founders-card.card { padding: 24px; }
+
+@media (max-width: 1100px) {
+  .grid.cols-3 { grid-template-columns: 1fr; }
+  #founders-card.card { padding: 20px; }
+}
+/* --- END PATCH --- */
+
+  
+/* Center content inside founders card */
+#founders-card.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+#founders-card .founder-item {
+  flex-direction: column;
+  align-items: center;
+}
+#founders-card .founder-details {
+  text-align: center;
+}
+
+  
+/* Founders card: left-align the card title only */
+#founders-card.card h4 {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+  
+/* Module 7: Technology & Methodology - improve text contrast */
+#technology.card, 
+#technology.card h3, 
+#technology.card h4, 
+#technology.card p, 
+#technology.card li, 
+#technology.card .muted {
+  color: #f1f5f9 !important; /* lighter text */
+}
+#technology.card strong {
+  color: #ffffff;
+}
+
+  
+/* === Improved text contrast & overlay for ALL module cards === */
+.section .card {
+  position: relative;
+}
+.section .card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: rgba(7, 12, 22, 0.55); /* semi-dark wash across all cards */
+  z-index: 1;
+}
+.section .card > * {
+  position: relative;
+  z-index: 2;
+}
+.section .card h3,
+.section .card h4 {
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+.section .card p,
+.section .card li {
+  color: #f5f9ff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+.section .card .muted {
+  color: #dbeafe;
+}
+.section .card strong {
+  color: #ffffff;
+}
+
+  
+/* Module 3 sizing table + pills */
+.sizing-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:13px; }
+.sizing-table th, .sizing-table td { border:1px solid rgba(255,255,255,0.08); padding:8px 10px; text-align:left; }
+.sizing-table thead th { background:rgba(255,255,255,0.06); color:#eaf2ff; }
+.pill-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.pill { padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:rgba(255,255,255,.04); }
+.kpi { display:inline-block; padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.06); border:1px solid var(--border); margin-right:6px; }
+.subtle.list { margin:0 0 10px 18px; }
+.subtle.list li { margin:4px 0; }
 
   </style>
 </head>
@@ -159,36 +265,51 @@
       <h2 id="header-title">Osprey Company Profile</h2>
       <span class="pill">Self-Referential Demo</span>
     </header>
+    
+    <!-- === NEW HERO IMAGE ADDED HERE === -->
+    <div class="hero">
+        <img src="brand/profile-landscape.png" alt="Osprey Intel hero image showing abstract data landscape">
+    </div>
+
     <div class="main-content">
 
     <section id="profile" class="section">
-        <div class="card mb-4">
-            <h3>Osprey Intel LLC</h3>
-            <p class="muted">Osprey Intel builds two core products for private capital investors: <strong>1) Static Deep Dives</strong>, comprehensive decks covering six standard diligence modules, and <strong>2) TalonStrike Micro-Apps</strong>, dynamic, clickable platforms that compress venture diligence from weeks to days.</p>
+        <!-- === ADDED BACKGROUND IMAGE CLASS HERE === -->
+        <div class="card mb-4 card-with-bg card-bg-ospreyintel card-contrast">
+            <h3 style="color: var(--text);">Osprey Intel LLC</h3>
+            <p class="muted">Private capital investors waste weeks on fragmented research, stitching together data from dozens of sources to build investment theses. Traditional consulting takes 12-16 weeks and costs $50K+, while DIY approaches burden teams with data wrangling instead of decision-making.</p>
+            <p class="muted">Osprey Intel solves this with purpose-built vertical AI agents that compress investment diligence from weeks to days, delivering interactive, auditable research that integrates directly into investment committee workflows.</p>
+            
+            <ul class="muted" style="margin-top: 16px; padding-left: 20px;">
+                <li><strong>Market Position:</strong> Vertical AI agent capturing application layer value in the $2B+ investment research services market</li>
+                <li><strong>Speed Advantage:</strong> 3x analytical depth in 3-4 weeks vs. 12-16 weeks traditional consulting</li>
+                <li><strong>Workflow Integration:</strong> Interactive apps replace static PDFs, enabling real-time exploration during IC meetings</li>
+                <li><strong>Proven Traction:</strong> Validated with tier-1 VCs across Life Sciences, Climate Tech, and expanding verticals</li>
+            </ul>
         </div>
         <div class="grid cols-3">
             <div id="founders-card" class="card clickable-card">
                 <h4>Founders</h4>
                 <div class="founder-item">
-                    <img src="images/jose%20headshot%20Jose.jpg" alt="Photo of José Luis Caraveo III" class="founder-photo">
+                    <img loading="lazy" decoding="async" src="images/jose-headshot-jose.jpg" alt="Photo of José Luis Caraveo III" class="founder-photo">
                     <div class="founder-details">
                         <p><strong>José Luis Caraveo III</strong><br><span class="subtle">Co‑founder, Osprey Intel LLC</span></p>
                         <div class="founder-logos">
-                           <img src="images/jose%20work%20experience%20Morgan-Stanley-Logotipo-2001-2006.png" alt="Morgan Stanley Logo" title="Morgan Stanley">
-                           <img src="images/jose%20work%20experience%20Northern-Trust.png" alt="Northern Trust Logo" title="Northern Trust">
-                           <img src="images/jose%20work%20experience%20LEK_Logo.png" alt="LEK Consulting Logo" title="L.E.K. Consulting">
+                           <img src="images/jose-work-experience-morgan-stanley-logotipo-2001-2006.png" alt="Morgan Stanley Logo" title="Morgan Stanley">
+                           <img src="images/jose-work-experience-northern-trust.png" alt="Northern Trust Logo" title="Northern Trust">
+                           <img src="images/jose-work-experience-lek-logo.png" alt="LEK Consulting Logo" title="L.E.K. Consulting">
                         </div>
                     </div>
                 </div>
                 <div class="sep"></div>
                 <div class="founder-item">
-                    <img src="images/Craig%20headshot.jpg" alt="Photo of Craig D'Cruz" class="founder-photo">
+                    <img loading="lazy" decoding="async" src="images/craig-headshot.jpg" alt="Photo of Craig D'Cruz" class="founder-photo">
                     <div class="founder-details">
-                        <p><strong>Craig D’Cruz</strong><br><span class="subtle">Co‑founder & Registered Agent</span></p>
+                        <p><strong>Craig D'Cruz</strong><br><span class="subtle">Co‑founder & Registered Agent</span></p>
                         <div class="founder-logos">
-                            <img src="images/craig%20work%20experience%20Vanguard-Emblem.png" alt="Vanguard Logo" title="Vanguard">
-                            <img src="images/craig%20work%20experience%20Accenture-Logo.png" alt="Accenture Logo" title="Accenture">
-                            <img src="images/craig%20work%20experience%20GitHub-Emblem.png" alt="GitHub Logo" title="GitHub">
+                            <img src="images/craig-work-experience-vanguard-emblem.png" alt="Vanguard Logo" title="Vanguard">
+                            <img src="images/craig-work-experience-accenture-logo.png" alt="Accenture Logo" title="Accenture">
+                            <img src="images/craig-work-experience-github-emblem.png" alt="GitHub Logo" title="GitHub">
                         </div>
                     </div>
                 </div>
@@ -196,7 +317,8 @@
             </div>
             <div class="card">
                 <h4>Company Facts</h4>
-                <ul class="subtle" style="list-style:none; padding:0; margin:0; space-y: 2px;">
+                <p class="subtle">Osprey Intel builds two core products for private capital investors: <strong>1) Static Deep Dives</strong>, comprehensive decks covering six standard diligence modules, and <strong>2) TalonStrike Micro-Apps</strong>, dynamic, clickable platforms that compress venture diligence from weeks to days.</p>
+                <ul class="subtle" style="list-style:none; padding:0; margin:12px 0 0; space-y: 2px;">
                     <li>✓ Formed in New Hampshire</li>
                     <li>✓ Formation Date: May 30, 2025</li>
                     <li>✓ Member Managed LLC</li>
@@ -204,15 +326,33 @@
             </div>
             <div class="card">
                 <h4>Flagship Engagements</h4>
-                <p class="subtle">Stealth summer projects and a two-sprint program with:</p>
-                <ul class="subtle" style="list-style:none; padding:0; margin-top:8px; space-y: 2px;">
-                    <li>- Broadview Ventures</li>
-                    <li>- Fall Line Capital</li>
-                    <li>- Superluminal Medicines</li>
-                </ul>
+                <p class="subtle">Stealth-mode summer projects; a deep-dive project with Fall Line Capital; plus a two-sprint program with Superluminal Medicines and Broadview Ventures.</p>
+                <div class="founder-logos" style="margin-top: 12px;">
+                    <img src="images/fall-line-capital.png" alt="Fall Line Capital Logo" title="Fall Line Capital">
+                    <img src="images/supreluminal-rx-logo-color-horisontal.png" alt="Superluminal Medicines Logo" title="Superluminal Medicines">
+                    <img src="images/broadview-logo-1.png" alt="Broadview Ventures Logo" title="Broadview Ventures">
+                </div>
             </div>
         </div>
     </section>
+<section class="section" id="who-we-serve">
+  <div class="card">
+    <h3>Who We Serve: Lean Private‑Capital Teams</h3>
+    <p class="muted">Small–midsize VCs, PEs, and family offices that need <strong>deal screening capacity</strong> without adding headcount.</p>
+    <ul class="list">
+      <li><strong>Team size:</strong> 8–12 investment professionals</li>
+      <li><strong>AUM & checks:</strong> $50M+ AUM; $2M–$25M initial checks</li>
+      <li><strong>Focus:</strong> niche / frontier areas where ramp‑up is hard</li>
+      <li><strong>Stack:</strong> already paying for multiple data/AI tools—Osprey unifies and cites</li>
+    </ul>
+    <div class="pill-row">
+      <span class="pill">Capacity, not headcount</span>
+      <span class="pill">Dual‑citation outputs</span>
+      <span class="pill">Frontier‑ready scaffolds</span>
+    </div>
+  </div>
+</section>
+
 
     <!-- ... (rest of the sections remain the same) ... -->
     <section id="markets" class="section">
@@ -281,17 +421,65 @@
         </div>
     </section>
     
-    <section id="sizing" class="section">
-         <div class="card">
-            <h3>Module 3: Consolidated Market Sizing (TAM/SAM/SOM)</h3>
-            <p class="muted mb-4">Quantifying the market opportunity for TalonStrike & Deep Dives using reconciled top-down and bottom-up models.</p>
-            <div class="grid cols-3">
-                <div class="card"><h4>Top-Down Analysis</h4><p class="subtle">Starts with total research/CI spend in target segments (VC, PE, CVC), then filters to outsourced, evidence-based decision support.</p></div>
-                <div class="card"><h4>Bottom-Up Analysis</h4><p class="subtle">Calculated by # of target firms × # of teams × ASP per module/license, with Conservative, Base, and Aggressive scenarios.</p></div>
-                <div class="card"><h4>Executive Brief</h4><p class="subtle">A reconciled view explaining the deltas between the two methods and the key assumptions that move the final number.</p></div>
-            </div>
-        </div>
-    </section>
+    
+<section id="sizing" class="section">
+  <div class="card">
+    <h3>Module 3: Consolidated Market Sizing (TAM/SAM/SOM)</h3>
+    <p class="muted mb-4">Triangulating the opportunity with current PitchBook data and explicit assumptions. We show the <strong>project TAM</strong> for Deep Dives (by vertical deals) and the <strong>license SAM/SOM</strong> (lower‑bound teams proxy: trailing four‑quarter VC funds in North America).</p>
+
+    <div class="grid cols-3">
+      <div class="card">
+        <h4>Top‑Down (Beachhead Verticals)</h4>
+        <ul class="subtle list">
+          <li><strong>Healthtech VC deals:</strong> 2024: 849; H1'25: 414.</li>
+          <li><strong>Pharma biotools VC deals:</strong> 2024: 282; H1'25: 232.</li>
+          <li><strong>Attach rate (Deep Dive needed):</strong> 20–40% of deals.</li>
+          <li><strong>Per‑project price:</strong> $40k–$60k.</li>
+        </ul>
+        <p class="subtle">→ <em>Project TAM (Healthtech + Biotools)</em><br>
+          • <strong>2024 actuals:</strong> $9.0M – <strong>$27.1M</strong> (base: $17.0M).<br>
+          • <strong>2025 run‑rate (H1×2):</strong> $10.3M – <strong>$31.0M</strong> (base: $19.4M).
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>Bottom‑Up (License)</h4>
+        <ul class="subtle list">
+          <li><strong>TTM VC funds (global):</strong> 1,379; <strong>NA share:</strong> 57.6% ⇒ ~794 teams.</li>
+          <li><strong>License price:</strong> $60k ARR per team.</li>
+          <li><strong>Adoption (SOM):</strong> 8–15% of teams over 24–36 months.</li>
+        </ul>
+        <p class="subtle">→ <em>License SAM (NA lower bound):</em> $47.6M ARR.<br>
+        → <em>License SOM (@ 8–15%):</em> $3.8M – <strong>$7.1M</strong> ARR.</p>
+        <p class="muted" style="margin-top:8px;">
+          <span class="kpi">ICP filter (40–60% of NA teams): ~318–476 teams</span>
+          <span class="kpi">ICP License SAM: $19.1M–$28.6M ARR</span>
+          <span class="kpi">ICP SOM (@8–15%): $1.5M–$4.3M ARR</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>PE Buyout Add‑ons (Big 7 public GPs)</h4>
+        <p class="muted">TTM corporate PE deployment <strong>$83.10B</strong> (+65.3% YoY). We estimate add‑on diligence demand from this flow.</p>
+        <table class="sizing-table">
+          <thead>
+            <tr><th>Scenario</th><th>Add‑on $ (TTM)</th><th>Approx. Add‑on Deals</th><th>Dive Attach</th><th>PE Add‑on Project TAM</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Conservative</td><td>$33.24B</td><td>221</td><td>30%</td><td>$2.7M</td></tr><tr><td>Base</td><td>$41.55B</td><td>415</td><td>40%</td><td>$8.3M</td></tr><tr><td>Aggressive</td><td>$49.86B</td><td>664</td><td>60%</td><td>$23.9M</td></tr>
+          </tbody>
+        </table>
+        <p class="subtle" style="margin-top:8px;">Assumptions: add‑on share of deployment (40–60%), average equity per add‑on ($75–150M), attach rate (30–60%), Deep Dive price ($40–60k). Tunable per GP.</p>
+      </div>
+
+      <div class="card">
+        <h4>Executive Brief</h4>
+        <p class="muted">Beachhead Deep Dives add a ~$19.4M opportunity at current run‑rate; <strong>PE add‑ons contribute ~$8.3M</strong> (base). <strong>Combined project TAM</strong> ≈ $27.7M (range $13.0M–$54.9M). The <strong>license SAM</strong> in NA is ~$47.6M with <strong>SOM</strong> of $3.8M–$7.1M ARR; for the ICP‑narrow segment, SAM is $19.1M–$28.6M and SOM is $1.5M–$4.3M.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <section id="competitive" class="section">
         <div class="card">
@@ -349,21 +537,36 @@
             <div class="grid cols-3">
                 <a href="case%20study_broadview%20ventures.html" class="case-study-link">
                     <div class="card interactive-card" style="border-color: var(--accent-2);">
-                        <h4>Broadview Ventures (Flagship)</h4>
-                        <p class="subtle">Delivered a comprehensive CHD Deep Dive (static deck, dated 2025-08-18) and the full PPV TalonStrike suite. Each major component was completed in ≤1 week, demonstrating rapid turnaround.</p>
+                        <div class="detail-item" style="margin-bottom: 16px;">
+                            <img src="images/broadview-logo-1.png" alt="Broadview Ventures Logo" style="width: 40px; height: 40px;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--muted);">Broadview Ventures</h4>
+                            </div>
+                        </div>
+                        <p class="subtle">Delivered a comprehensive CHD Deep Dive (static deck, dated 2025-08-18) and the full PPV TalonStrike suite. Each major component was completed in â‰¤1 week, demonstrating rapid turnaround.</p>
                         <span class="view-more">View Case Study →</span>
                     </div>
                 </a>
                 <a href="case%20study_fall%20line%20capital.html" class="case-study-link">
                     <div class="card interactive-card">
-                        <h4>Fall Line Capital</h4>
-                        <p class="subtle">Developed sector-oriented research modules (stealth) precisely mapped to FLC’s investment thesis and focus areas, showcasing our ability to align with specific fund strategies.</p>
+                        <div class="detail-item" style="margin-bottom: 16px;">
+                            <img src="images/fall-line-capital.png" alt="Fall Line Capital Logo" style="width: 40px; height: 40px;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--muted);">Fall Line Capital</h4>
+                            </div>
+                        </div>
+                        <p class="subtle">Developed sector-oriented research modules (stealth) precisely mapped to FLC's investment thesis and focus areas, showcasing our ability to align with specific fund strategies.</p>
                         <span class="view-more">View Case Study →</span>
                     </div>
                 </a>
                 <a href="case%20study_superlumincal%20rx.html" class="case-study-link">
                     <div class="card interactive-card">
-                        <h4>Superluminal Medicines</h4>
+                        <div class="detail-item" style="margin-bottom: 16px;">
+                            <img src="images/supreluminal-rx-logo-color-horisontal.png" alt="Superluminal Medicines Logo" style="width: 40px; height: 40px;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--muted);">Superluminal Medicines</h4>
+                            </div>
+                        </div>
                         <p class="subtle">Conducted a GPCR competitor analysis (pro bono pilot) that validated our rapid-response capabilities for corporate business development and strategy teams.</p>
                         <span class="view-more">View Case Study →</span>
                     </div>
@@ -372,8 +575,9 @@
         </div>
     </section>
 
+    <!-- === ADDED BACKGROUND IMAGE CLASS HERE === -->
     <section id="technology" class="section">
-        <div class="card">
+        <div class="card card-with-bg card-bg-tech">
             <h3>Module 7: Technology & Methodology</h3>
             <p class="muted mb-4">Our hybrid approach combines a sophisticated, multi-model AI stack with proprietary data processing and governance to deliver fast, auditable, and decision-ready insights.</p>
             <div class="grid cols-2">
@@ -405,7 +609,7 @@
             <!-- José's Details -->
             <div>
                 <div class="founder-item mb-4">
-                    <img src="images/jose%20headshot%20Jose.jpg" alt="Photo of José Luis Caraveo III" class="founder-photo">
+                    <img loading="lazy" decoding="async" src="images/jose-headshot-jose.jpg" alt="Photo of José Luis Caraveo III" class="founder-photo">
                     <div>
                         <p class="text-lg"><strong>José Luis Caraveo III</strong></p>
                         <p class="subtle">Co‑founder, Osprey Intel LLC</p>
@@ -414,19 +618,19 @@
                 <h4 class="text-base text-[var(--accent-2)]">Work Experience</h4>
                 <div class="sep mt-1 mb-3"></div>
                 <div class="detail-item">
-                    <img src="images/jose%20work%20experience%20LEK_Logo.png" alt="LEK Consulting Logo">
+                    <img src="images/jose-work-experience-lek-logo.png" alt="LEK Consulting Logo">
                     <div><p><strong>L.E.K. Consulting</strong><span class="subtle block">Summer Consultant</span></p></div>
                 </div>
                 <div class="detail-item">
-                    <img src="images/jose%20work%20experience%20Morgan-Stanley-Logotipo-2001-2006.png" alt="Morgan Stanley Logo">
+                    <img src="images/jose-work-experience-morgan-stanley-logotipo-2001-2006.png" alt="Morgan Stanley Logo">
                     <div><p><strong>Morgan Stanley</strong><span class="subtle block">Head of North America, Business Information & Analytics</span></p></div>
                 </div>
                 <div class="detail-item">
-                    <img src="images/jose%20work%20experience%20Northern-Trust.png" alt="Northern Trust Logo">
+                    <img src="images/jose-work-experience-northern-trust.png" alt="Northern Trust Logo">
                     <div><p><strong>Northern Trust</strong><span class="subtle block">Senior Analyst, Alternative Investments</span></p></div>
                 </div>
                 <div class="detail-item">
-                    <img src="images/jose%20work%20experience%20USAA-Emblem.png" alt="USAA Logo">
+                    <img src="images/jose-work-experience-usaa-emblem.png" alt="USAA Logo">
                     <div><p><strong>USAA</strong><span class="subtle block">Wealth Advisor</span></p></div>
                 </div>
 
@@ -445,7 +649,7 @@
                     </div>
                 </div>
                 <div class="detail-item">
-                    <img src="images/jose%20education%20asu_wp_carey_horiz_cmyk_print_maroongold_Logo.jpg" alt="ASU Logo">
+                    <img src="images/jose-education-asu-wp-carey-horiz-cmyk-print-maroongold-logo.jpg" alt="ASU Logo">
                     <div>
                         <p><strong>Arizona State University</strong></p>
                         <p class="subtle">BS Finance & BS Accountancy, Summa Cum Laude</p>
@@ -455,14 +659,14 @@
                 <h4 class="text-base text-[var(--accent-2)] mt-6">Credentials</h4>
                 <div class="sep mt-1 mb-3"></div>
                 <div class="detail-item">
-                    <img src="images/jose%20credentials%20CFP%20Board%20OIP.webp" alt="CFP Board Logo">
+                    <img src="images/jose-credentials-cfp-board-oip.webp" alt="CFP Board Logo">
                     <div>
-                        <p><strong>Certified Financial Planner (CFP®)</strong></p>
+                        <p><strong>Certified Financial Planner (CFPÂ®)</strong></p>
                         <p class="subtle">Inactive</p>
                     </div>
                 </div>
                 <div class="detail-item">
-                    <img src="images/jose%20credentials-finra.png" alt="FINRA Logo">
+                    <img src="images/jose-credentials-finra.png" alt="FINRA Logo">
                     <div>
                         <p><strong>FINRA Licenses (SIE, 7, 6, 63, 65)</strong></p>
                         <p class="subtle">Inactive</p>
@@ -472,7 +676,7 @@
             <!-- Craig's Details -->
             <div>
                 <div class="founder-item mb-4">
-                    <img src="images/Craig%20headshot.jpg" alt="Photo of Craig D'Cruz" class="founder-photo">
+                    <img loading="lazy" decoding="async" src="images/craig-headshot.jpg" alt="Photo of Craig D'Cruz" class="founder-photo">
                     <div>
                         <p class="text-lg"><strong>Craig D'Cruz</strong></p>
                         <p class="subtle">Co‑founder & Registered Agent</p>
@@ -481,19 +685,19 @@
                 <h4 class="text-base text-[var(--accent-2)]">Work Experience</h4>
                 <div class="sep mt-1 mb-3"></div>
                 <div class="detail-item">
-                    <img src="images/craig%20work%20experience%20GitHub-Emblem.png" alt="GitHub Logo">
+                    <img src="images/craig-work-experience-github-emblem.png" alt="GitHub Logo">
                     <div><p><strong>GitHub</strong><span class="subtle block">Product Manager II Intern</span></p></div>
                 </div>
                 <div class="detail-item">
-                    <img src="images/craig%20work%20experience%20Vanguard-Emblem.png" alt="Vanguard Logo">
+                    <img src="images/craig-work-experience-vanguard-emblem.png" alt="Vanguard Logo">
                     <div><p><strong>Vanguard</strong><span class="subtle block">Solutions Consultant II</span></p></div>
                 </div>
                 <div class="detail-item">
-                    <img src="images/craig%20work%20experience%20Morsum.png" alt="Morsum Logo">
+                    <img src="images/craig-work-experience-morsum.png" alt="Morsum Logo">
                     <div><p><strong>Morsum</strong><span class="subtle block">Director</span></p></div>
                 </div>
                  <div class="detail-item">
-                    <img src="images/craig%20work%20experience%20Accenture-Logo.png" alt="Accenture Logo">
+                    <img src="images/craig-work-experience-accenture-logo.png" alt="Accenture Logo">
                     <div><p><strong>Accenture</strong><span class="subtle block">Management Consulting Senior Analyst</span></p></div>
                 </div>
 
@@ -510,14 +714,14 @@
                     </div>
                 </div>
                 <div class="detail-item">
-                    <img src="images/craig%20education%20Case-Western-Reserve-University.png" alt="Case Western Logo">
+                    <img src="images/craig-education-case-western-reserve-university.png" alt="Case Western Logo">
                     <div><p><strong>Case Western Reserve University</strong><span class="subtle block">BS, Biomedical Engineering</span></p></div>
                 </div>
 
                 <h4 class="text-base text-[var(--accent-2)] mt-6">Credentials</h4>
                 <div class="sep mt-1 mb-3"></div>
                 <div class="detail-item">
-                    <img src="images/craig_credentials%20aws%20cloud%20practitioner.png" alt="AWS Logo">
+                    <img src="images/craig-credentials-aws-cloud-practitioner.png" alt="AWS Logo">
                     <div><p><strong>AWS Certified Cloud Practitioner</strong></p></div>
                 </div>
             </div>
