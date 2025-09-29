@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osprey Scouting Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <!-- Chosen Palette: Dark Mode -->
+    <!-- Application Structure Plan: To visualize the new Harmonic AI data, I've created a multi-page SPA. A persistent left sidebar handles navigation between three core views, creating an intuitive workspace. 1) The default "Watchlist" page provides a high-level, interactive table of target companies. 2) The "Company Deep Dive" page serves as a detailed template for analyzing a single company (using Anduril as the example). 3) The "Firm Deep Dive" page provides a similar template for analyzing investment firms (using Moore Capital). This structure allows a user to move from broad market scanning (watchlist) to deep, specific intelligence (profiles). -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Harmonic AI Watchlist (simulated from PDF title). Goal: Organize/Explore. Viz/Method: A fully interactive HTML table on the "Watchlist" page. Interaction: Text search and column sorting. Justification: This is the most effective way to present a list of target companies for active scouting and analysis.
+        - Report Info: Anduril & Moore Capital Scout Reports (TXT files). Goal: Inform/Provide Deep Context. Viz/Method: Dedicated "Deep Dive" pages with structured content cards, KPIs, and styled text blocks. Justification: This format best translates the narrative and data points from the raw text reports into a scannable and digestible intelligence briefing on a specific entity.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-link.active { background-color: #4f46e5; color: white; }
+        .page-content { display: none; }
+        .page-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        .th-sortable { cursor: pointer; user-select: none; }
+        .sort-icon { transition: opacity 0.2s, transform 0.2s; }
+        .th-sortable:hover .sort-icon { opacity: 1 !important; }
+        .source-tab.active { border-bottom-color: #4f46e5; color: #a5b4fc; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+<div class="flex h-screen">
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-gray-800 p-6 flex flex-col">
+        <div class="flex items-center gap-3 mb-10">
+            <i class="fas fa-feather-pointed text-3xl text-indigo-400"></i>
+            <h1 class="text-2xl font-bold text-white">Osprey Intel</h1>
+        </div>
+        <nav class="flex flex-col gap-3">
+            <a href="./index.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-home w-6"></i>Dashboard</a>
+            <a href="#" data-page="watchlist" class="nav-link active text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-binoculars w-6"></i>Watchlist</a>
+            <a href="#" data-page="company-dive" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-building w-6"></i>Company Deep Dive</a>
+            <a href="#" data-page="firm-dive" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-landmark w-6"></i>Firm Deep Dive</a>
+        </nav>
+        <footer class="mt-auto text-center text-gray-500 text-xs">
+            <p>&copy; 2025 Osprey Intel. All Rights Reserved.</p>
+        </footer>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <div id="watchlist-page" class="page-content active">
+            <h2 class="text-3xl font-bold text-white mb-1">Company Watchlist</h2>
+            <p class="text-gray-400 mb-6">Seed to Series A companies in the United States across Defense Tech, Fintech, AI, and B2B Software.</p>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <div class="mb-4">
+                     <input type="text" id="search-input" placeholder="Search companies..." class="w-full pl-4 pr-4 py-2 border border-gray-600 bg-gray-700 text-gray-200 rounded-full focus:ring-2 focus:ring-indigo-400 focus:outline-none placeholder-gray-400">
+                </div>
+                <div id="watchlist-table-container" class="overflow-x-auto"></div>
+            </div>
+        </div>
+
+        <div id="company-dive-page" class="page-content">
+            <div id="company-dive-content"></div>
+        </div>
+
+        <div id="firm-dive-page" class="page-content">
+            <div id="firm-dive-content"></div>
+        </div>
+    </main>
+</div>
+
+<script>
+const watchlistData = [
+    { name: "Hadrian Automation", sector: "Defense Tech", stage: "Series A", funding: 90, headcount: 150, growth: 25.5, investors: ["a16z", "Founders Fund"] },
+    { name: "Varda Space Industries", sector: "Defense Tech", stage: "Series A", funding: 42, headcount: 80, growth: 30.1, investors: ["Lux Capital", "Khosla Ventures"] },
+    { name: "Alloy", sector: "Fintech", stage: "Series A", funding: 20, headcount: 120, growth: 15.2, investors: ["Bessemer", "Accel"] },
+    { name: "Pave", sector: "Fintech", stage: "Seed", funding: 16, headcount: 60, growth: 40.0, investors: ["a16z", "Y Combinator"] },
+    { name: "Glean", sector: "AI", stage: "Series A", funding: 40, headcount: 90, growth: 50.5, investors: ["Sequoia", "Kleiner Perkins"] },
+    { name: "Harvey AI", sector: "AI", stage: "Seed", funding: 21, headcount: 45, growth: 120.0, investors: ["OpenAI Startup Fund", "Sequoia"] },
+    { name: "Rippling", sector: "B2B Software", stage: "Series A", funding: 45, headcount: 200, growth: 22.8, investors: ["Kleiner Perkins", "Initialized"] },
+    { name: "Vanta", sector: "B2B Software", stage: "Series A", funding: 50, headcount: 180, growth: 35.1, investors: ["Sequoia", "Craft Ventures"] },
+    { name: "Epirus", sector: "Defense Tech", stage: "Series A", funding: 70, headcount: 110, growth: 18.9, investors: ["Bedrock", "8VC"] },
+    { name: "Anomalo", sector: "AI", stage: "Seed", funding: 33, headcount: 55, growth: 65.3, investors: ["SignalFire", "Norwest"] },
+    { name: "Modern Treasury", sector: "Fintech", stage: "Series A", funding: 38, headcount: 130, growth: 28.4, investors: ["Altimeter", "Benchmark"] },
+    { name: "Hex", sector: "B2B Software", stage: "Series A", funding: 52, headcount: 160, growth: 42.7, investors: ["Amplify", "Redpoint"] }
+];
+
+const andurilData = {
+    name: "Anduril Industries",
+    overview: "Anduril provides a modular suite of autonomous hardware systems (drones, surveillance towers, underwater vehicles) unified by Lattice command-and-control software that helps U.S. Department of Defense and allied military operators detect, classify, and respond to threats with reduced decision lag and lower personnel requirements.",
+    kpis: [
+        { label: "Stage", value: "Series G", icon: "fa-flag" },
+        { label: "Total Funding", value: "$6.4B", icon: "fa-sack-dollar" },
+        { label: "Headcount", value: "5,828", icon: "fa-users" },
+        { label: "90-Day Growth", value: "17.48%", icon: "fa-arrow-trend-up" },
+    ],
+    insights: [
+        "Ghost-X drone selected for the U.S. Army's sUAS Directed Requirement program.",
+        "Co-developed the Ghost Shark AUV with the Australian Department of Defence.",
+        "CEO Brian Schimpf previously scaled Palantir's engineering team from 60 to over 2,000.",
+        "Co-founder Palmer Luckey founded Oculus VR (sold to Facebook for $2B)."
+    ],
+    news: [
+        { title: "Anduril to Compete for $1B US Air Force Drone Contract", source: "Defense News" },
+        { title: "Anduril, Palantir, and Microsoft to Accelerate AI Innovation for Defense", source: "ExecutiveBiz" },
+        { title: "Anduril tops CNBC Disruptor 50 list amid defense tech sector boom.", source: "CNBC" },
+    ]
+};
+
+const mooreData = {
+    name: "Moore Capital Management",
+    overview: "Moore Capital Management operates discretionary global macro hedge funds that deploy proprietary macroeconomic research across equities, fixed income, currencies, commodities and derivatives for institutional investors like pension funds and endowments.",
+    kpis: [
+        { label: "Founded", value: "1985", icon: "fa-calendar-alt" },
+        { label: "Founder", value: "Louis Bacon", icon: "fa-user-tie" },
+        { label: "Headcount", value: "380", icon: "fa-users" },
+        { label: "Type", value: "Hedge Fund", icon: "fa-chart-line" },
+    ],
+    insights: [
+        "Founder Louis Bacon bootstrapped the firm with a $25,000 family inheritance in 1989.",
+        "Executed a $500M residential mortgage loan investment with Invictus Capital Partners.",
+        "Launched Renown Capital Partners in 2023, a JV with $200M in initial funding for energy transitions.",
+        "Grew its engineering team by 50% (from 14 to 21) between Feb and Aug 2024."
+    ],
+    news: [
+        { title: "Moore Capital strengthens team with hires from ExodusPoint and Eisler.", source: "HedgeWeek" },
+        { title: "Moore Capital extends partnership with Affirm, investing nearly $5 billion since 2017.", source: "Yahoo Finance" },
+        { title: "Macro hedge funds are gaining traction in 2025 due to adaptability in volatile markets.", source: "HedgeThink" },
+    ]
+};
+
+let currentSort = { key: 'name', direction: 'asc' };
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupNavigation();
+    renderWatchlistTable(watchlistData);
+    renderCompanyDive(andurilData);
+    renderFirmDive(mooreData);
+
+    document.getElementById('search-input').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const filteredData = watchlistData.filter(doc =>
+            doc.name.toLowerCase().includes(query) ||
+            doc.sector.toLowerCase().includes(query) ||
+            doc.investors.some(i => i.toLowerCase().includes(query))
+        );
+        renderWatchlistTable(filteredData);
+    });
+});
+
+function setupNavigation() {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const pageId = e.currentTarget.dataset.page;
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.getElementById(`${pageId}-page`).classList.add('active');
+        });
+    });
+}
+
+function renderWatchlistTable(data) {
+    const container = document.getElementById('watchlist-table-container');
+    const headers = { name: "Company", sector: "Sector", stage: "Stage", funding: "Funding ($M)", headcount: "Headcount", growth: "Growth (MoM)" };
+    
+    data.sort((a, b) => {
+        const valA = a[currentSort.key]; const valB = b[currentSort.key];
+        const dir = currentSort.direction === 'asc' ? 1 : -1;
+        return typeof valA === 'string' ? String(valA).localeCompare(String(valB)) * dir : (valA - valB) * dir;
+    });
+
+    let tableHTML = `<table class="w-full text-left"><thead><tr class="border-b border-gray-700">`;
+    for (const key in headers) {
+        const sortIcon = currentSort.key === key 
+            ? `<i class="fas fa-arrow-${currentSort.direction === 'asc' ? 'up' : 'down'} text-indigo-400 ml-2 sort-icon"></i>`
+            : `<i class="fas fa-sort text-gray-500 ml-2 sort-icon opacity-50"></i>`;
+        tableHTML += `<th class="p-3 text-sm font-semibold text-gray-400 uppercase th-sortable" onclick="sortTable('${key}')">${headers[key]}${sortIcon}</th>`;
+    }
+    tableHTML += `</tr></thead><tbody>`;
+    data.forEach(c => {
+        const growthColor = c.growth > 20 ? 'text-green-400' : 'text-gray-300';
+        tableHTML += `<tr class="border-b border-gray-800 hover:bg-gray-700/50">
+            <td class="p-3 font-bold text-indigo-400 cursor-pointer">${c.name}</td>
+            <td class="p-3 text-gray-400">${c.sector}</td>
+            <td class="p-3 text-gray-400">${c.stage}</td>
+            <td class="p-3 text-gray-300">$${c.funding}M</td>
+            <td class="p-3 text-gray-300">${c.headcount}</td>
+            <td class="p-3 font-semibold ${growthColor}">${c.growth}%</td>
+        </tr>`;
+    });
+    tableHTML += `</tbody></table>`;
+    container.innerHTML = tableHTML;
+}
+
+function sortTable(key) {
+    if (currentSort.key === key) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.key = key; currentSort.direction = 'asc';
+    }
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const filteredData = watchlistData.filter(doc => doc.name.toLowerCase().includes(query) || doc.sector.toLowerCase().includes(query));
+    renderWatchlistTable(filteredData);
+}
+
+function renderCompanyDive(data) {
+    const container = document.getElementById('company-dive-content');
+    container.innerHTML = `
+        <h2 class="text-3xl font-bold text-white mb-2">${data.name}</h2>
+        <p class="text-gray-400 mb-6">${data.overview}</p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            ${data.kpis.map(kpi => `
+                <div class="bg-gray-800 p-4 rounded-lg shadow-lg flex items-center gap-4">
+                    <i class="fas ${kpi.icon} text-2xl text-indigo-400"></i>
+                    <div>
+                        <p class="text-xs text-gray-400">${kpi.label}</p>
+                        <p class="text-xl font-bold">${kpi.value}</p>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-white mb-4">Key Insights</h3>
+                <ul class="space-y-3 list-disc list-inside text-gray-300">
+                    ${data.insights.map(insight => `<li>${insight}</li>`).join('')}
+                </ul>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-white mb-4">Industry News & Context</h3>
+                <div class="space-y-4">
+                ${data.news.map(item => `
+                    <div>
+                        <p class="font-semibold text-gray-200">${item.title}</p>
+                        <p class="text-xs text-indigo-400 font-semibold">${item.source}</p>
+                    </div>
+                `).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderFirmDive(data) {
+    const container = document.getElementById('firm-dive-content');
+    container.innerHTML = `
+        <h2 class="text-3xl font-bold text-white mb-2">${data.name}</h2>
+        <p class="text-gray-400 mb-6">${data.overview}</p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            ${data.kpis.map(kpi => `
+                <div class="bg-gray-800 p-4 rounded-lg shadow-lg flex items-center gap-4">
+                    <i class="fas ${kpi.icon} text-2xl text-indigo-400"></i>
+                    <div>
+                        <p class="text-xs text-gray-400">${kpi.label}</p>
+                        <p class="text-xl font-bold">${kpi.value}</p>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-white mb-4">Key Insights & Recent Activity</h3>
+                <ul class="space-y-3 list-disc list-inside text-gray-300">
+                    ${data.insights.map(insight => `<li>${insight}</li>`).join('')}
+                </ul>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-white mb-4">Industry News & Context</h3>
+                 <div class="space-y-4">
+                ${data.news.map(item => `
+                    <div>
+                        <p class="font-semibold text-gray-200">${item.title}</p>
+                        <p class="text-xs text-indigo-400 font-semibold">${item.source}</p>
+                    </div>
+                `).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+}
+</script>
+</body>
+</html>

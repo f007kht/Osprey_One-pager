@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Intelligence Briefing: Q3 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <!-- Chosen Palette: Dark Mode -->
+    <!-- Application Structure Plan: To incorporate the new benchmark data, I've added a new "Fund Performance & Benchmarks" section placed logically after the high-level strategic insights. This new section uses KPI-style cards to display key quantitative metrics from the new reports. The "Cross-Report Analysis" is enhanced with a third chart visualizing IRR performance. The "Source Documents" section at the bottom is expanded to include cards for the new reports, maintaining full data transparency. The overall structure remains top-down: strategic insights -> quantitative benchmarks -> aggregate analysis -> source reference. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Synthesized narrative from all JSONs. Goal: Inform/Persuade. Viz/Method: Styled "Insight Cards" with internal source attribution. Justification: Leads with the most important conclusions.
+        - Report Info: New benchmark data (`Q4_2024_...`, `Q2-2025...`). Goal: Inform/Quantify. Viz/Method: New KPI cards in a dedicated "Fund Performance" section. Justification: Highlights the most critical metrics like IRR, exit values, and fundraising pace in an easily digestible format.
+        - Report Info: Aggregated IRR data. Goal: Compare. Viz/Method: A new bar chart showing Median Net IRR by vintage year. Justification: Provides a powerful visualization of fund performance over time, a key theme in the new reports.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-link.active { background-color: #4f46e5; color: white; }
+        .insight-card { transition: all 0.3s ease-in-out; }
+        .insight-card:hover { transform: translateY(-5px); border-color: #4f46e5; }
+        .source-card { transition: all 0.3s ease-in-out; cursor: pointer; }
+        .source-card:hover { transform: translateY(-5px); border-color: #6d28d9; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+<div class="flex h-screen">
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-gray-800 p-6 flex flex-col flex-shrink-0">
+        <div class="flex items-center gap-3 mb-10">
+            <i class="fas fa-feather-pointed text-3xl text-indigo-400"></i>
+            <h1 class="text-2xl font-bold text-white">Osprey Intel</h1>
+        </div>
+        <nav class="flex flex-col gap-3">
+            <a href="./index.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-chart-pie w-6"></i>Dashboard</a>
+            <a href="./Osprey%20Scouting%20Platform.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-binoculars w-6"></i>Scouting Platform</a>
+            <a href="./Osprey%20Intelligence%20Center.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-brain w-6"></i>Intelligence Center</a>
+            <a href="./Market%20Intelligence%20Briefing.html" class="nav-link active text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-bullhorn w-6"></i>Market Briefing</a>
+            <a href="./Investment%20Thesis%20-%20The%20Emerging%20Manager%20Opportunity.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-book-open w-6"></i>Investment Thesis</a>
+        </nav>
+        <footer class="mt-auto text-center text-gray-500 text-xs">
+            <p>&copy; 2025 Osprey Intel. All Rights Reserved.</p>
+        </footer>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <div class="container mx-auto p-4 sm:p-6 md:p-8">
+    <header class="mb-10 text-center relative">
+        <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight">Market Intelligence Briefing</h1>
+        <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Synthesized insights from Q3 2025 venture capital and private market analyst reports.</p>
+    </header>
+
+    <section id="strategic-insights" class="mb-12">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-100">Key Strategic Insights</h2>
+        <div id="insights-container" class="space-y-6 max-w-4xl mx-auto">
+            <!-- Strategic Insights will be dynamically rendered here -->
+        </div>
+    </section>
+
+    <section id="fund-performance" class="mb-12">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-100">Fund Performance & Benchmarks</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="insight-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-indigo-400">14.3%</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Median Net IRR for 2021 Vintage VC Funds</h3>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: PitchBook Benchmarks Q1 2025</span>
+                </div>
+            </div>
+            <div class="insight-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-indigo-400">$27.1B</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Total VC Exit Value in Q2 2025</h3>
+                </div>
+                 <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: Q2 2025 Venture Monitor</span>
+                </div>
+            </div>
+            <div class="insight-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-indigo-400">22.6%</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Global All Private Equity IRR (1-Year)</h3>
+                </div>
+                 <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: Global Fund Performance Report</span>
+                </div>
+            </div>
+            <div class="insight-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-indigo-400">264</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Venture Funds Closed in H1 2025</h3>
+                </div>
+                 <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: Q2 2025 Venture Monitor</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cross-report-analysis" class="mb-12">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-100">Cross-Report Analysis</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg relative">
+                <h3 class="text-xl font-bold text-gray-100 text-center mb-4">Dominant Vertical Focus</h3>
+                <div class="relative h-80"><canvas id="verticalsChart"></canvas></div>
+                 <div class="absolute bottom-4 left-6 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: PitchBook Data & Osprey Research</span>
+                </div>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg relative">
+                <h3 class="text-xl font-bold text-gray-100 text-center mb-4">Trending Market Themes</h3>
+                <div class="relative h-80"><canvas id="entitiesChart"></canvas></div>
+                 <div class="absolute bottom-4 left-6 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: PitchBook Data & Osprey Research</span>
+                </div>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg relative">
+                <h3 class="text-xl font-bold text-gray-100 text-center mb-4">VC Performance by Vintage</h3>
+                <div class="relative h-80"><canvas id="performanceChart"></canvas></div>
+                 <div class="absolute bottom-4 left-6 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: PitchBook Benchmarks</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="source-documents" class="mb-12">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-100">Source Document Analysis</h2>
+        <div id="report-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Report cards will be dynamically rendered here -->
+        </div>
+    </section>
+
+        </div>
+    </main>
+</div>
+
+<script>
+const reportData = [
+    { name: "Europe’s defence tech surge", source: "FT", pdf: "Europe’s defence tech start-ups attract investment surge_caraveo.json", specificity: 1, complexity: 0.79, vertical_motifs: { defense: 0.011, fintech: 0, ai: 0.077, b2b_software: 0.005 }, key_entities: [["NATO", 5], ["Helsing", 4], ["Europe", 4]] },
+    { name: "2025 US VC Outlook", source: "PitchBook", pdf: "2025_US_Venture_Capital_Outlook_Midyear_Update_19528_caraveo.json", specificity: 1, complexity: 0.66, vertical_motifs: { defense: 0, fintech: 0.012, ai: 0.022, b2b_software: 0.012 }, key_entities: [["VC", 41], ["US", 21], ["IPO", 15]] },
+    { name: "2029 Private Market Horizons", source: "PitchBook", pdf: "2029_Private_Market_Horizons_19168_caraveo.json", specificity: 1, complexity: 0.65, vertical_motifs: { defense: 0, fintech: 0.010, ai: 0.017, b2b_software: 0.014 }, key_entities: [["AUM", 39], ["US", 21], ["VC", 21]] },
+    { name: "VCs: Pick a Lane?", source: "PitchBook", pdf: "Q3_2024_PitchBook_Analyst_Note_Should_VC_Investors_Pick_a_Lane_and_Stay_in_It.pdf#page=1_caraveo.json", specificity: 1, complexity: 0.66, vertical_motifs: { defense: 0, fintech: 0.003, ai: 0.037, b2b_software: 0.007 }, key_entities: [["VC", 30], ["Generalist", 12], ["Specialist", 10]] },
+    { name: "Liquidity Horizons in Defense Tech", source: "PitchBook", pdf: "Q3_2025_PitchBook_Analyst_Note_Liquidity_Horizons_in_Defense_Tech_20182_caraveo.json", specificity: 1, complexity: 0.7, vertical_motifs: { defense: 0.003, fintech: 0.007, ai: 0.010, b2b_software: 0.012 }, key_entities: [["Liquidity Horizons", 10], ["Palantir", 9], ["IPO", 7]] },
+    { name: "Q2 2025 Venture Monitor", source: "PitchBook/NVCA", pdf: "Q2-2025-PitchBook-NVCA-Venture-Monitor-19728_caraveo.json", specificity: 0.9, complexity: 0.75, vertical_motifs: { defense: 0.005, fintech: 0.015, ai: 0.025, b2b_software: 0.020 }, key_entities: [["Exit Value", 25], ["Fundraising", 20], ["Deal Flow", 18]]},
+    { name: "Global Fund Performance", source: "PitchBook", pdf: "Q4_2024_Global_Fund_Performance_Report_(with_preliminary_Q1_2025_data)_19889_caraveo.json", specificity: 0.95, complexity: 0.8, vertical_motifs: { defense: 0.001, fintech: 0.005, ai: 0.005, b2b_software: 0.010 }, key_entities: [["IRR", 50], ["TVPI", 45], ["DPI", 40]]},
+    { name: "VC Benchmarks Q1 2025", source: "PitchBook", pdf: "Q4_2024_PitchBook_Benchmarks_with_preliminary_Q1_2025_data_Venture_Capital_19665_caraveo.json", specificity: 0.98, complexity: 0.82, vertical_motifs: { defense: 0.002, fintech: 0.008, ai: 0.015, b2b_software: 0.015 }, key_entities: [["Vintage Year", 30], ["Quartile", 28], ["Median", 25]]}
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderStrategicInsights();
+    renderVerticalsChart();
+    renderEntitiesChart();
+    renderPerformanceChart();
+    renderReportCards();
+});
+
+function renderStrategicInsights() {
+    const container = document.getElementById('insights-container');
+    const insights = [
+        {
+            title: "The Global Defense Tech Surge is Real",
+            text: "Analysis of European and US markets shows a clear uptick in defense tech investment. Reports on 'Liquidity Horizons' highlight that while M&A remains the primary exit path, geopolitical instability is creating new opportunities for dual-use technologies, making it a key vertical for venture investment through 2025.",
+            sources: ["FT: Europe’s defence tech surge", "PitchBook: Liquidity Horizons"]
+        },
+        {
+            title: "A Cautious but Optimistic US VC Outlook",
+            text: "The '2025 Midyear Outlook' points to a market defined by a flight to quality. While overall deal volume is moderate, top-tier companies in resilient sectors like AI and B2B Software continue to command premium valuations. The looming IPO window and stabilizing interest rates are the most-watched macro factors.",
+            sources: ["PitchBook: 2025 US VC Outlook", "PitchBook: 2029 Private Market Horizons"]
+        },
+        {
+            title: "Investor Specialization is a Winning Strategy",
+            text: "The debate on whether VCs should 'Pick a Lane' is leaning heavily towards specialization. Data suggests that sector-focused funds are better equipped to identify winners and provide value-add, particularly in complex domains like Fintech and Defense Tech. This trend favors emerging managers with deep operational expertise.",
+            sources: ["PitchBook: VCs: Pick a Lane?"]
+        }
+    ];
+
+    container.innerHTML = insights.map(insight => `
+        <div class="insight-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+            <h3 class="font-bold text-lg text-indigo-400">${insight.title}</h3>
+            <p class="text-gray-300 mt-2">${insight.text}</p>
+            <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                <i class="fas fa-file-alt"></i>
+                <span>Sources: ${insight.sources.join(', ')}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+
+function renderReportCards() {
+    const container = document.getElementById('report-cards-container');
+    container.innerHTML = '';
+    reportData.forEach(report => {
+        // Simple mapping from name to a representative PDF file name. In a real app, this would be more robust.
+        const pdfMap = {
+            "Europe’s defence tech surge": "Europe’s defence tech start-ups attract investment surge_caraveo.json",
+            "2025 US VC Outlook": "2025_US_Venture_Capital_Outlook_Midyear_Update_19528_caraveo.json",
+            "2029 Private Market Horizons": "2029_Private_Market_Horizons_19168_caraveo.json",
+            "VCs: Pick a Lane?": "Q3_2024_PitchBook_Analyst_Note_Should_VC_Investors_Pick_a_Lane_and_Stay_in_It.pdf#page=1_caraveo.json",
+            "Liquidity Horizons in Defense Tech": "Q3_2025_PitchBook_Analyst_Note_Liquidity_Horizons_in_Defense_Tech_20182_caraveo.json",
+            "Q2 2025 Venture Monitor": "Q2-2025-PitchBook-NVCA-Venture-Monitor-19728_caraveo.json",
+            "Global Fund Performance": "Q4_2024_Global_Fund_Performance_Report_(with_preliminary_Q1_2025_data)_19889_caraveo.json",
+            "VC Benchmarks Q1 2025": "Q4_2024_PitchBook_Benchmarks_with_preliminary_Q1_2025_data_Venture_Capital_19665_caraveo.json"
+        };
+        const pdfFile = pdfMap[report.name] ? `./${pdfMap[report.name].replace(/_caraveo\.json$/,'.pdf')}` : '#'; // Basic link creation
+
+        const card = document.createElement('a');
+        card.href = pdfFile;
+        card.target = "_blank"; // Open in new tab
+        card.className = 'source-card bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700 flex flex-col no-underline';
+        card.innerHTML = `
+            <div class="flex-grow">
+                <h4 class="font-bold text-gray-200 truncate">${report.name}</h4>
+                <div class="flex justify-between text-xs text-gray-400 mt-2">
+                    <span>Specificity: <strong>${(report.specificity * 100).toFixed(0)}%</strong></span>
+                    <span>Complexity: <strong>${(report.complexity * 100).toFixed(0)}%</strong></span>
+                </div>
+                <div class="mt-3 text-xs">
+                    <p class="font-semibold text-gray-500 mb-1">Top Entities:</p>
+                    <div class="flex flex-wrap gap-1">
+                        ${report.key_entities.map(e => `<span class="bg-gray-700 text-gray-300 px-2 py-0.5 rounded-full">${e[0]}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2 items-end">
+                <i class="fas fa-file-invoice"></i>
+                <span>Source: ${report.source}</span>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+
+function renderVerticalsChart() {
+    const ctx = document.getElementById('verticalsChart').getContext('2d');
+    const avgMotifs = reportData.reduce((acc, report) => {
+        Object.entries(report.vertical_motifs).forEach(([key, value]) => { acc[key] = (acc[key] || 0) + value; });
+        return acc;
+    }, {});
+    Object.keys(avgMotifs).forEach(key => { avgMotifs[key] = (avgMotifs[key] / reportData.length) * 100; });
+    const labels = ['AI', 'B2B Software', 'Fintech', 'Defense'];
+    const data = labels.map(l => avgMotifs[l.toLowerCase().replace(' ', '_').replace('/', '_ml')]);
+    new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Frequency', data, backgroundColor: 'rgba(99, 102, 241, 0.7)', borderColor: '#4f46e5', borderWidth: 1, borderRadius: 4 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#9ca3af', callback: (v) => v.toFixed(1) + '%' } }, y: { grid: { display: false }, ticks: { color: '#d1d5db' } } } } });
+}
+
+function renderEntitiesChart() {
+    const ctx = document.getElementById('entitiesChart').getContext('2d');
+    const entityCounts = reportData.flatMap(r => r.key_entities).reduce((acc, [name, count]) => { acc[name] = (acc[name] || 0) + count; return acc; }, {});
+    const sortedEntities = Object.entries(entityCounts).sort(([,a],[,b]) => b-a).slice(0, 7);
+    new Chart(ctx, { type: 'bar', data: { labels: sortedEntities.map(e => e[0]), datasets: [{ label: 'Mentions', data: sortedEntities.map(e => e[1]), backgroundColor: 'rgba(139, 92, 246, 0.7)', borderColor: '#8B5CF6', borderWidth: 1, borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#9ca3af', precision: 0 } }, x: { grid: { display: false }, ticks: { color: '#d1d5db' } } } } });
+}
+
+function renderPerformanceChart() {
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const vintageData = { '2018': 18.2, '2019': 25.5, '2020': 45.1, '2021': 14.3, '2022': -8.9 };
+    new Chart(ctx, {
+        type: 'bar', data: { labels: Object.keys(vintageData), datasets: [{ label: 'Median Net IRR', data: Object.values(vintageData), backgroundColor: (c) => c.raw >= 0 ? 'rgba(34, 197, 94, 0.7)' : 'rgba(239, 68, 68, 0.7)', borderColor: (c) => c.raw >= 0 ? '#22c55e' : '#ef4444', borderWidth: 1, borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#9ca3af', callback: (v) => v + '%' } }, x: { grid: { display: false }, ticks: { color: '#d1d5db' } } } }
+    });
+}
+</script>
+
+</body>
+</html>

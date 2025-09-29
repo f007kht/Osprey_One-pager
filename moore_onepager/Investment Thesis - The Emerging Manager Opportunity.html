@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Thesis: The Emerging Manager Opportunity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <!-- Chosen Palette: Dark Mode -->
+    <!-- Application Structure Plan: To enhance the existing investment thesis, a new "Current Market & Performance Benchmarks" section is added. This section uses four data-rich KPI cards derived from the new JSON files to ground the thesis in the latest market reality. The "Data-Backed Argument" section is improved with a second chart showing VC performance by vintage year, providing crucial historical context. Every new card includes a source box for data transparency. The overall narrative flow—from high-level thesis to quantitative benchmarks, sector analysis, and incumbent contrast—is now stronger and more persuasive. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: New benchmark and Venture Monitor JSONs. Goal: Inform/Quantify. Viz/Method: A new section with four KPI-style cards for key metrics (IRR, Exit Value, Fundraising Pace). Justification: These cards provide a snapshot of the current market health and performance, directly supporting the timeliness of the investment thesis. Each card has a source box.
+        - Report Info: VC benchmark data by vintage year. Goal: Compare/Show Trends. Viz/Method: A new bar chart showing Median Net IRR by vintage. Justification: This visual powerfully illustrates the cyclical nature of venture returns and highlights the performance of recent, relevant fund vintages. It includes a source box.
+        - Existing Content: The original thesis narrative, sector dives, and Midas List table are retained to provide the core argumentative structure.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .nav-link.active { background-color: #4f46e5; color: white; }
+        .kpi-card { transition: all 0.3s ease-in-out; }
+        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .sector-button.active { background-color: #4f46e5; color: white; }
+        .sector-content { display: none; }
+        .sector-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+<div class="flex h-screen">
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-gray-800 p-6 flex flex-col flex-shrink-0">
+        <div class="flex items-center gap-3 mb-10">
+            <i class="fas fa-feather-pointed text-3xl text-indigo-400"></i>
+            <h1 class="text-2xl font-bold text-white">Osprey Intel</h1>
+        </div>
+        <nav class="flex flex-col gap-3">
+            <a href="./index.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-chart-pie w-6"></i>Dashboard</a>
+            <a href="./Osprey%20Scouting%20Platform.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-binoculars w-6"></i>Scouting Platform</a>
+            <a href="./Osprey%20Intelligence%20Center.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-brain w-6"></i>Intelligence Center</a>
+            <a href="./Market%20Intelligence%20Briefing.html" class="nav-link text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-bullhorn w-6"></i>Market Briefing</a>
+            <a href="./Investment%20Thesis%20-%20The%20Emerging%20Manager%20Opportunity.html" class="nav-link active text-gray-300 hover:bg-gray-700/50 px-4 py-2 rounded-lg transition-colors flex items-center gap-3"><i class="fas fa-book-open w-6"></i>Investment Thesis</a>
+        </nav>
+        <footer class="mt-auto text-center text-gray-500 text-xs">
+            <p>&copy; 2025 Osprey Intel. All Rights Reserved.</p>
+        </footer>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <div class="container mx-auto p-4 sm:p-6 md:p-8">
+    <header class="mb-10 text-center relative">
+        <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight">Investment Thesis: The Emerging Manager Alpha</h1>
+        <p class="text-gray-400 mt-2 max-w-2xl mx-auto">A data-driven analysis of the emerging manager opportunity in specialized $50-100M funds.</p>
+    </header>
+
+    <section id="executive-summary" class="mb-12">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-100">Executive Summary: A Generational Opportunity</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="kpi-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-indigo-400">4.03x</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">TVPI for Top Quartile Small Funds</h3>
+                    <p class="text-xs text-gray-500">(vs. 1.67x for $100M+ funds)</p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Source: Osprey Investment Thesis</span>
+                </div>
+            </div>
+            <div class="kpi-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-indigo-400">4%</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Median IRR Premium</h3>
+                     <p class="text-xs text-gray-500">(Smaller funds vs. larger funds)</p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Source: Osprey Investment Thesis</span>
+                </div>
+            </div>
+            <div class="kpi-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-indigo-400">47</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">High-Conviction Managers</h3>
+                    <p class="text-xs text-gray-500">(Identified with outlier characteristics)</p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Source: Osprey Investment Thesis</span>
+                </div>
+            </div>
+            <div class="kpi-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-indigo-400">16%</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Capital Captured</h3>
+                    <p class="text-xs text-gray-500">(Despite representing 45% of funds)</p>
+                </div>
+                 <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Source: Osprey Investment Thesis</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="market-benchmarks" class="mb-12">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-100">Current Market & Performance Benchmarks</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="kpi-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-green-400">14.3%</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Median Net IRR for 2021 Vintage VC Funds</h3>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: PitchBook Benchmarks Q1 2025</span>
+                </div>
+            </div>
+            <div class="kpi-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-green-400">$27.1B</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Total VC Exit Value in Q2 2025</h3>
+                </div>
+                 <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: Q2 2025 Venture Monitor</span>
+                </div>
+            </div>
+            <div class="kpi-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-green-400">22.6%</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Global All Private Equity IRR (1-Year)</h3>
+                </div>
+                 <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: Global Fund Performance Report</span>
+                </div>
+            </div>
+            <div class="kpi-card bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 flex flex-col justify-between">
+                <div>
+                    <p class="text-4xl font-bold text-red-400">264</p>
+                    <h3 class="font-semibold text-gray-300 mt-2">Venture Funds Closed in H1 2025 (Slowdown)</h3>
+                </div>
+                 <div class="mt-4 pt-3 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: Q2 2025 Venture Monitor</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="argument" class="mb-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg relative h-full">
+             <div class="relative h-80">
+                <canvas id="performanceChart"></canvas>
+            </div>
+             <div class="absolute bottom-4 left-6 text-xs text-gray-500 flex items-center gap-2">
+                <i class="fas fa-file-invoice"></i>
+                <span>Source: PitchBook Benchmarks</span>
+            </div>
+        </div>
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-100 mb-4">The Data-Backed Case for Alpha</h2>
+             <blockquote class="border-l-4 border-indigo-500 pl-4 text-gray-300 italic">
+                The venture capital landscape has fundamentally shifted, creating an unprecedented opportunity for LPs like Moore Capital to access emerging managers with genuine 100x return potential... The current fundraising environment creates a buyer's market for selective LPs.
+            </blockquote>
+             <div class="mt-6 pt-4 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                <i class="fas fa-file-alt"></i>
+                <span>Source: Osprey Investment Thesis</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="sector-deep-dive" class="mb-12">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-100">Key Sector Deep Dives</h2>
+        <div class="flex flex-col md:flex-row gap-8">
+            <div class="flex md:flex-col md:w-1/4" id="sector-nav">
+                <!-- Sector navigation buttons will be rendered here -->
+            </div>
+            <div class="flex-1" id="sector-content-container">
+                <!-- Sector content will be rendered here -->
+            </div>
+        </div>
+    </section>
+    
+    <section id="incumbents" class="mb-12">
+         <h2 class="text-2xl font-bold text-center mb-2 text-gray-100">Contrast: The Incumbent Landscape</h2>
+        <p class="text-gray-400 text-center mb-6 max-w-2xl mx-auto">While emerging managers present a unique opportunity for alpha, the venture landscape is still led by established players. Understanding their focus provides context for a differentiated strategy.</p>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+             <div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-gray-100">Top Individual Managers (Forbes Midas List 2025)</h3><input type="text" id="search-input" placeholder="Search Midas List..." class="pl-4 pr-4 py-2 border border-gray-600 bg-gray-700 text-gray-200 rounded-full focus:ring-2 focus:ring-indigo-400 focus:outline-none placeholder-gray-400"></div>
+            <div id="midas-table-container" class="overflow-x-auto"></div>
+        </div>
+    </section>
+
+    <section id="conclusion" class="text-center">
+         <h2 class="text-2xl font-bold mb-4 text-gray-100">The Time to Act is Now</h2>
+         <p class="text-indigo-400 font-semibold text-lg max-w-3xl mx-auto">"The window for capturing outsized returns at favorable terms is 12-18 months."</p>
+         <p class="text-gray-400 mt-4 max-w-3xl mx-auto">The current market dislocation, where emerging managers raise only 20% of capital despite representing 45% of funds, will not persist. By moving decisively now, Moore Capital can build a differentiated portfolio generating exceptional returns while established institutions remain focused on brand-name funds.</p>
+    </section>
+    
+        </div>
+    </main>
+</div>
+
+<script>
+const midasData = [
+    { rank: 1, name: "Chris Dixon", firm: "Andreessen Horowitz", notableDeal: "Coinbase" }, { rank: 2, name: "Micky Malka", firm: "Ribbit Capital", notableDeal: "Coinbase" },
+    { rank: 3, name: "Shen Neil", firm: "Sequoia China", notableDeal: "ByteDance" }, { rank: 4, name: "Richard Liu", firm: "5Y Capital", notableDeal: "Xiaomi" },
+    { rank: 5, name: "Navin Chaddha", firm: "Mayfield Fund", notableDeal: "Poshmark" }, { rank: 7, name: "Alfred Lin", firm: "Sequoia", notableDeal: "Airbnb" },
+    { rank: 10, name: "Peter Thiel", firm: "Founders Fund", notableDeal: "Airbnb" }, { rank: 20, name: "Douglas Leone", firm: "Sequoia", notableDeal: "Nubank" },
+    { rank: 21, name: "Sameer Gandhi", firm: "Accel", notableDeal: "Freshworks" }, { rank: 24, name: "Bill Gurley", firm: "Benchmark", notableDeal: "Uber" }
+];
+
+const sectorData = [
+    {
+        id: 'defense', name: 'Defense Tech', icon: 'fa-shield-halved',
+        thesis: "The sector's structural transformation—driven by DoD procurement reforms and the $500M Replicator initiative—fundamentally favors nimble startups over traditional prime contractors.",
+        dataPoints: [ { label: 'Investment in 2024', value: '$3 Billion' }, { label: 'YoY Growth', value: '11%' }, { label: 'Primary Exit Route', value: 'M&A (72%)' } ],
+        players: ['Anduril', 'Helsing', 'Palantir'],
+        angle: 'Specialist funds with government and military networks have a distinct advantage in sourcing and diligence.',
+        chart: { type: 'bar', labels: ['Software/Sensing', 'Hardware'], data: [7.3, 9.5], title: 'Median Time to Exit (Years)' }
+    },
+    {
+        id: 'ai', name: 'Artificial Intelligence', icon: 'fa-robot',
+        thesis: "The next wave of value will be captured by specialized, vertically-integrated applications that solve specific industry problems, avoiding the high-cost capital wars of foundational models.",
+        dataPoints: [ { label: 'Top Quartile IRR (2019)', value: '62.7%' }, { label: 'Median Deal Size (Seed)', value: '$3.5M' }, { label: 'Dominant Theme', value: 'Vertical AI' } ],
+        players: ['OpenAI', 'Anthropic', 'Cohere'],
+        angle: 'Managers with deep technical expertise can discern true innovation from hype, targeting capital-efficient AI-native companies.',
+        chart: { type: 'line', labels: ['2022', '2023', '2024', '2025'], data: [45, 38, 55, 62], title: 'AI Deal Count (YoY Growth %)' }
+    },
+    {
+        id: 'fintech', name: 'Fintech', icon: 'fa-landmark',
+        thesis: "The opportunity in infrastructure, embedded finance, and compliance technology remains vast. The focus is on the non-obvious 'picks and shovels' that will power the next generation of financial services.",
+        dataPoints: [ { label: 'Median Pre-Money (Series A)', value: '$25.0M' }, { label: 'Exit Value Q2 2025', value: '$3.1B' }, { label: 'Key Subsector', value: 'Embedded Finance' } ],
+        players: ['Stripe', 'Plaid', 'Brex'],
+        angle: 'Funds with regulatory and financial services expertise are best positioned to back the next wave of infrastructure winners.',
+        chart: { type: 'bar', labels: ['Fintech', 'SaaS', 'HealthTech'], data: [25.0, 18.0, 20.0], title: 'Median Series A Pre-Money Valuation ($M)' }
+    },
+    {
+        id: 'b2b', name: 'B2B Software', icon: 'fa-briefcase',
+        thesis: "Alpha is found in niche, vertical SaaS solutions with clear product-market fit and strong network effects. These companies often have highly profitable, sticky customer bases.",
+        dataPoints: [ { label: 'Deal Count H1 2025', value: '1,200+' }, { label: 'Median Exit Time', value: '7.8 Years' }, { label: 'Dominant Model', value: 'Vertical SaaS' } ],
+        players: ['Databricks', 'Canva', 'Wiz'],
+        angle: 'Emerging managers with operational backgrounds are adept at identifying founders who can dominate overlooked industries.',
+        chart: { type: 'bar', labels: ['B2B', 'B2C', 'Other'], data: [1200, 650, 400], title: 'Deal Count by Model (H1 2025)' }
+    }
+];
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderPerformanceChart();
+    renderSectorModule();
+    renderMidasTable(midasData);
+    
+    document.getElementById('search-input').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const filteredData = midasData.filter(investor => investor.name.toLowerCase().includes(query) || investor.firm.toLowerCase().includes(query));
+        renderMidasTable(filteredData);
+    });
+});
+
+function renderSectorModule() {
+    const navContainer = document.getElementById('sector-nav');
+    const contentContainer = document.getElementById('sector-content-container');
+    
+    navContainer.innerHTML = sectorData.map((sector, index) => `
+        <button data-sector="${sector.id}" class="sector-button w-full text-left p-3 rounded-lg font-semibold transition-colors ${index === 0 ? 'active' : 'hover:bg-gray-700/50'}">
+            <i class="fas ${sector.icon} w-6 mr-2 text-gray-400"></i>${sector.name}
+        </button>
+    `).join('');
+
+    contentContainer.innerHTML = sectorData.map((sector, index) => `
+        <div id="${sector.id}" class="sector-content ${index === 0 ? 'active' : ''}">
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-gray-100">${sector.name}</h3>
+                <p class="mt-2 text-gray-400 italic">${sector.thesis}</p>
+                <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    ${sector.dataPoints.map(dp => `
+                        <div class="bg-gray-700/50 p-4 rounded-lg">
+                            <p class="text-2xl font-bold text-indigo-400">${dp.value}</p>
+                            <p class="text-xs text-gray-400 mt-1">${dp.label}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="mt-6">
+                    <div class="relative h-64"><canvas id="${sector.id}-chart"></canvas></div>
+                </div>
+                <div class="mt-6">
+                    <p class="text-sm"><strong class="text-gray-300">Key Players:</strong> <span class="text-gray-400">${sector.players.join(', ')}</span></p>
+                    <p class="text-sm mt-2"><strong class="text-gray-300">Emerging Manager Angle:</strong> <span class="text-gray-400">${sector.angle}</span></p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-gray-700/50 text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Source: PitchBook, NVCA, Harmonic AI, Osprey Research</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    document.querySelectorAll('.sector-button').forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.sector-button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            document.querySelectorAll('.sector-content').forEach(content => {
+                content.classList.toggle('active', content.id === button.dataset.sector);
+            });
+        });
+    });
+
+    sectorData.forEach(sector => renderSectorChart(sector));
+}
+
+function renderSectorChart(sector) {
+    const ctx = document.getElementById(`${sector.id}-chart`).getContext('2d');
+    new Chart(ctx, {
+        type: sector.chart.type,
+        data: {
+            labels: sector.chart.labels,
+            datasets: [{
+                label: sector.chart.title, data: sector.chart.data,
+                backgroundColor: 'rgba(99, 102, 241, 0.7)', borderColor: '#4f46e5',
+                borderWidth: 2, borderRadius: 4, tension: 0.3, fill: sector.chart.type === 'line'
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false }, title: { display: true, text: sector.chart.title, color: '#d1d5db' } },
+            scales: {
+                y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#9ca3af' } },
+                x: { grid: { display: false }, ticks: { color: '#9ca3af' } }
+            }
+        }
+    });
+}
+
+function renderMidasTable(data) {
+    const container = document.getElementById('midas-table-container');
+    let tableHTML = `<table class="w-full text-left"><thead><tr class="border-b border-gray-700"><th class="p-3 text-sm font-semibold text-gray-400">Rank</th><th class="p-3 text-sm font-semibold text-gray-400">Name</th><th class="p-3 text-sm font-semibold text-gray-400">Firm</th><th class="p-3 text-sm font-semibold text-gray-400">Notable Deal</th></tr></thead><tbody>`;
+    data.forEach(d => { tableHTML += `<tr class="border-b border-gray-800 hover:bg-gray-700/50"><td class="p-3 font-bold text-center w-16">${d.rank}</td><td class="p-3 font-medium text-gray-100">${d.name}</td><td class="p-3 text-gray-400">${d.firm}</td><td class="p-3 text-gray-400">${d.notableDeal}</td></tr>`; });
+    tableHTML += `</tbody></table>`;
+    container.innerHTML = tableHTML;
+}
+
+function renderPerformanceChart() {
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const vintageData = { '2018': 18.2, '2019': 25.5, '2020': 45.1, '2021': 14.3, '2022': -8.9 };
+    new Chart(ctx, {
+        type: 'bar',
+        data: { labels: Object.keys(vintageData), datasets: [{ label: 'Median Net IRR', data: Object.values(vintageData), backgroundColor: (c) => c.raw >= 0 ? 'rgba(34, 197, 94, 0.7)' : 'rgba(239, 68, 68, 0.7)', borderColor: (c) => c.raw >= 0 ? '#22c55e' : '#ef4444', borderWidth: 1, borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, title: { display: true, text: 'VC Performance by Vintage (Median Net IRR)', font: { size: 16 }, color: '#d1d5db' } }, scales: { y: { grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#9ca3af', callback: (v) => v + '%' } }, x: { grid: { display: false }, ticks: { color: '#9ca3af' } } } }
+    });
+}
+</script>
+
+</body>
+</html>
